@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>개발 명세서 모음 · 2026</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&family=Space+Mono:wght@400;700&display=swap');
+
+:root {
+  --bg: #0a0a0f;
+  --stock-accent: #3b82f6;
+  --stock-green: #10b981;
+  --stock-red: #ef4444;
+  --stock-yellow: #f59e0b;
+  --fruit-accent: #ff9800;
+  --fruit-pink: #ff5c8a;
+  --fruit-green: #4caf50;
+  --text: #e2e8f0;
+  --sub: #94a3b8;
+  --line: #1e293b;
+  --card-stock: #0d1520;
+  --card-fruit: #1a0f00;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Noto Sans KR', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.75;
+  overflow-x: hidden;
+}
+
+/* ── LANDING ── */
+.landing {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 60px 24px;
+  background:
+    radial-gradient(ellipse 80% 60% at 20% 30%, rgba(59,130,246,.12) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 50% at 80% 70%, rgba(255,152,0,.10) 0%, transparent 55%),
+    var(--bg);
+  position: relative;
+}
+.landing::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 39px,
+    rgba(255,255,255,.02) 39px,
+    rgba(255,255,255,.02) 40px
+  );
+  pointer-events: none;
+}
+.landing-title {
+  font-size: clamp(36px, 7vw, 72px);
+  font-weight: 900;
+  letter-spacing: -2px;
+  line-height: 1.1;
+  margin-bottom: 20px;
+}
+.landing-title span.blue { color: var(--stock-accent); }
+.landing-title span.orange { color: var(--fruit-accent); }
+.landing-sub {
+  color: var(--sub);
+  max-width: 600px;
+  font-size: 17px;
+  margin-bottom: 52px;
+}
+.nav-pills {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.nav-pill {
+  padding: 14px 32px;
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 15px;
+  cursor: pointer;
+  border: none;
+  transition: transform .2s, box-shadow .2s;
+  text-decoration: none;
+}
+.nav-pill:hover { transform: translateY(-3px); }
+.pill-stock {
+  background: linear-gradient(135deg, #1d4ed8, #3b82f6);
+  color: white;
+  box-shadow: 0 8px 24px rgba(59,130,246,.4);
+}
+.pill-fruit {
+  background: linear-gradient(135deg, #c2410c, #ff9800);
+  color: white;
+  box-shadow: 0 8px 24px rgba(255,152,0,.4);
+}
+
+/* ── DIVIDER ── */
+.divider {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 0 40px;
+  margin: 48px 0 0;
+}
+.divider-line { flex: 1; height: 1px; background: var(--line); }
+.divider-label {
+  font-family: 'Space Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 3px;
+  color: var(--sub);
+  text-transform: uppercase;
+}
+
+/* ── SECTION WRAPPER ── */
+.spec-section {
+  padding: 0 24px 100px;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+/* ── SECTION HEADER ── */
+.spec-header {
+  padding: 80px 0 48px;
+  display: flex;
+  align-items: flex-end;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+.spec-header-icon {
+  font-size: 56px;
+  line-height: 1;
+}
+.spec-header-text h2 {
+  font-size: clamp(28px, 5vw, 48px);
+  font-weight: 900;
+  letter-spacing: -1.5px;
+  line-height: 1.1;
+}
+.spec-header-text p {
+  color: var(--sub);
+  margin-top: 6px;
+  font-size: 15px;
+}
+.stock-header h2 { color: var(--stock-accent); }
+.fruit-header h2 { color: var(--fruit-accent); }
+
+/* ── CARDS ── */
+.card {
+  border-radius: 20px;
+  padding: 28px 30px;
+  margin-bottom: 20px;
+  border: 1px solid var(--line);
+}
+.card-stock { background: var(--card-stock); }
+.card-fruit { background: var(--card-fruit); border-color: rgba(255,152,0,.15); }
+
+.card h3 {
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 14px;
+  color: white;
+}
+.card p, .card li { color: var(--sub); font-size: 15px; }
+.card ul { padding-left: 20px; }
+.card ul li { margin-bottom: 6px; }
+
+/* ── GRID ── */
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+.grid-auto { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 18px; }
+
+/* ── MINI CARD ── */
+.mini-card {
+  border-radius: 16px;
+  padding: 20px;
+  border: 1px solid var(--line);
+}
+.mini-card-stock { background: rgba(59,130,246,.07); border-color: rgba(59,130,246,.2); }
+.mini-card-fruit { background: rgba(255,152,0,.07); border-color: rgba(255,152,0,.2); }
+.mini-card h4 { font-size: 15px; font-weight: 700; color: white; margin-bottom: 8px; }
+.mini-card p { color: var(--sub); font-size: 14px; }
+
+/* ── TABLE ── */
+table { width: 100%; border-collapse: collapse; margin-top: 16px; }
+th, td { padding: 13px 16px; text-align: left; font-size: 14px; border: 1px solid var(--line); }
+.table-stock th { background: rgba(59,130,246,.12); color: var(--stock-accent); }
+.table-fruit th { background: rgba(255,152,0,.12); color: var(--fruit-accent); }
+td { color: var(--sub); }
+
+/* ── CODE ── */
+pre, code {
+  font-family: 'Space Mono', monospace;
+  font-size: 13px;
+}
+pre {
+  background: #020617;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 18px 20px;
+  overflow-x: auto;
+  color: #cbd5e1;
+  margin-top: 14px;
+}
+
+/* ── BADGES ── */
+.badge {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700;
+  margin: 3px;
+}
+.badge-blue { background: rgba(59,130,246,.15); color: #60a5fa; }
+.badge-green { background: rgba(16,185,129,.15); color: #34d399; }
+.badge-red { background: rgba(239,68,68,.15); color: #f87171; }
+.badge-yellow { background: rgba(245,158,11,.15); color: #fbbf24; }
+.badge-orange { background: rgba(255,152,0,.15); color: #ffb74d; }
+
+/* ── ENDING CARDS ── */
+.ending-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 16px; }
+.ending-card {
+  padding: 20px;
+  border-radius: 16px;
+  text-align: center;
+}
+.ending-card .icon { font-size: 30px; margin-bottom: 8px; }
+.ending-card .label { font-size: 14px; font-weight: 700; color: white; }
+.ending-card .cond { font-size: 12px; color: var(--sub); margin-top: 4px; }
+.end-gold { background: rgba(245,158,11,.1); border: 1px solid rgba(245,158,11,.3); }
+.end-mid  { background: rgba(100,116,139,.1); border: 1px solid rgba(100,116,139,.3); }
+.end-bad  { background: rgba(239,68,68,.1);   border: 1px solid rgba(239,68,68,.3); }
+
+/* ── ACHIEVEMENT GRID ── */
+.ach-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; margin-top: 16px; }
+.ach-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  border-radius: 14px;
+  background: rgba(255,152,0,.07);
+  border: 1px solid rgba(255,152,0,.15);
+}
+.ach-icon { font-size: 24px; }
+.ach-info { flex: 1; }
+.ach-name { font-size: 13px; font-weight: 700; color: white; }
+.ach-cond { font-size: 12px; color: var(--sub); }
+
+/* ── SEPARATOR ── */
+.big-separator {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--line) 30%, var(--line) 70%, transparent);
+  margin: 20px 0;
+}
+
+/* ── FOOTER ── */
+footer {
+  text-align: center;
+  padding: 40px 24px 60px;
+  color: var(--sub);
+  font-size: 13px;
+  border-top: 1px solid var(--line);
+  font-family: 'Space Mono', monospace;
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 768px) {
+  .grid-2, .grid-3, .ending-row { grid-template-columns: 1fr; }
+  .spec-header { flex-direction: column; align-items: flex-start; gap: 12px; }
+  .spec-header-icon { font-size: 40px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════ LANDING ═══════ -->
+<section class="landing" id="top">
+  <p style="font-family:'Space Mono',monospace;font-size:11px;letter-spacing:3px;color:var(--sub);margin-bottom:24px;text-transform:uppercase;">Dev Spec · 2026</p>
+  <h1 class="landing-title">
+    <span class="blue">주식 뉴스</span> 트레이딩<br>
+    <span style="font-size:.55em;opacity:.4">&amp;</span><br>
+    <span class="orange">상큼 과일</span> 아케이드
+  </h1>
+  <p class="landing-sub">두 개의 웹 프로젝트 개발 명세서를 하나로 통합한 문서입니다.</p>
+  <div class="nav-pills">
+    <a class="nav-pill pill-stock" href="#stock">📈 주식 뉴스 트레이딩</a>
+    <a class="nav-pill pill-fruit" href="#fruit">🍓 상큼 과일 아케이드</a>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════
+     SECTION 1 · STOCK NEWS TRADING
+════════════════════════════════════════ -->
+<div class="spec-section" id="stock">
+
+  <div class="spec-header stock-header">
+    <div class="spec-header-icon">📈</div>
+    <div class="spec-header-text">
+      <h2>주식 뉴스 트레이딩</h2>
+      <p>실시간 뉴스와 시장 흐름을 기반으로 한 투자 시뮬레이션 게임</p>
+    </div>
+  </div>
+
+  <!-- 개요 -->
+  <div class="card card-stock">
+    <h3>1. 프로젝트 개요</h3>
+    <p>경제 뉴스와 시장 변동성을 기반으로 투자 전략을 세우는 웹 시뮬레이션 게임. 플레이어는 제한된 자금 안에서 종목을 매수·매도하며 최종 목표 자산 달성을 노립니다.</p>
+  </div>
+
+  <!-- 기술 + 게임 시스템 -->
+  <div class="grid-2">
+    <div class="card card-stock">
+      <h3>2. 기술 조건</h3>
+      <div style="margin-bottom:12px;">
+        <span class="badge badge-blue">HTML5</span>
+        <span class="badge badge-blue">CSS3</span>
+        <span class="badge badge-blue">Vanilla JS</span>
+        <span class="badge badge-blue">프레임워크 미사용</span>
+      </div>
+      <ul>
+        <li>클라이언트 사이드 실행</li>
+        <li>순수 정적 웹 프로젝트</li>
+      </ul>
+      <pre>/project
+ ├── index.html
+ ├── style.css
+ └── script.js</pre>
+    </div>
+    <div class="card card-stock">
+      <h3>3. 핵심 게임 시스템</h3>
+      <table class="table-stock">
+        <thead><tr><th>항목</th><th>설명</th></tr></thead>
+        <tbody>
+          <tr><td>시작 자금</td><td>₩10,000,000</td></tr>
+          <tr><td>목표 자산</td><td>₩20,000,000</td></tr>
+          <tr><td>최대 라운드</td><td>10 라운드</td></tr>
+          <tr><td>종료 조건</td><td>목표 달성 또는 파산</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- 보안 -->
+  <div class="card card-stock">
+    <h3>4. 보안 규칙</h3>
+    <p style="margin-bottom:10px;">사용자 입력 및 DOM 생성 시 XSS 방지 규칙 적용</p>
+    <div>
+      <span class="badge badge-green">createElement</span>
+      <span class="badge badge-green">appendChild</span>
+      <span class="badge badge-green">textContent</span>
+      <span class="badge badge-red">innerHTML 직접 삽입 금지</span>
+      <span class="badge badge-red">eval 사용 금지</span>
+    </div>
+  </div>
+
+  <!-- 종목 -->
+  <div class="card card-stock">
+    <h3>5. 투자 가능 종목</h3>
+    <table class="table-stock">
+      <thead><tr><th>티커</th><th>종목명</th><th>특징</th></tr></thead>
+      <tbody>
+        <tr><td>SAMS</td><td>삼성전자</td><td>반도체 시장 영향 큼</td></tr>
+        <tr><td>KAKAO</td><td>카카오</td><td>정책 리스크 민감</td></tr>
+        <tr><td>NAVER</td><td>네이버</td><td>AI 및 광고 사업 영향</td></tr>
+        <tr><td>HYND</td><td>현대차</td><td>전기차 정책 연동</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- 뉴스 -->
+  <div class="grid-2">
+    <div class="card card-stock">
+      <h3>6. 뉴스 시스템</h3>
+      <p style="margin-bottom:12px;">매 라운드마다 경제 뉴스가 무작위로 생성되어 특정 종목의 가격 변동성에 영향을 줍니다.</p>
+      <div>
+        <span class="badge badge-green">호재 (Positive)</span>
+        <span class="badge badge-red">악재 (Negative)</span>
+        <span class="badge badge-yellow">중립 (Neutral)</span>
+      </div>
+      <pre>{
+  headline: "삼성전자 AI 반도체 공급 확대",
+  type: "positive",
+  target: ["SAMS"],
+  effect: [0.06, 0.10]
+}</pre>
+    </div>
+    <div class="card card-stock">
+      <h3>7. 난이도 시스템</h3>
+      <table class="table-stock">
+        <thead><tr><th>난이도</th><th>특징</th></tr></thead>
+        <tbody>
+          <tr><td>초급</td><td>뉴스 힌트 제공</td></tr>
+          <tr><td>중급</td><td>힌트 제거</td></tr>
+          <tr><td>고급</td><td>높은 변동성 적용</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- 알고리즘 -->
+  <div class="card card-stock">
+    <h3>8. 주가 변동 알고리즘</h3>
+    <div class="grid-2">
+      <div>
+        <p style="font-weight:700;color:white;margin-bottom:6px;">실시간 틱 시스템</p>
+        <pre>price = price * (1 + randomVolatility)</pre>
+      </div>
+      <div>
+        <p style="font-weight:700;color:white;margin-bottom:6px;">뉴스 반영 공식</p>
+        <pre>price = price * (1 + newsImpactRate)</pre>
+      </div>
+    </div>
+    <ul style="margin-top:14px;">
+      <li>뉴스 대상 종목은 높은 변동폭 적용</li>
+      <li>비대상 종목은 소규모 랜덤 변화</li>
+      <li>완전 랜덤이 아닌 분석 우위 구조</li>
+    </ul>
+  </div>
+
+  <!-- 매매 -->
+  <div class="card card-stock">
+    <h3>9. 매매 시스템</h3>
+    <div class="grid-2" style="margin-bottom:16px;">
+      <div class="mini-card mini-card-stock">
+        <h4>매수 기능</h4>
+        <ul style="color:var(--sub);padding-left:18px;font-size:14px;">
+          <li>현재가 × 수량만큼 잔액 차감</li>
+          <li>평균 단가 자동 계산</li>
+          <li>수량 입력 지원</li>
+        </ul>
+      </div>
+      <div class="mini-card mini-card-stock">
+        <h4>매도 기능</h4>
+        <ul style="color:var(--sub);padding-left:18px;font-size:14px;">
+          <li>보유 수량 검증</li>
+          <li>실시간 잔액 반영</li>
+          <li>즉시 거래 처리</li>
+        </ul>
+      </div>
+    </div>
+    <table class="table-stock">
+      <thead><tr><th>단축키</th><th>기능</th></tr></thead>
+      <tbody>
+        <tr><td>B</td><td>매수</td></tr>
+        <tr><td>S</td><td>매도</td></tr>
+        <tr><td>N</td><td>다음 라운드</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- UI + 반응형 -->
+  <div class="grid-2">
+    <div class="card card-stock">
+      <h3>10. UI 구성</h3>
+      <ul>
+        <li>상단 헤더</li>
+        <li>실시간 뉴스 패널</li>
+        <li>실시간 시세 패널</li>
+        <li>매매 패널</li>
+        <li>거래 기록 패널</li>
+        <li>포트폴리오 패널</li>
+        <li>Canvas 기반 자산 그래프</li>
+        <li>Toast 알림 시스템</li>
+      </ul>
+    </div>
+    <div class="card card-stock">
+      <h3>11. 반응형 설계</h3>
+      <ul>
+        <li>PC 환경: 2컬럼 레이아웃</li>
+        <li>모바일 환경: 단일 컬럼 전환</li>
+        <li>터치 입력 최적화</li>
+        <li>내부 스크롤 지원</li>
+      </ul>
+      <pre>@media (max-width: 800px) {
+  .layout {
+    grid-template-columns: 1fr;
+  }
+}</pre>
+    </div>
+  </div>
+
+  <!-- 엔딩 -->
+  <div class="card card-stock">
+    <h3>12. 엔딩 시스템</h3>
+    <div class="ending-row">
+      <div class="ending-card end-gold">
+        <div class="icon">🏆</div>
+        <div class="label">목표 달성</div>
+        <div class="cond">최종 자산 ≥ ₩20,000,000</div>
+      </div>
+      <div class="ending-card end-mid">
+        <div class="icon">😐</div>
+        <div class="label">일반 엔딩</div>
+        <div class="cond">초기 자산 이상 ~ 목표 미만</div>
+      </div>
+      <div class="ending-card end-bad">
+        <div class="icon">❌</div>
+        <div class="label">실패 엔딩</div>
+        <div class="cond">초기 자산 미만 또는 파산</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- AI 확장 -->
+  <div class="card card-stock">
+    <h3>13. AI 확장 계획</h3>
+    <div class="grid-3">
+      <div class="mini-card mini-card-stock">
+        <h4>🤖 AI 뉴스 생성</h4>
+        <p>LLM 기반 경제 뉴스 자동 생성 시스템 도입 예정</p>
+      </div>
+      <div class="mini-card mini-card-stock">
+        <h4>📊 AI 투자 분석 NPC</h4>
+        <p>시장 분석 및 투자 추천 제공</p>
+      </div>
+      <div class="mini-card mini-card-stock">
+        <h4>⚙️ AI 난이도 조절 엔진</h4>
+        <p>플레이어 실력에 따라 시장 이벤트를 동적으로 생성</p>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ── BIG SEPARATOR ── -->
+<div style="max-width:1280px;margin:0 auto 0;padding:0 24px;">
+  <div style="height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.08) 30%,rgba(255,255,255,.08) 70%,transparent);"></div>
+</div>
+
+<!-- ════════════════════════════════════════
+     SECTION 2 · FRUIT ARCADE ZONE
+════════════════════════════════════════ -->
+<div class="spec-section" id="fruit">
+
+  <div class="spec-header fruit-header">
+    <div class="spec-header-icon">🍓</div>
+    <div class="spec-header-text">
+      <h2>상큼 과일 아케이드 존</h2>
+      <p>멀티 미니게임 · 업적 시스템 · 수박게임 · 메모리게임 기반 웹 아케이드 플랫폼 v5.0</p>
+    </div>
+  </div>
+
+  <!-- 개요 -->
+  <div class="card card-fruit">
+    <h3>1. 프로젝트 개요</h3>
+    <p>브라우저 환경에서 실행되는 HTML5 기반 미니게임 플랫폼. 여러 캐주얼 게임을 하나의 허브 안에서 제공하는 아케이드 구조로 설계되었습니다.</p>
+    <div style="margin-top:12px;">
+      <span class="badge badge-orange">HTML5</span>
+      <span class="badge badge-orange">CSS3</span>
+      <span class="badge badge-orange">Vanilla JavaScript</span>
+      <span class="badge badge-orange">반응형 웹</span>
+      <span class="badge badge-orange">LocalStorage</span>
+    </div>
+  </div>
+
+  <!-- 기술 + 허브 -->
+  <div class="grid-2">
+    <div class="card card-fruit">
+      <h3>2. 기술 스택</h3>
+      <ul>
+        <li>순수 HTML5 기반 UI 구성</li>
+        <li>CSS3 애니메이션 및 반응형 레이아웃</li>
+        <li>Vanilla JavaScript 게임 로직</li>
+        <li>외부 프레임워크 미사용</li>
+        <li>LocalStorage 기반 데이터 저장</li>
+      </ul>
+      <pre>/index.html
+/style.css
+/script.js</pre>
+    </div>
+    <div class="card card-fruit">
+      <h3>3. 게임 허브 시스템</h3>
+      <div style="display:flex;flex-direction:column;gap:10px;">
+        <div class="mini-card mini-card-fruit"><h4>🧠 과일 메모리 게임</h4><p>동일한 과일 카드를 맞추는 기억력 기반 게임</p></div>
+        <div class="mini-card mini-card-fruit"><h4>🍉 수박 게임</h4><p>같은 과일끼리 합성하는 물리 퍼즐 게임</p></div>
+        <div class="mini-card mini-card-fruit"><h4>🏆 업적 시스템</h4><p>총 16종의 업적 수집 시스템</p></div>
+        <div class="mini-card mini-card-fruit"><h4>📋 패치노트</h4><p>버전별 업데이트 기록 제공</p></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 메모리 게임 -->
+  <div class="card card-fruit">
+    <h3>4. 메모리 게임 시스템</h3>
+    <div class="grid-2">
+      <div>
+        <p style="font-weight:700;color:white;margin-bottom:10px;">지원 모드</p>
+        <table class="table-fruit">
+          <thead><tr><th>모드</th><th>설명</th></tr></thead>
+          <tbody>
+            <tr><td>4 × 4</td><td>입문용 기본 모드</td></tr>
+            <tr><td>6 × 6</td><td>중급 난이도</td></tr>
+            <tr><td>8 × 8</td><td>고난도 타임어택</td></tr>
+            <tr><td>8 × 8 조커</td><td>특수 조커 카드 포함</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div>
+        <p style="font-weight:700;color:white;margin-bottom:10px;">특수 기능</p>
+        <ul>
+          <li>플래시 힌트 시스템</li>
+          <li>카드 힌트 시스템</li>
+          <li>콤보 점수 시스템</li>
+          <li>실시간 타이머</li>
+          <li>일시정지 기능</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- 수박 게임 -->
+  <div class="card card-fruit">
+    <h3>5. 수박 게임 시스템</h3>
+    <div class="grid-2">
+      <div>
+        <p style="font-weight:700;color:white;margin-bottom:10px;">핵심 기능</p>
+        <ul>
+          <li>중력 기반 물리 이동</li>
+          <li>합성 진화 시스템</li>
+          <li>다음 과일 미리보기</li>
+          <li>위험 경고 UI</li>
+          <li>실시간 점수 갱신</li>
+        </ul>
+      </div>
+      <div>
+        <p style="font-weight:700;color:white;margin-bottom:10px;">게임 오버 조건</p>
+        <pre style="margin-top:0;">과일이 제한선을 초과한 상태가
+일정 시간 유지될 경우 게임 종료</pre>
+      </div>
+    </div>
+  </div>
+
+  <!-- 업적 -->
+  <div class="card card-fruit">
+    <h3>6. 업적 시스템 (16종)</h3>
+    <div class="ach-grid">
+      <div class="ach-item"><div class="ach-icon">🌱</div><div class="ach-info"><div class="ach-name">상큼한 첫걸음</div><div class="ach-cond">첫 게임 클리어</div></div></div>
+      <div class="ach-item"><div class="ach-icon">🧠</div><div class="ach-info"><div class="ach-name">메모리 마스터</div><div class="ach-cond">고득점 달성</div></div></div>
+      <div class="ach-item"><div class="ach-icon">🃏</div><div class="ach-info"><div class="ach-name">조커 마술사</div><div class="ach-cond">조커 모드 클리어</div></div></div>
+      <div class="ach-item"><div class="ach-icon">🍓</div><div class="ach-info"><div class="ach-name">과일 마스터</div><div class="ach-cond">전체 업적 해금</div></div></div>
+      <div class="ach-item"><div class="ach-icon">⚡</div><div class="ach-info"><div class="ach-name">스피드런</div><div class="ach-cond">제한 시간 내 클리어</div></div></div>
+      <div class="ach-item"><div class="ach-icon">🔥</div><div class="ach-info"><div class="ach-name">콤보 킹</div><div class="ach-cond">10 콤보 이상 달성</div></div></div>
+      <div class="ach-item"><div class="ach-icon">🍉</div><div class="ach-info"><div class="ach-name">수박 달인</div><div class="ach-cond">최고 등급 과일 합성</div></div></div>
+      <div class="ach-item"><div class="ach-icon">🌟</div><div class="ach-info"><div class="ach-name">올클리어</div><div class="ach-cond">모든 모드 완료</div></div></div>
+    </div>
+  </div>
+
+  <!-- UI + 오디오 -->
+  <div class="grid-2">
+    <div class="card card-fruit">
+      <h3>7. UI / UX 설계</h3>
+      <ul style="margin-bottom:14px;">
+        <li>아케이드 감성 중심 컬러 설계</li>
+        <li>실시간 애니메이션 반응</li>
+        <li>모바일 터치 최적화</li>
+        <li>PC 고정형 레이아웃 지원</li>
+        <li>상태별 시각 효과 제공</li>
+      </ul>
+      <div>
+        <span class="badge badge-orange">flip</span>
+        <span class="badge badge-orange">pop</span>
+        <span class="badge badge-orange">flash</span>
+        <span class="badge badge-orange">pulse</span>
+        <span class="badge badge-orange">fade</span>
+        <span class="badge badge-orange">scale</span>
+      </div>
+    </div>
+    <div class="card card-fruit">
+      <h3>8. 오디오 시스템</h3>
+      <p style="margin-bottom:14px;">Web Audio API 기반 실시간 효과음 시스템</p>
+      <table class="table-fruit">
+        <thead><tr><th>상황</th><th>효과음</th></tr></thead>
+        <tbody>
+          <tr><td>카드 뒤집기</td><td>flip</td></tr>
+          <tr><td>매칭 성공</td><td>match</td></tr>
+          <tr><td>실패</td><td>wrong</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- 저장 + 확장 -->
+  <div class="grid-2">
+    <div class="card card-fruit">
+      <h3>9. 데이터 저장 시스템</h3>
+      <ul>
+        <li>업적 저장</li>
+        <li>설정값 저장</li>
+        <li>크레딧 열람 횟수 저장</li>
+        <li>플레이 기록 저장</li>
+      </ul>
+      <pre>LocalStorage 기반 영구 저장</pre>
+    </div>
+    <div class="card card-fruit">
+      <h3>10. 향후 확장 계획</h3>
+      <ul>
+        <li>신규 미니게임 추가</li>
+        <li>온라인 랭킹 시스템</li>
+        <li>시즌 이벤트 시스템</li>
+        <li>AI 난이도 조절</li>
+        <li>멀티플레이 기능</li>
+      </ul>
+    </div>
+  </div>
+
+</div>
+
+<!-- ── FOOTER ── -->
+<footer>
+  © 2026 · Stock News Trading Simulator &amp; Sweet Fruit Arcade Zone<br>
+  Combined Development Specification Document
+</footer>
+
+</body>
+</html>
