@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="SchoolFix AI — 학생이 교내 시설 문제를 신고하면 AI가 위험도를 채점하는 학교 불편사항 신고 서비스의 개발 명세서">
+<meta name="theme-color" content="#f6f7f9" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#121417" media="(prefers-color-scheme: dark)">
+<title>SchoolFix AI 개발 명세서</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏫</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&family=Space+Mono:wght@400;700&display=swap">
+<link rel="stylesheet" href="assets/spec.css">
+</head>
+<body class="page-schoolfix">
+
+<a class="skip-link" href="#student">본문으로 건너뛰기</a>
+
+<!-- ═══════ TOP BAR ═══════ -->
+<header class="topbar" id="topbar">
+  <div class="topbar-inner">
+    <a class="topbar-brand" href="index.html" title="명세서 선택으로">
+      <svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><polyline points="15 18 9 12 15 6"/></svg>
+      <span class="brand-label">명세서 선택</span>
+    </a>
+    <nav class="topbar-tabs" aria-label="명세서 섹션 바로가기">
+      <a class="tab tone-green" href="#student" data-section="student"><span aria-hidden="true">🏫</span><span class="lbl-long">학생 서비스</span><span class="lbl-short">학생</span></a>
+      <a class="tab tone-blue" href="#ai" data-section="ai"><span aria-hidden="true">🧠</span><span class="lbl-long">AI 분석</span><span class="lbl-short">AI</span></a>
+      <a class="tab tone-violet" href="#staff" data-section="staff"><span aria-hidden="true">🛠️</span><span class="lbl-long">운영 · 관리</span><span class="lbl-short">운영</span></a>
+      <a class="tab tone-cyan" href="#system" data-section="system"><span aria-hidden="true">⚙️</span><span class="lbl-long">시스템</span><span class="lbl-short">시스템</span></a>
+    </nav>
+    <div class="topbar-actions">
+      <button class="icon-btn" id="printBtn" type="button" title="인쇄 / PDF로 저장" aria-label="인쇄 또는 PDF로 저장">
+        <svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+      </button>
+      <button class="icon-btn" id="tocBtn" type="button" aria-haspopup="dialog" aria-controls="toc" aria-label="목차 · 검색" title="목차 · 검색 (/)">
+        <svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+        <span class="btn-label">목차 · 검색</span>
+        <kbd aria-hidden="true">/</kbd>
+      </button>
+    </div>
+  </div>
+  <div class="progress" aria-hidden="true"><div class="progress-bar" id="progressBar"></div></div>
+</header>
+
+<main id="main">
+
+<!-- ═══════ LANDING ═══════ -->
+<section class="landing" id="top" aria-labelledby="pageTitle">
+ <div class="landing-inner">
+  <p class="eyebrow">개발 명세서</p>
+  <h1 class="landing-title" id="pageTitle"><span class="landing-icon" aria-hidden="true">🏫</span>SchoolFix AI</h1>
+  <p class="landing-sub">학생이 교내 시설 문제를 신고하면 AI가 위험도를 채점하고, 누구나 처리 현황을 확인할 수 있는 <strong>로그인 없는 공개형</strong> 학교 불편사항 신고 서비스</p>
+  <div class="stat-row">
+    <div class="stat"><span class="stat-num">54</span><span class="stat-label">지원 학교</span></div>
+    <div class="stat"><span class="stat-num">89</span><span class="stat-label">작성 예시</span></div>
+    <div class="stat"><span class="stat-num">4</span><span class="stat-label">위험도 등급</span></div>
+    <div class="stat"><span class="stat-num">4</span><span class="stat-label">운영진 역할</span></div>
+  </div>
+  <div class="nav-pills">
+    <a class="nav-pill tone-green" href="#student">🏫 학생 서비스</a>
+    <a class="nav-pill tone-blue" href="#ai">🧠 AI 분석</a>
+    <a class="nav-pill tone-violet" href="#staff">🛠️ 운영 · 관리</a>
+    <a class="nav-pill tone-cyan" href="#system">⚙️ 시스템</a>
+  </div>
+  <div class="ext-links">
+    <a class="ext-link" href="https://github.com/EunYool10/schoolfix" target="_blank" rel="noopener">GitHub 저장소
+      <svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
+  </div>
+  <p class="doc-meta">기준: main 03e7d14 (2026-10-26) · 작성 2026-10-27</p>
+  <p class="landing-hint"><kbd>/</kbd> 키를 눌러 목차와 내용을 바로 검색할 수 있습니다.</p>
+ </div>
+</section>
+
+<!-- ════════════════════════════════════════
+     SECTION 1 · 학생 서비스
+════════════════════════════════════════ -->
+<section class="spec-section tone-green" id="student" aria-labelledby="studentTitle">
+
+  <div class="spec-header">
+    <div class="spec-header-icon" aria-hidden="true">🏫</div>
+    <div class="spec-header-text">
+      <h2 id="studentTitle">학생 서비스</h2>
+      <p>학교 선택부터 신고 접수, 처리 확인과 참여까지 학생이 쓰는 기능</p>
+    </div>
+  </div>
+
+  <div class="card" id="sf-overview">
+    <h3>1. 프로젝트 개요</h3>
+    <p>“복도 타일이 들떠서 넘어질 뻔했다” 같은 제보가 종이나 구두로 흩어지지 않고, <strong>접수번호와 위험도가 남는 기록</strong>으로 관리되게 하는 웹 서비스입니다. 학생은 로그인 없이 신고하고, 교사·운영진은 개인 계정으로 처리 상태와 답변을 관리합니다.</p>
+    <div class="grid-auto">
+      <div class="mini-card"><h4>🔓 로그인 없음</h4><p>회원가입·로그인 없이 학교만 고르면 바로 신고합니다. 내 신고는 브라우저의 익명 소유 토큰으로 구분합니다.</p></div>
+      <div class="mini-card"><h4>🙈 개인정보 미수집</h4><p>이름·학번·연락처를 받지 않습니다. API 응답도 화이트리스트 DTO로만 내보내 IP·내부 식별자가 나가지 않습니다.</p></div>
+      <div class="mini-card"><h4>📢 처리 과정 공개</h4><p>누구나 학교별 신고 목록, 처리 상태, 위치별 현황을 볼 수 있습니다. 공개 보류 신고만 운영진 검토 뒤 공개됩니다.</p></div>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th scope="col">사용자</th><th scope="col">접속 방식</th><th scope="col">주요 일</th></tr></thead>
+        <tbody>
+          <tr><td><strong>학생</strong></td><td>로그인 없음</td><td>신고 작성·조회, 공감·만족도·추가 설명, 처리 알림</td></tr>
+          <tr><td><strong>교사</strong></td><td>개인 계정 또는 학교 공용 비밀번호</td><td>소속 학교 신고의 상태·담당자·처리 메모·학생 답변</td></tr>
+          <tr><td><strong>운영진</strong></td><td>개인 계정</td><td>모든 학교 신고 처리·삭제, 공개 보류 검토, 학교 신청·등록, 알림 설정</td></tr>
+          <tr><td><strong>관리자 · 총괄</strong></td><td>개인 계정</td><td>계정 관리, 삭제된 신고 복구, 운영 기록, 백업·되돌리기</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="card" id="sf-flow">
+    <h3>2. 신고 접수 흐름</h3>
+    <ol class="steps">
+      <li><strong>학교 선택</strong><span>첫 접속에서 지원 학교(54곳)를 고르면 그 학교의 위치 유형과 세부 장소 카탈로그가 적용됩니다.</span></li>
+      <li><strong>신고 작성</strong><span>“빠르게 시작하기” 카드와 단계 ①–④로 제목·장소·문제 종류·설명을 채웁니다. 예시, 사진 한 장으로 신고, 소음 재기를 쓸 수 있습니다.</span></li>
+      <li><strong>서버 검사</strong><span>허용된 위치·종류와 길이를 확인하고, 욕설 필터와 글·사진 안전성 검사(Moderation)를 거칩니다.</span></li>
+      <li><strong>AI 사전 확인</strong><span>담당자가 어디서 무엇을 확인할지 알 수 있는지 판단합니다.</span>
+        <div class="branch">부족하면 <strong>질문 1개</strong>를 되묻고(HTTP 422, 저장 안 함), 답을 합쳐 다시 판단합니다. 최대 3회.</div></li>
+      <li><strong>위험도 분석</strong><span>AI가 5개 요소를 0~4점으로 채점하고, 점수와 등급은 서버가 공식으로 계산합니다.</span></li>
+      <li><strong>저장 · 안내</strong><span>접수번호(<code>REP-YYYYMMDD-NNNN</code>)와 다른 기기용 <strong>확인 코드</strong>를 한 번 보여 줍니다. 반복 신고 기기·안전성 검사 대상은 공개 전에 운영진 검토로 보류됩니다.</span></li>
+    </ol>
+  </div>
+
+  <div class="card" id="sf-form">
+    <h3>3. 신고 작성 화면</h3>
+    <div class="grid-2">
+      <div>
+        <p class="sub-title">화면 구성</p>
+        <ul>
+          <li>한 열 가운데 정렬, 맨 위에 <strong>“빠르게 시작하기”</strong> 카드</li>
+          <li>단계 표시 ①–④와 작성 진행 표시</li>
+          <li>문제 종류 바로 선택, 건물·층·호실 입력은 접어 둠</li>
+          <li>공식 목록에 없는 건물·층·학과·학년·반·호실은 직접 입력</li>
+          <li>사진 끌어놓기, 현재 탭 임시저장(글만 저장 · 사진과 AI 질문 답변은 저장 안 함)</li>
+        </ul>
+      </div>
+      <div>
+        <p class="sub-title">작성 도우미</p>
+        <ul>
+          <li>학교급·장소에 맞춘 예시 <strong>89종</strong>, 문제 종류로 거르기</li>
+          <li>예시를 고르면 제목·장소·분류·설명이 채워짐</li>
+          <li>설명의 <code>[ ]</code> 빈칸이 남아 있으면 접수되지 않음</li>
+          <li>고르기 전 내용으로 되돌리기</li>
+          <li>학교마다 예시 24개 이상(테스트로 검사)</li>
+        </ul>
+      </div>
+    </div>
+    <div class="grid-auto">
+      <div class="mini-card"><h4>📷 사진 한 장으로 신고</h4><p>사진을 찍거나 고르면 AI가 제목·장소·문제 종류·설명 초안을 채웁니다. 장소·종류는 학교 목록 값만 받고, 설명에 “언제부터”·“불편한 점” 빈칸을 넣어 학생이 확인해야 접수됩니다. 사람이 보이면 얼굴 자리를 모자이크하고, <strong>가리기</strong> 도구로 더 가릴 수 있습니다. 분석 요청은 저장하지 않으며, AI 키가 없으면 기능이 숨겨집니다.</p></div>
+      <div class="mini-card"><h4>🔊 소음 재기</h4><p>문제 종류가 “소음 문제”면 휴대폰 마이크로 10초 동안 소리 크기를 재서 평균·최고 dB를 붙입니다. 녹음하지 않고 숫자만 남기며, 기기마다 마이크가 달라 “추정치”로 표시합니다.</p></div>
+      <div class="mini-card"><h4>🖼️ 사진 첨부 규칙</h4><p>신고당 6장, 장당 5MB까지 PNG·JPG·GIF·WEBP만 받습니다. 형식은 확장자가 아니라 파일 내용으로 확인합니다.</p></div>
+    </div>
+  </div>
+
+  <div class="card" id="sf-taxonomy">
+    <h3>4. 분류 체계</h3>
+    <div class="grid-3">
+      <div>
+        <p class="sub-title">위치 유형 (10)</p>
+        <div class="badges">
+          <span class="badge">교실</span><span class="badge">복도</span><span class="badge">화장실</span><span class="badge">계단</span><span class="badge">급식실</span><span class="badge">체육관</span><span class="badge">운동장</span><span class="badge">도서관</span><span class="badge">특별실</span><span class="badge badge-slate">기타</span>
+        </div>
+      </div>
+      <div>
+        <p class="sub-title">문제 종류 (7)</p>
+        <div class="badges">
+          <span class="badge badge-amber">시설 고장</span><span class="badge badge-red">안전 위험</span><span class="badge badge-cyan">위생 문제</span><span class="badge badge-green">환경 문제</span><span class="badge badge-violet">소음 문제</span><span class="badge badge-blue">불편 사항</span><span class="badge badge-slate">기타</span>
+        </div>
+      </div>
+      <div>
+        <p class="sub-title">세부 장소 상태</p>
+        <ul>
+          <li><strong>공식 확인</strong> — 학교 공식 현황 페이지에 나온 곳</li>
+          <li><strong>확인 필요</strong> — 학교 게시판·뉴스 등 여러 곳에서 언급된 곳</li>
+          <li><strong>직접 입력</strong> — 학생이 쓴 값. 공식 위치로 승격되지 않음</li>
+        </ul>
+      </div>
+    </div>
+    <p class="sub-title">처리 상태 (6)</p>
+    <div class="flow" aria-label="처리 상태 순서">
+      <span class="flow-item">접수 대기</span><span class="flow-arrow" aria-hidden="true">→</span>
+      <span class="flow-item">확인 중</span><span class="flow-arrow" aria-hidden="true">→</span>
+      <span class="flow-item">담당자 배정</span><span class="flow-arrow" aria-hidden="true">→</span>
+      <span class="flow-item">조치 예정</span><span class="flow-arrow" aria-hidden="true">→</span>
+      <span class="flow-item">처리 중</span><span class="flow-arrow" aria-hidden="true">→</span>
+      <span class="flow-item">처리 완료</span>
+    </div>
+    <p class="note">처리 완료 뒤 신고자가 “아직 그대로예요”라고 답하거나, 공감 학생의 👎가 2명 이상이면서 👍보다 많으면 상태가 <strong>확인 중</strong>으로 돌아갑니다.</p>
+  </div>
+
+  <div class="grid-2">
+    <div class="card" id="sf-mine">
+      <h3>5. 내 신고 식별 · 다른 기기 연결</h3>
+      <ul>
+        <li>신고를 등록하면 서버가 추측할 수 없는 <strong>소유 토큰</strong>을 발급합니다. 브라우저에는 원본, 서버에는 SHA-256 해시만 저장합니다.</li>
+        <li>접수 화면에서 <strong>확인 코드</strong>(예: <code>ABCDE-FGHJK</code>)를 한 번 보여 줍니다. 서버에는 해시만 남습니다.</li>
+        <li>휴대폰을 바꾸거나 브라우저 데이터를 지워도 “내 신고” 탭에서 접수번호 + 확인 코드를 넣으면 그 기기용 토큰을 새로 받습니다(신고마다 최근 10개 기기).</li>
+        <li>어느 값이 틀렸는지 알려 주지 않고, 시도 횟수를 제한해 코드 대입을 막습니다.</li>
+        <li>확인 코드 기능이 생기기 전에 접수한 신고는 불러올 수 없습니다.</li>
+      </ul>
+    </div>
+    <div class="card" id="sf-browse">
+      <h3>6. 조회 · 통계 · 보고서</h3>
+      <ul>
+        <li><strong>내 신고 / 전체 신고</strong> 탭, 검색과 카테고리·위험도·처리 상태·기간 필터 조합</li>
+        <li>필터 판정 규칙(<code>reportFilter.ts</code>)은 서버와 화면이 같은 코드를 씀</li>
+        <li><strong>위치별 신고 현황</strong>: 장소별 총 건수, 가장 많은 카테고리, 높음 이상 건수, 최근 신고 날짜. 서버가 실제 DB로 계산하고, 결과가 없으면 안내 문구 표시</li>
+        <li><strong>AI 요약</strong>: 접수된 신고 전체의 문제 상황을 간결하게 정리 (Rate Limit + 캐시)</li>
+        <li><strong>PDF 저장 / 인쇄</strong>: 현재 필터 목록을 보고서 형태로. 별도 라이브러리 없이 <code>@media print</code> + <code>window.print()</code></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card" id="sf-engage">
+    <h3>7. 학생 참여 기능</h3>
+    <div class="grid-auto">
+      <div class="mini-card"><h4>🙋 나도 겪었어요</h4><p>같은 문제를 겪은 학생은 새로 신고하는 대신 공감합니다. 기기마다 한 번만 세고, 운영진은 공감 많은 순으로 정렬합니다. 처리 완료된 신고에는 새로 공감할 수 없습니다.</p></div>
+      <div class="mini-card"><h4>✅ 만족도 확인</h4><p>처리 완료된 내 신고에 “해결됐어요 / 아직 그대로예요”로 답합니다. 미해결이면 신고가 다시 “확인 중”이 됩니다.</p></div>
+      <div class="mini-card"><h4>🔁 진짜 고쳐졌나요?</h4><p>처리 완료되면 공감했던 학생에게 알림이 가고, 👍 고쳐졌어요 / 👎 아직 그대로예요를 누릅니다. 👎 2명 이상이고 👍보다 많으면 자동으로 다시 엽니다. 다시 완료되면 처음부터 셉니다.</p></div>
+      <div class="mini-card"><h4>💬 추가 설명</h4><p>접수 뒤에도 설명과 사진(최대 3장)을 덧붙입니다(신고당 10번). 신고자와 학교만 보며, 신고와 같은 안전성 검사를 거칩니다.</p></div>
+      <div class="mini-card"><h4>📨 학교의 답변</h4><p>운영진·교사가 신고한 학생에게만 보이는 답변을 남깁니다. 공개 “처리 결과”(처리 메모)와는 별개입니다.</p></div>
+      <div class="mini-card"><h4>🔔 처리 소식 알림</h4><p>알림을 켜면 상태 변경·학교 답변·보류 신고 공개 때 Web Push가 옵니다. 알림에는 접수번호와 바뀐 상태만 담습니다. iPhone·iPad는 홈 화면에 추가한 앱에서만 됩니다.</p></div>
+      <div class="mini-card"><h4>🏆 내가 바꾼 학교</h4><p>이 기기에서 한 신고·공감·확인으로 고쳐진 곳을 학년도(3월 시작)별로 보여 주고 카드 이미지로 저장합니다. 서버에 묻지 않고 기기 기록으로 계산합니다.</p></div>
+    </div>
+  </div>
+
+</section>
+
+<!-- ════════════════════════════════════════
+     SECTION 2 · AI 분석
+════════════════════════════════════════ -->
+<section class="spec-section tone-blue" id="ai" aria-labelledby="aiTitle">
+
+  <div class="spec-header">
+    <div class="spec-header-icon" aria-hidden="true">🧠</div>
+    <div class="spec-header-text">
+      <h2 id="aiTitle">AI 분석</h2>
+      <p>위험도 채점, 추가 질문, 위치 묶기, 안전성 검사. AI는 서버에서만 호출합니다.</p>
+    </div>
+  </div>
+
+  <div class="card" id="sf-risk">
+    <h3>8. 위험도 분석</h3>
+    <p>신고를 접수하면 서버가 AI에게 5개 요소를 각각 <strong>0~4점</strong>으로 채점하게 하고, <strong>점수 계산과 등급 결정은 서버가</strong> 합니다. AI가 보낸 점수·등급은 신뢰하지 않고 다시 계산하므로, 같은 신고를 여러 번 분석해도 결과가 흔들리지 않습니다.</p>
+    <pre>risk_score = (즉시성×30 + 사고가능성×30 + 피해정도×25 + 지속성×10 + 영향범위×5) / 4
+             + 반복 신고 가산(0~5)          ※ 최대 100</pre>
+    <div class="grid-2">
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th scope="col">요소</th><th scope="col" class="num">가중치</th><th scope="col">의미</th></tr></thead>
+          <tbody>
+            <tr><td><strong>즉시성</strong></td><td class="num">30</td><td>지금 당장 다칠 수 있는가</td></tr>
+            <tr><td><strong>사고 가능성</strong></td><td class="num">30</td><td>사고로 이어질 확률</td></tr>
+            <tr><td><strong>피해 정도</strong></td><td class="num">25</td><td>사고가 나면 얼마나 큰가</td></tr>
+            <tr><td><strong>지속성</strong></td><td class="num">10</td><td>문제가 계속되고 있는가</td></tr>
+            <tr><td><strong>영향 범위</strong></td><td class="num">5</td><td>몇 명이 영향을 받는가</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th scope="col">점수</th><th scope="col">등급</th><th scope="col">처리 기한</th></tr></thead>
+          <tbody>
+            <tr><td class="num">75~100</td><td><span class="badge badge-red">긴급</span></td><td>1일</td></tr>
+            <tr><td class="num">50~74</td><td><span class="badge badge-orange">높음</span></td><td>3일</td></tr>
+            <tr><td class="num">25~49</td><td><span class="badge badge-amber">중간</span></td><td>7일</td></tr>
+            <tr><td class="num">0~24</td><td><span class="badge badge-slate">낮음</span></td><td>14일</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <ul style="margin-top:14px;">
+      <li><strong>반복 신고 가산</strong> — 유사 문제로 판단(1~3) + 지속성 2 이상 + 실제 DB에 이전 신고가 있을 때만 +2 / +3 / +5. 신고 수가 많다는 이유만으로는 올리지 않습니다.</li>
+      <li><strong>긴급 우선</strong> — 전선 불꽃, 실제 화재, 구조물 낙하 임박 같은 즉각적 위험은 점수보다 우선해 긴급으로 올리되, “화재 대피 훈련” 같은 문맥은 구분합니다.</li>
+      <li><strong>사람 검토 표시</strong> — 긴급 등급이거나 점수가 등급 경계(25·50·75) ±3점 안이면 판정이 불안정하다고 보고 사람 검토가 필요하다고 표시합니다.</li>
+      <li>모델은 <code>gpt-5.6-terra</code>, 실패하면 <code>gpt-5.6-luna</code>로 폴백합니다. 계산 로직의 단일 출처는 <code>riskAnalysis.ts</code>입니다.</li>
+    </ul>
+  </div>
+
+  <div class="grid-2">
+    <div class="card" id="sf-clarify">
+      <h3>9. AI 추가 질문</h3>
+      <p>“학교가 별로예요”처럼 어디서 무엇을 확인할지 알 수 없는 신고는 저장해도 처리할 수 없으므로, 접수 전에 한 번 확인합니다.</p>
+      <div class="flow">
+        <span class="flow-item">신고 작성</span><span class="flow-arrow" aria-hidden="true">→</span>
+        <span class="flow-item">AI 확인</span><span class="flow-arrow" aria-hidden="true">→</span>
+        <span class="flow-item">충분 → 위험도 분석 → 저장</span>
+      </div>
+      <div class="flow">
+        <span class="flow-arrow" aria-hidden="true">↳</span>
+        <span class="flow-item">부족 → 질문 1개 → 답변 → 다시 확인 (최대 3회)</span>
+      </div>
+      <ul style="margin-top:14px;">
+        <li><strong>질문은 항상 하나</strong>. 여러 개가 오면 서버가 첫 질문만 남깁니다.</li>
+        <li>기준은 “완벽한가”가 아니라 <strong>“처리 가능한가”</strong>. 장소와 문제만 알면 날짜·시각·인원 없이도 접수됩니다.</li>
+        <li>대화 상태는 서버 메모리 세션에 있고, 충분해지기 전에는 DB에 저장하지 않습니다.</li>
+        <li>AI가 없는 사실을 만들면 거릅니다. 상세 위치는 학생 문장에 실제로 있는 표현만, 학생이 쓰지 않은 숫자가 든 요약은 버립니다.</li>
+      </ul>
+    </div>
+    <div class="card" id="sf-location">
+      <h3>10. 위치 정규화와 집계</h3>
+      <p>집계 때 학생이 적은 상세 위치를 함께 쓰고, 표기가 흔들려도 <strong>확실할 때만</strong> 같은 장소로 묶습니다.</p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th scope="col">입력</th><th scope="col">결과</th></tr></thead>
+          <tbody>
+            <tr><td>“본관 3층 화장실” · “본관3층 화장실” · “3층 화장실”</td><td>본관 3층 화장실 (3건)</td></tr>
+            <tr><td>“본관 3층 화장실” · “별관 3층 화장실”</td><td>건물이 달라 분리</td></tr>
+            <tr><td>“3층 화장실” · “3층 남자화장실”</td><td>같은 곳인지 몰라 분리</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <ul style="margin-top:14px;">
+        <li>건물이 빠진 표기는 같은 층·장소의 건물 지정 그룹이 <strong>정확히 하나</strong>일 때만 흡수합니다.</li>
+        <li>전부 문자열 규칙이라 AI를 호출하지 않고, 같은 데이터면 항상 같은 결과가 나옵니다(<code>locationStats.ts</code>).</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <div class="card" id="sf-moderation">
+      <h3>11. 안전성 검사 · 프롬프트 방어</h3>
+      <ul>
+        <li><strong>Moderation</strong> — 신고 글과 첨부 사진을 서버에서 검사합니다. 검토가 필요하면 공개 목록·상세·통계에서 숨기고 운영진 검토 대기열에 둡니다. 검사 장애 때 사진이 붙은 신고는 자동 공개하지 않고 보류합니다.</li>
+        <li><strong>욕설 필터</strong> — 규칙 기반. 금지어 글자 사이 구분자를 허용하는 정규식으로 <code>씨 발</code>·<code>씨.발</code> 같은 우회를 잡되, 문장 전체 공백을 지우지 않아 “보지 못했어요” 같은 정상 문장을 오탐하지 않습니다.</li>
+        <li><strong>Prompt Injection</strong> — 신고 내용은 <code>&lt;report&gt;</code> 안의 데이터로 고정하고, 그 안의 지시문은 실행하지 않습니다.</li>
+        <li><strong>사진 초안 검사</strong> — AI 답의 장소·종류가 학교 목록에 있는 값인지 확인하고, 설명은 서버가 빈칸을 넣어 조립합니다(<code>photoDraft.ts</code>).</li>
+      </ul>
+    </div>
+    <div class="card" id="sf-nokey">
+      <h3>12. AI 키가 없을 때</h3>
+      <p><code>OPENAI_API_KEY</code>가 없어도 신고 등록·조회·검색·필터·PDF·인쇄는 그대로 동작합니다.</p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th scope="col">기능</th><th scope="col">키 없음</th></tr></thead>
+          <tbody>
+            <tr><td>위험도 분석 · AI 요약</td><td>꺼짐 (처리 기한은 “분석 전 7일”)</td></tr>
+            <tr><td>AI 추가 질문</td><td>질문 없이 바로 접수</td></tr>
+            <tr><td>사진 한 장으로 신고</td><td>버튼이 보이지 않음 (<code>/api/features</code>)</td></tr>
+            <tr><td>안전성 검사</td><td>욕설 필터만. 사진이 붙은 신고는 운영진 검토로 보류</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<!-- ════════════════════════════════════════
+     SECTION 3 · 운영 · 관리
+════════════════════════════════════════ -->
+<section class="spec-section tone-violet" id="staff" aria-labelledby="staffTitle">
+
+  <div class="spec-header">
+    <div class="spec-header-icon" aria-hidden="true">🛠️</div>
+    <div class="spec-header-text">
+      <h2 id="staffTitle">운영 · 관리</h2>
+      <p>운영진·교사 화면, 계정과 권한, 삭제·복구·백업, 알림</p>
+    </div>
+  </div>
+
+  <div class="card" id="sf-roles">
+    <h3>13. 역할과 권한</h3>
+    <p>권한 순서는 <strong>총괄 &gt; 관리자 &gt; 운영진 &gt; 교사</strong>입니다. 관리자가 “계정 관리” 화면에서 사람마다 개인 계정을 만들고, 처리 이력에는 바꾼 사람의 이름이 남습니다.</p>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th scope="col">역할</th><th scope="col">범위</th><th scope="col">할 수 있는 일</th><th scope="col">제한</th></tr></thead>
+        <tbody>
+          <tr><td><strong>총괄</strong> (1명)</td><td>전체</td><td>관리자 계정 만들기·바꾸기, 백업으로 되돌리기, 총괄 자리 넘기기</td><td>총괄 계정은 누구도(공용 비밀번호 관리자 포함) 바꾸거나 끄거나 지울 수 없음</td></tr>
+          <tr><td><strong>관리자</strong></td><td>전체</td><td>모든 기능 + 운영진·교사 계정 관리, 삭제된 신고 되살리기·영구 삭제, 운영 기록, 백업</td><td>총괄이 없을 때만 관리자 계정도 관리하고 총괄을 지정</td></tr>
+          <tr><td><strong>운영진</strong></td><td>모든 학교</td><td>신고 처리·삭제, 공개 보류 검토, 학교 신청·등록, 알림 설정</td><td>삭제·거절은 개인 계정으로만</td></tr>
+          <tr><td><strong>교사</strong></td><td>소속 학교</td><td>상태·담당자·처리 메모·학생 답변</td><td>삭제, 검토 대기열, 학교 신청 메일함 불가</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <ul style="margin-top:14px;">
+      <li>공용 비밀번호도 계속 씁니다: <code>STAFF_PASSWORD_HASH</code>(아이디 <code>admin</code> 또는 비움, 관리자 권한), 학교별 <code>SCHOOL_TEACHER_PASSWORD_HASHES</code>. 처음에는 공용 비밀번호로 들어가 개인 관리자 계정을 만듭니다.</li>
+      <li>세션은 HttpOnly·SameSite=Strict 쿠키, 8시간. 세션 해시를 저장소에 함께 저장해 서버가 잠들었다 깨거나 재배포돼도 유지됩니다.</li>
+      <li>계정을 끄거나 비밀번호를 바꾸면 열려 있던 로그인이 바로 끝납니다. 켜진 관리자가 하나도 없게 되는 변경은 막습니다.</li>
+    </ul>
+  </div>
+
+  <div class="grid-2">
+    <div class="card" id="sf-console">
+      <h3>14. 운영진 화면</h3>
+      <ul>
+        <li>목록 <strong>30초 자동 갱신</strong>. 처리 내용을 입력하는 중에는 건너뜁니다.</li>
+        <li>새 신고·새 추가 설명에 “새로 들어옴”·“새 추가 설명” 표시, 브라우저 탭 제목에 건수</li>
+        <li>상태·위험도별 요약, 검색·필터, 위험도 우선·공감순·기한 초과 정렬</li>
+        <li>현재 조건의 신고 목록 <strong>CSV 내려받기</strong></li>
+        <li><strong>처리 이력</strong>: 상태·담당자·학생 답변 변경, 안전성 검토, 삭제·되살림, 추가 설명, 만족도 응답을 누가(운영진/교사/신고자/시스템) 언제 했는지</li>
+        <li><strong>월별 통계</strong>: 접수·완료율·평균 처리 시간·기한 초과 완료, 유형·위치·위험도별 접수, 최근 6개월 추이. 한국 시간 월 경계, 인쇄·PDF·“디스코드로 보내기”</li>
+        <li>학교 신청 메일함에서 “승인하고 학교 등록” → 재배포 없이 학교 선택 화면에 바로 표시</li>
+      </ul>
+    </div>
+    <div class="card" id="sf-sla">
+      <h3>15. 처리 기한 (SLA)</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th scope="col">위험도</th><th scope="col" class="num">기한</th></tr></thead>
+          <tbody>
+            <tr><td><span class="badge badge-red">긴급</span></td><td class="num">1일</td></tr>
+            <tr><td><span class="badge badge-orange">높음</span></td><td class="num">3일</td></tr>
+            <tr><td><span class="badge badge-amber">중간</span></td><td class="num">7일</td></tr>
+            <tr><td><span class="badge badge-slate">낮음</span></td><td class="num">14일</td></tr>
+            <tr><td>분석 전</td><td class="num">7일</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="note">기한을 넘긴 신고는 운영진 화면에 빨간색으로 표시하고 “기한 초과”로 필터·정렬합니다.</p>
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <div class="card" id="sf-delete">
+      <h3>16. 삭제 · 되살리기 · 운영 기록</h3>
+      <ul>
+        <li>신고 삭제(사유 필수)·장난 신고 처리·검토 대기 삭제는 <strong>개인 계정으로만</strong>. 처리 이력과 운영 기록에 남습니다.</li>
+        <li><strong>휴지통</strong>: 관리자는 삭제된 신고를 되살리거나, 개인정보 삭제 요청처럼 꼭 필요할 때 영구 삭제합니다.</li>
+        <li>사진은 삭제 후 30일(<code>DELETED_PHOTO_RETENTION_DAYS</code>) 비공개 보관. 그 안에 되살리면 함께 돌아옵니다.</li>
+        <li><strong>운영 기록</strong>: 로그인, 계정 생성·변경·중지·삭제, 총괄 지정·넘기기, 신고 삭제·되살림·영구 삭제, 백업·되돌리기, 학교 등록, 알림 설정 변경. 최근 1,000건, 관리자 이상 열람. 학생 정보와 실패한 로그인은 넣지 않습니다.</li>
+      </ul>
+    </div>
+    <div class="card" id="sf-backup">
+      <h3>17. 백업 · 복구</h3>
+      <ul>
+        <li>매일 한 번(한국 날짜 기준, 잠들어 있었으면 깨어날 때) 저장소 전체를 비공개 보관소(<code>schoolfix-backups</code>)에 저장, 최근 30개 유지</li>
+        <li>관리자: “지금 백업”, 내려받기(<code>?photos=1</code>이면 사진 포함)</li>
+        <li><strong>총괄</strong>: 백업 시점으로 되돌리기. 직전 상태는 자동으로 따로 백업</li>
+        <li>계정·로그인·학생 알림 구독은 되돌리지 않습니다(백업에 비밀번호 해시 없음).</li>
+        <li><strong>총괄 비상 복구</strong>: 환경 변수 <code>OWNER_RESET_PASSWORD_HASH</code>(+ <code>OWNER_RESET_USERNAME</code>)를 넣고 재배포하면 시작할 때 한 번만 적용되고 운영 기록에 남습니다. 로그인해서 비밀번호를 바꾼 뒤 두 값을 지웁니다.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <div class="card" id="sf-abuse">
+      <h3>18. 반복 신고 · 공개 보류</h3>
+      <p>학교는 학생 전체가 IP 하나를 쓰는 경우가 많아, 브라우저별 <strong>기기 토큰</strong>(서버에는 해시만)으로 구분합니다.</p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th scope="col">조건</th><th scope="col">처리</th></tr></thead>
+          <tbody>
+            <tr><td>10분 안에 3건 초과</td><td rowspan="3">거부하지 않고 <strong>공개 전 운영진 검토</strong></td></tr>
+            <tr><td>하루 10건 초과</td></tr>
+            <tr><td>“장난 신고로 처리”된 기기 (30일)</td></tr>
+            <tr><td>안전성 검사에 걸린 글·사진</td><td>검토 대기열 보관, 승인 또는 거절(거절은 개인 계정)</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="note">검토 대상 기기 목록은 운영진 화면에서 보고 해제할 수 있습니다(<code>abuseGuard.ts</code>).</p>
+    </div>
+    <div class="card" id="sf-notify">
+      <h3>19. 운영진 알림</h3>
+      <p><code>NOTIFY_WEBHOOK_URL</code>로 Discord·Slack 등에 알립니다. 카카오톡·이메일은 Make·Zapier 같은 도구의 웹훅으로 전달합니다.</p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th scope="col">알림</th><th scope="col">보내는 때</th></tr></thead>
+          <tbody>
+            <tr><td><strong>모든 신고</strong></td><td>새 신고마다 바로. 공개 보류 신고는 사유·전체 내용·사진까지(사진은 Discord만)</td></tr>
+            <tr><td><strong>긴급 신고</strong></td><td>위험도가 기준(<code>NOTIFY_MIN_RISK</code>, 기본 긴급) 이상. 접수 뒤 늦게 긴급 판정된 경우 포함</td></tr>
+            <tr><td><strong>학교 신청</strong></td><td>새 학교 추가 신청 (회신 이메일은 싣지 않음)</td></tr>
+            <tr><td><strong>월간 보고</strong></td><td>매달 1일 오전 9시 이후(한국 시간) 지난달 학교별 통계</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="note">운영진 화면 “알림” 탭에서 연결 상태 확인, 종류별 켜기/끄기, 테스트 알림, 원하는 달 월간 보고 즉시 발송.</p>
+    </div>
+  </div>
+
+</section>
+
+<!-- ════════════════════════════════════════
+     SECTION 4 · 시스템
+════════════════════════════════════════ -->
+<section class="spec-section tone-cyan" id="system" aria-labelledby="systemTitle">
+
+  <div class="spec-header">
+    <div class="spec-header-icon" aria-hidden="true">⚙️</div>
+    <div class="spec-header-text">
+      <h2 id="systemTitle">시스템</h2>
+      <p>기술 구성, 구조, 데이터, API, 보안, 배포와 테스트</p>
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <div class="card" id="sf-stack">
+      <h3>20. 기술 구성</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th scope="col">영역</th><th scope="col">사용 기술</th></tr></thead>
+          <tbody>
+            <tr><td><strong>프론트엔드</strong></td><td>React 19, TypeScript, Tailwind CSS 4, Vite 8, motion, lucide-react</td></tr>
+            <tr><td><strong>백엔드</strong></td><td>Express 4 (<code>server.ts</code>), esbuild로 <code>dist/server.cjs</code> 번들</td></tr>
+            <tr><td><strong>저장소</strong></td><td>Supabase REST (<code>schoolfix_store</code>) + Storage, 또는 로컬 JSON</td></tr>
+            <tr><td><strong>AI</strong></td><td>OpenAI <code>gpt-5.6-terra</code> → <code>gpt-5.6-luna</code> 폴백, Moderation. 서버에서만 호출</td></tr>
+            <tr><td><strong>인증</strong></td><td>학생 없음. 운영진·교사 개인 계정 또는 공용 비밀번호(bcrypt), 세션 해시 저장</td></tr>
+            <tr><td><strong>학생 알림</strong></td><td>Web Push (<code>web-push</code>, VAPID) + 서비스 워커 <code>public/sw.js</code>(알림 전용, 캐시 안 함)</td></tr>
+            <tr><td><strong>호스팅</strong></td><td>Render 웹 서비스 (<code>render.yaml</code> Blueprint)</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="card" id="sf-arch">
+      <h3>21. 시스템 구조</h3>
+      <div class="arch" style="grid-template-columns:1fr;">
+        <div class="mini-card"><h4>🌐 브라우저 (SPA)</h4><p>화면 전환·API 호출·익명 토큰 관리(<code>App.tsx</code>). 화면은 나눠 불러오고, 배포 뒤 예전 파일이 없으면 한 번 새로고침(<code>lazyScreen.ts</code>).</p></div>
+        <div class="arch-arrow" aria-hidden="true">⇅</div>
+        <div class="mini-card"><h4>🖥️ Express 서버</h4><p>라우트 전체, 입력 검증, Rate Limit, 세션, 보안 헤더. 서버 여러 대가 같은 문서를 덮어쓰지 않게 버전 확인 후 재시도(<code>storeSync.ts</code>).</p></div>
+        <div class="arch-arrow" aria-hidden="true">⇅</div>
+        <div class="mini-card"><h4>☁️ 외부 서비스</h4><p>Supabase(신고·설정 문서, 비공개 사진·백업 버킷) · OpenAI(분석·검사) · 브라우저 푸시 서비스 · 운영진 웹훅 · GitHub Actions(CI, 서버 깨우기)</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" id="sf-modules">
+    <h3>22. 서버 모듈</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th scope="col">파일</th><th scope="col">역할</th></tr></thead>
+        <tbody>
+          <tr><td><code>server.ts</code></td><td>Express 서버, 라우트 전체</td></tr>
+          <tr><td><code>serverSecurity.ts</code></td><td>Rate Limit, 비밀번호 검증, 토큰·확인 코드, 입력 검증, 보안 헤더</td></tr>
+          <tr><td><code>staffAuth.ts</code></td><td>운영진·교사 개인 계정 규칙과 로그인 세션(해시 저장)</td></tr>
+          <tr><td><code>riskAnalysis.ts</code></td><td>위험도 채점 — 계산의 단일 출처</td></tr>
+          <tr><td><code>reportClarify.ts</code></td><td>AI 추가 질문 — 판단·응답 검증·대화 세션</td></tr>
+          <tr><td><code>locationStats.ts</code></td><td>위치 정규화와 집계 — 통계의 단일 출처</td></tr>
+          <tr><td><code>aiSummary.ts</code></td><td>AI 요약 + Prompt Injection 방어</td></tr>
+          <tr><td><code>photoDraft.ts</code> · <code>photoStore.ts</code></td><td>사진 한 장으로 신고(AI 초안 검사·설명 조립·얼굴 위치) · 사진 저장</td></tr>
+          <tr><td><code>reportVerify.ts</code></td><td>“진짜 고쳐졌나요?” 표 세기·다시 여는 기준</td></tr>
+          <tr><td><code>abuseGuard.ts</code></td><td>반복 신고 기기 판단(공개 보류 규칙)</td></tr>
+          <tr><td><code>pushNotify.ts</code> · <code>notify.ts</code></td><td>학생 알림(Web Push) · 운영진 웹훅 알림</td></tr>
+          <tr><td><code>storeSync.ts</code> · <code>backupStore.ts</code></td><td>저장 충돌 방지(버전 확인·재시도) · 자동 백업 보관</td></tr>
+          <tr><td><code>auditLog.ts</code> · <code>keepAwake.ts</code></td><td>운영 기록 항목 · 무료 플랜 서버가 낮에 잠들지 않게</td></tr>
+          <tr><td><code>schools.seed.json</code> · <code>supabase/schema.sql</code></td><td>지원 학교·위치 카탈로그 · Supabase 테이블 생성 SQL</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <div class="card" id="sf-catalog">
+      <h3>23. 학교 카탈로그</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th scope="col">학교급</th><th scope="col" class="num">학교 수</th></tr></thead>
+          <tbody>
+            <tr><td>초등학교</td><td class="num">27</td></tr>
+            <tr><td>중학교</td><td class="num">14</td></tr>
+            <tr><td>일반고</td><td class="num">10</td></tr>
+            <tr><td>특성화고</td><td class="num">3</td></tr>
+            <tr><td><strong>합계</strong> (광명 48 · 시흥 3 · 의정부 2 · 오산 1)</td><td class="num"><strong>54</strong></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <ul style="margin-top:14px;">
+        <li>학교 하나 = <code>schools.seed.json</code>의 항목 하나. <code>id</code>는 학교 홈페이지 서브도메인(예: <code>kmit-h</code>)</li>
+        <li>필드: <code>schoolName</code>, <code>officialWebsite</code>, <code>address</code>, <code>sourceUrl</code>, <code>departments</code>(학년별 학급 수), <code>locationTypes</code>, <code>locations</code>, <code>highSchoolType</code></li>
+        <li>학과·학급 수는 공식 현황 페이지에서 가져와 참고 정보로만 저장. 반·건물·층·호실은 공개 자료에 없어 학생이 직접 씁니다.</li>
+        <li>학교 추가 신청: 웹 신청함 또는 <code>mailto:</code> 초안 → 운영진 승인 → 바로 등록(위치 유형은 “확인 필요”)</li>
+      </ul>
+    </div>
+    <div class="card" id="sf-data">
+      <h3>24. 신고 데이터 모델</h3>
+      <dl class="kv">
+        <dt>식별</dt><dd><code>id</code>(접수번호 <code>REP-YYYYMMDD-NNNN</code>), <code>schoolId</code></dd>
+        <dt>위치</dt><dd><code>locationId</code>, <code>locationType</code>, <code>buildingName</code>, <code>floor</code>, <code>department</code>, <code>grade</code>, <code>className</code>, <code>roomName</code>, <code>locationDetail</code></dd>
+        <dt>내용</dt><dd><code>title</code>, <code>category</code>, <code>description</code>, <code>photos[]</code>, <code>noise</code>(평균·최고 dB)</dd>
+        <dt>처리</dt><dd><code>status</code>, <code>assignee</code>, <code>resolutionNote</code>, 단계별 시각(<code>reviewedAt</code> … <code>completedAt</code>)</dd>
+        <dt>위험도</dt><dd><code>riskLevel</code>, <code>riskScore</code>, <code>riskAnalysis</code>(요소 점수, 반복 가산, 긴급 우선, 사람 검토 필요, 모델)</dd>
+        <dt>공개 보류</dt><dd><code>moderationStatus</code>(held · approved), <code>moderationReason</code></dd>
+        <dt>참여</dt><dd><code>meTooCount</code>, <code>verification</code>(👍·👎 수), <code>feedback</code>, <code>reporterReply</code>, <code>followups[]</code></dd>
+        <dt>이력</dt><dd><code>history[]</code>: 누가(staff · teacher · reporter · system, 이름) 무엇을(status · assignee · reply · moderation · feedback · spam · delete · restore · followup · verify)</dd>
+      </dl>
+      <p class="note">공개 응답에는 신고자 이름·이메일·IP·내부 식별자가 없습니다. 소유 토큰·확인 코드·기기 토큰은 모두 해시로만 저장합니다.</p>
+    </div>
+  </div>
+
+  <div class="card" id="sf-api">
+    <h3>25. API 명세</h3>
+    <p>학생용 API는 로그인 없이 공개입니다. 운영진·교사 기능은 HttpOnly 세션 쿠키가 필요하고, 신고를 지우는 일은 개인 계정 세션으로만 합니다.</p>
+    <p class="sub-title">공개 (학생)</p>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th scope="col">메서드</th><th scope="col">경로</th><th scope="col">설명</th></tr></thead>
+        <tbody>
+          <tr><td><span class="method">GET</span></td><td><code>/api/health</code></td><td>상태 확인 (<code>dataStore</code>, <code>photos</code>, <code>persistence</code>)</td></tr>
+          <tr><td><span class="method">GET</span></td><td><code>/api/features</code></td><td>서버 설정에 따라 켜지는 기능 (<code>photoDraft</code>)</td></tr>
+          <tr><td><span class="method">GET</span></td><td><code>/api/schools</code></td><td>지원 학교 목록</td></tr>
+          <tr><td><span class="method">GET</span></td><td><code>/api/schools/:schoolId/locations</code></td><td>학교별 세부 위치(공식 확인·확인 필요)와 유형</td></tr>
+          <tr><td><span class="method">GET</span></td><td><code>/api/reports?schoolId=</code></td><td>선택 학교 신고 + 서버 통계</td></tr>
+          <tr><td><span class="method">GET</span></td><td><code>/api/reports/location-statistics</code></td><td>위치별 집계 (<code>search</code> <code>category</code> <code>risk</code> <code>status</code> <code>range</code>)</td></tr>
+          <tr><td><span class="method">GET</span></td><td><code>/api/reports/:id</code></td><td>신고 상세</td></tr>
+          <tr><td><span class="method">GET</span></td><td><code>/api/photos/:month/:file</code></td><td>첨부 사진 (보류 신고 사진은 운영진, 추가 설명 사진은 그 학교 운영진·교사)</td></tr>
+          <tr><td><span class="method">POST</span></td><td><code>/api/reports/analyze</code></td><td>AI 사전 확인 — 부족하면 질문 1개</td></tr>
+          <tr><td><span class="method">POST</span></td><td><code>/api/reports</code></td><td>신고 등록, 소유 토큰 발급. 애매하면 <code>422</code> + 질문, 저장 안 함</td></tr>
+          <tr><td><span class="method">POST</span></td><td><code>/api/reports/photo-draft</code></td><td>사진 한 장으로 신고 초안 (저장 안 함, Rate Limit)</td></tr>
+          <tr><td><span class="method">POST</span></td><td><code>/api/reports/mine</code></td><td>소유 토큰으로 내 신고 조회</td></tr>
+          <tr><td><span class="method">POST</span></td><td><code>/api/reports/recover</code></td><td>접수번호 + 확인 코드로 이 기기 토큰 발급 (Rate Limit)</td></tr>
+          <tr><td><span class="method">POST</span></td><td><code>/api/reports/:id/me-too</code></td><td>“나도 겪었어요” 추가·취소 (기기 토큰)</td></tr>
+          <tr><td><span class="method">POST</span></td><td><code>/api/reports/:id/verify</code></td><td>“진짜 고쳐졌나요?” 👍/👎 (공감한 기기만)</td></tr>
+          <tr><td><span class="method">POST</span></td><td><code>/api/reports/:id/feedback</code></td><td>처리 완료 신고 만족도 (소유 토큰)</td></tr>
+          <tr><td><span class="method">POST</span></td><td><code>/api/reports/:id/followups</code></td><td>추가 설명·사진 3장 (소유 토큰, Rate Limit)</td></tr>
+          <tr><td><span class="method">GET</span></td><td><code>/api/push/config</code></td><td>학생 알림 사용 가능 여부와 공개 키</td></tr>
+          <tr><td><span class="method">POST</span></td><td><code>/api/push/subscribe</code> · <code>/unsubscribe</code></td><td>이 기기로 내 신고 알림 받기·끊기</td></tr>
+          <tr><td><span class="method">POST</span></td><td><code>/api/ai/summary</code></td><td>학교 AI 요약 (Rate Limit + 캐시)</td></tr>
+          <tr><td><span class="method">POST</span></td><td><code>/api/school-applications</code></td><td>학교 추가 신청 (Rate Limit)</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="sub-title">운영진 · 교사 세션</p>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th scope="col">메서드</th><th scope="col">경로</th><th scope="col">권한</th><th scope="col">설명</th></tr></thead>
+        <tbody>
+          <tr><td><span class="method">GET</span></td><td><code>/api/staff/session</code></td><td>공개</td><td>로그인 상태 확인</td></tr>
+          <tr><td><span class="method">POST</span></td><td><code>/api/staff/login</code></td><td>아이디 + 비밀번호</td><td>운영진 로그인 (아이디 비움·<code>admin</code>이면 공용 비밀번호)</td></tr>
+          <tr><td><span class="method">POST</span></td><td><code>/api/staff/teacher-login</code></td><td>학교 ID + 비밀번호</td><td>교사 로그인</td></tr>
+          <tr><td><span class="method">POST</span></td><td><code>/api/staff/logout</code></td><td>세션</td><td>로그아웃·세션 폐기</td></tr>
+          <tr><td><span class="method">POST</span></td><td><code>/api/staff/me/password</code></td><td>개인 계정</td><td>내 비밀번호 변경 (다른 기기 세션 종료)</td></tr>
+          <tr><td><span class="method">GET</span></td><td><code>/api/staff/reports</code></td><td>운영진 · 대상 학교 교사</td><td>운영진 화면 목록 (이력·학생 답변·반복 신고 정보)</td></tr>
+          <tr><td><span class="method">PATCH</span></td><td><code>/api/staff/reports/:id</code></td><td>운영진 · 대상 학교 교사</td><td>상태·담당자·처리 메모·학생 답변</td></tr>
+          <tr><td><span class="method">GET</span></td><td><code>/api/staff/moderation</code></td><td>운영진</td><td>공개 보류 신고 (검토 대기열)</td></tr>
+          <tr><td><span class="method">PATCH</span></td><td><code>/api/staff/reports/:id/moderation</code></td><td>운영진 (거절은 개인 계정)</td><td>보류 신고 승인·거절</td></tr>
+          <tr><td><span class="method">DELETE</span></td><td><code>/api/staff/reports/:id</code></td><td>운영진 개인 계정</td><td>신고 삭제 (<code>reason</code> 필수)</td></tr>
+          <tr><td><span class="method">POST</span></td><td><code>/api/staff/reports/:id/spam</code></td><td>운영진 개인 계정</td><td>장난 신고 처리 — 삭제 + 기기 30일 검토 대상</td></tr>
+          <tr><td><span class="method">GET·DELETE</span></td><td><code>/api/staff/blocked-reporters</code></td><td>운영진</td><td>검토 대상 기기 목록·해제</td></tr>
+          <tr><td><span class="method">GET·PATCH·DELETE</span></td><td><code>/api/staff/school-applications</code></td><td>운영진</td><td>학교 신청 메일함, 확인 표시, 삭제</td></tr>
+          <tr><td><span class="method">GET·POST·DELETE</span></td><td><code>/api/staff/schools</code></td><td>운영진</td><td>화면에서 등록한 학교 목록·등록·지원 중지</td></tr>
+          <tr><td><span class="method">GET·PATCH</span></td><td><code>/api/staff/notifications</code></td><td>운영진</td><td>알림 연결 상태(웹훅 주소 비공개)·종류 설정</td></tr>
+          <tr><td><span class="method">POST</span></td><td><code>/api/staff/notifications/test</code> · <code>/monthly</code></td><td>운영진</td><td>테스트 알림 · 월간 보고 즉시 발송</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="sub-title">관리자 · 총괄</p>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th scope="col">메서드</th><th scope="col">경로</th><th scope="col">권한</th><th scope="col">설명</th></tr></thead>
+        <tbody>
+          <tr><td><span class="method">GET·POST</span></td><td><code>/api/staff/accounts</code></td><td>관리자</td><td>개인 계정 목록·생성</td></tr>
+          <tr><td><span class="method">PATCH·DELETE</span></td><td><code>/api/staff/accounts/:id</code></td><td>관리자 (관리자 계정은 총괄만)</td><td>이름·역할·소속 학교·비밀번호 재설정·중지·삭제</td></tr>
+          <tr><td><span class="method">POST</span></td><td><code>/api/staff/accounts/:id/owner</code></td><td>관리자(총괄 없을 때) · 총괄 본인</td><td>총괄 지정 / 넘기기</td></tr>
+          <tr><td><span class="method">GET</span></td><td><code>/api/staff/deleted-reports</code></td><td>관리자</td><td>삭제된 신고 (누가·언제·왜, 사진 보관 기한)</td></tr>
+          <tr><td><span class="method">POST</span></td><td><code>/api/staff/reports/:id/restore</code></td><td>관리자</td><td>삭제한 신고 되살리기</td></tr>
+          <tr><td><span class="method">DELETE</span></td><td><code>/api/staff/deleted-reports/:id</code></td><td>관리자 개인 계정</td><td>영구 삭제 (글·사진 완전 삭제)</td></tr>
+          <tr><td><span class="method">GET</span></td><td><code>/api/staff/audit</code></td><td>관리자</td><td>운영 기록 (<code>category</code>, <code>before</code>, <code>limit</code>)</td></tr>
+          <tr><td><span class="method">GET</span></td><td><code>/api/staff/backup</code></td><td>관리자</td><td>지금 상태 JSON 내려받기</td></tr>
+          <tr><td><span class="method">GET·POST</span></td><td><code>/api/staff/backups</code> · <code>/backups/file</code></td><td>관리자</td><td>백업 목록·지금 백업·백업 파일 내려받기</td></tr>
+          <tr><td><span class="method">POST</span></td><td><code>/api/staff/restore</code></td><td>총괄</td><td>백업으로 되돌리기 (직전 상태 자동 백업)</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="card" id="sf-security">
+    <h3>26. 보안</h3>
+    <p>로그인이 없다는 것이 보안이 없다는 뜻은 아닙니다.</p>
+    <div class="grid-auto">
+      <div class="mini-card"><h4>입력 검증</h4><p>프론트엔드 검증을 믿지 않고 서버가 최종 판단. 허용된 위치·종류, 길이 제한, 사진은 내용으로 형식 확인.</p></div>
+      <div class="mini-card"><h4>Rate Limit</h4><p>신고 등록·AI 요약·확인 코드·알림 구독·추가 설명에 각각 적용. 학교 NAT를 고려해 신고 한도는 여유 있게. 로그인은 틀린 비밀번호만 셈(15분 10번).</p></div>
+      <div class="mini-card"><h4>계정 · 세션</h4><p>bcrypt 해시만 저장. 없는 아이디도 같은 시간이 걸려 존재 여부가 드러나지 않음. 쿠키는 HttpOnly·SameSite=Strict, 서버엔 SHA-256 해시만.</p></div>
+      <div class="mini-card"><h4>삭제 책임</h4><p>신고를 지우는 모든 일은 개인 계정 + 사유. 공용 관리자 비밀번호 삭제 기능(<code>ADMIN_PASSWORD_HASH</code>)은 없앰.</p></div>
+      <div class="mini-card"><h4>저장 충돌 방지</h4><p>마지막으로 읽은 버전(<code>updated_at</code>)이 그대로일 때만 씀. 충돌하면 최신 내용을 다시 읽어 같은 작업을 재적용. 다른 서버 변경은 30초마다 가져옴.</p></div>
+      <div class="mini-card"><h4>학생 알림</h4><p>공식 푸시 서비스 주소(FCM·Mozilla·Apple·WNS)만 구독으로 받아 임의 주소 요청(SSRF)을 막음. 실제 신고의 소유 토큰에만 묶음.</p></div>
+      <div class="mini-card"><h4>XSS · 헤더</h4><p>React 기본 escape, <code>dangerouslySetInnerHTML</code> 미사용. CSP, X-Frame-Options, Referrer-Policy, HSTS(운영).</p></div>
+      <div class="mini-card"><h4>오류 비노출 · 비밀 값</h4><p>사용자에게는 일반 메시지만, 상세는 서버 로그. 평문 비밀번호·키는 코드·번들·DB·로그 어디에도 두지 않음.</p></div>
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <div class="card" id="sf-deploy">
+      <h3>27. 배포 · 운영</h3>
+      <ul>
+        <li><strong>배포</strong>: PR을 <code>main</code>에 병합하면 Render가 바로 배포 (<code>render.yaml</code> Blueprint). 비밀 값은 Render Environment에만.</li>
+        <li><strong>CI</strong>: PR마다 GitHub Actions(<code>ci.yml</code>)가 타입 검사·빌드·단위 테스트·e2e를 돌림. 빨간 X면 병합하지 않음.</li>
+        <li><strong>확인</strong>: <code>/api/health</code>가 <code>{"status":"ok"}</code>, <code>dataStore: "supabase"</code>, <code>persistence.durable: true</code></li>
+        <li><strong>영구 저장</strong>: <code>supabase/schema.sql</code> 실행(업데이트마다 다시) → <code>SUPABASE_URL</code> + <code>SUPABASE_SECRET_KEY</code>. <code>REQUIRE_SUPABASE_STORE=true</code>면 설정이 빠진 배포는 시작하지 않음.</li>
+        <li><strong>사진·백업</strong>: 비공개 버킷 <code>report-photos</code>, <code>schoolfix-backups</code> (없으면 서버가 생성). 공개로 바꾸지 않음.</li>
+        <li><strong>무료 플랜 잠들기 대응</strong>: 한국 시간 7~21시(<code>KEEP_AWAKE_HOURS</code>)에 10분마다 자기 주소 호출 + Actions(<code>wake-up.yml</code>)가 06:50에 깨우고 낮에 14분마다 호출. 하루 14시간이면 한 달 약 440시간(계정 전체 750시간 한도).</li>
+      </ul>
+    </div>
+    <div class="card" id="sf-env">
+      <h3>28. 환경 변수</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th scope="col">변수</th><th scope="col">용도</th></tr></thead>
+          <tbody>
+            <tr><td><code>OPENAI_API_KEY</code></td><td>위험도·요약·추가 질문·안전성 검사·사진 초안</td></tr>
+            <tr><td><code>STAFF_PASSWORD_HASH</code></td><td>공용 관리자(<code>admin</code>) bcrypt 해시</td></tr>
+            <tr><td><code>SCHOOL_TEACHER_PASSWORD_HASHES</code></td><td>학교 ID별 교사 공용 비밀번호 해시(JSON)</td></tr>
+            <tr><td><code>SUPABASE_URL</code> · <code>SUPABASE_SECRET_KEY</code></td><td>영구 저장 (함께 설정)</td></tr>
+            <tr><td><code>SUPABASE_PHOTO_BUCKET</code> · <code>SUPABASE_BACKUP_BUCKET</code></td><td>사진·백업 버킷 이름</td></tr>
+            <tr><td><code>REQUIRE_SUPABASE_STORE</code></td><td>Supabase 없이는 시작 거부</td></tr>
+            <tr><td><code>NOTIFY_WEBHOOK_URL</code> · <code>NOTIFY_MIN_RISK</code></td><td>운영진 웹훅 알림과 기준 위험도</td></tr>
+            <tr><td><code>VAPID_PUBLIC_KEY</code> · <code>VAPID_PRIVATE_KEY</code> · <code>VAPID_SUBJECT</code></td><td>학생 알림 키 (한 번 정하면 바꾸지 않음)</td></tr>
+            <tr><td><code>PUBLIC_BASE_URL</code></td><td>알림 속 사이트 주소</td></tr>
+            <tr><td><code>DELETED_PHOTO_RETENTION_DAYS</code></td><td>삭제 신고 사진 보관 일수 (기본 30)</td></tr>
+            <tr><td><code>KEEP_AWAKE_HOURS</code></td><td>깨어 있을 시간 (기본 <code>7-21</code>, <code>off</code>)</td></tr>
+            <tr><td><code>OWNER_RESET_PASSWORD_HASH</code> · <code>OWNER_RESET_USERNAME</code></td><td>총괄 비상 복구 (한 번 적용 후 지움)</td></tr>
+            <tr><td><code>DATA_DIR</code> · <code>ALLOWED_ORIGINS</code> · <code>PORT</code></td><td>로컬 저장 경로 · 교차 출처 · 포트(기본 3000)</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <div class="card" id="sf-tests">
+      <h3>29. 테스트</h3>
+      <pre>npm run lint            # 타입 검사
+npm run test:risk       # 위험도 채점
+npm run test:clarify    # AI 추가 질문
+npm run test:location   # 위치 정규화·집계 (API 호출 없음)
+npm run test:filter     # 욕설 필터
+npm run test:report     # PDF·인쇄 문서
+npm run test:ops        # 기한·월별 통계·알림·반복 신고·확인 코드·계정·세션·저장 충돌·백업
+npm run test:examples   # 작성 예시 데이터·빈칸·학교별 예시
+npm run test:features   # 사진 신고·진짜 고쳐졌나요·소음·공감 알림·내가 바꾼 학교
+npm run test:e2e        # 빌드한 서버로 API 처음부터 끝까지
+npm run test:e2e:supabase  # Supabase 흉내 서버, 서버 두 대 동시 쓰기 포함</pre>
+    </div>
+    <div class="card" id="sf-limits">
+      <h3>30. 알려진 제한</h3>
+      <ul>
+        <li>운영진 화면은 30초마다 다시 받아옴(WebSocket 아님). 바로 알아야 하면 웹훅 알림을 함께 사용</li>
+        <li>Rate Limit이 인메모리. 인스턴스를 늘리면 Redis 같은 공유 저장소 필요</li>
+        <li>욕설 필터는 모음 삽입 우회를 잡지 못함(정상 문장 오탐 방지를 위해 의도적으로 제외)</li>
+        <li>AI 추가 질문 대화는 서버 메모리에 있어 재시작하면 처음부터</li>
+        <li>확인 코드가 없는 예전 신고는 다른 기기에서 불러올 수 없음</li>
+        <li>백업 되돌리기는 계정·로그인·알림 구독을 바꾸지 않음. 보관 기간이 지난 사진은 복구 불가</li>
+        <li>학생 알림은 브라우저에 따라 다름(iOS는 홈 화면 앱, 일부 인앱 브라우저 불가)</li>
+      </ul>
+    </div>
+  </div>
+
+</section>
+
+</main>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <nav class="footer-links" aria-label="다른 명세서">
+    <a href="index.html">명세서 선택</a>
+    <a href="fruitarcade.html">상큼 과일 아케이드 존 명세서</a>
+    <a href="https://github.com/EunYool10/schoolfix" target="_blank" rel="noopener">SchoolFix GitHub</a>
+  </nav>
+  <p class="footer-meta">© 2026 · SchoolFix AI Development Specification</p>
+</footer>
+
+<!-- ── TOC · SEARCH DRAWER ── -->
+<dialog class="toc" id="toc" aria-labelledby="tocTitle">
+  <div class="toc-panel">
+    <div class="toc-head">
+      <h2 id="tocTitle">목차</h2>
+      <button class="icon-btn" id="tocClose" type="button" aria-label="목차 닫기">
+        <svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <div class="toc-search">
+      <label class="sr-only" for="tocSearch">명세서 내용 검색</label>
+      <svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input id="tocSearch" type="search" placeholder="내용 검색 (예: 위험도, 확인 코드, 백업)" autocomplete="off" spellcheck="false" aria-describedby="tocCount">
+    </div>
+    <p class="toc-count" id="tocCount" aria-live="polite"></p>
+    <nav class="toc-nav" id="tocNav" aria-label="명세서 목차"></nav>
+    <p class="toc-empty" id="tocEmpty" hidden>일치하는 항목이 없습니다.</p>
+  </div>
+</dialog>
+
+<button class="to-top" id="toTop" type="button" aria-label="맨 위로 이동" title="맨 위로">
+  <svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg>
+</button>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="assets/spec.js"></script>
+</body>
+</html>

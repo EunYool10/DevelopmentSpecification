@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="상큼 과일 아케이드 존 v3.37.2 — 과일 미니게임 9종과 레벨·미션·업적·랭킹·친구 대결을 담은 웹 아케이드의 개발 명세서">
+<meta name="theme-color" content="#f6f7f9" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#121417" media="(prefers-color-scheme: dark)">
+<title>과일 아케이드 개발 명세서</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🍓</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&family=Space+Mono:wght@400;700&display=swap">
+<link rel="stylesheet" href="assets/spec.css">
+</head>
+<body class="page-fruit">
+
+<a class="skip-link" href="#games">본문으로 건너뛰기</a>
+
+<!-- ═══════ TOP BAR ═══════ -->
+<header class="topbar" id="topbar">
+  <div class="topbar-inner">
+    <a class="topbar-brand" href="index.html" title="명세서 선택으로">
+      <svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><polyline points="15 18 9 12 15 6"/></svg>
+      <span class="brand-label">명세서 선택</span>
+    </a>
+    <nav class="topbar-tabs" aria-label="명세서 섹션 바로가기">
+      <a class="tab tone-orange" href="#games" data-section="games"><span aria-hidden="true">🎮</span><span class="lbl-long">게임</span><span class="lbl-short">게임</span></a>
+      <a class="tab tone-pink" href="#growth" data-section="growth"><span aria-hidden="true">🌱</span><span class="lbl-long">성장 · 보상</span><span class="lbl-short">성장</span></a>
+      <a class="tab tone-lime" href="#social" data-section="social"><span aria-hidden="true">🤝</span><span class="lbl-long">소셜 · 운영</span><span class="lbl-short">소셜</span></a>
+      <a class="tab tone-blue" href="#system" data-section="system"><span aria-hidden="true">⚙️</span><span class="lbl-long">시스템</span><span class="lbl-short">시스템</span></a>
+    </nav>
+    <div class="topbar-actions">
+      <button class="icon-btn" id="printBtn" type="button" title="인쇄 / PDF로 저장" aria-label="인쇄 또는 PDF로 저장">
+        <svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+      </button>
+      <button class="icon-btn" id="tocBtn" type="button" aria-haspopup="dialog" aria-controls="toc" aria-label="목차 · 검색" title="목차 · 검색 (/)">
+        <svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+        <span class="btn-label">목차 · 검색</span>
+        <kbd aria-hidden="true">/</kbd>
+      </button>
+    </div>
+  </div>
+  <div class="progress" aria-hidden="true"><div class="progress-bar" id="progressBar"></div></div>
+</header>
+
+<main id="main">
+
+<!-- ═══════ LANDING ═══════ -->
+<section class="landing" id="top" aria-labelledby="pageTitle">
+ <div class="landing-inner">
+  <p class="eyebrow">개발 명세서 · v3.37.2</p>
+  <h1 class="landing-title" id="pageTitle"><span class="landing-icon" aria-hidden="true">🍓</span>상큼 과일 아케이드 존</h1>
+  <p class="landing-sub">과일 미니게임 9종에 레벨, 오늘의 미션, 업적, 랭킹, 친구 대결을 더한 웹 아케이드. 휴대폰 홈 화면에 설치해 오프라인에서도 플레이합니다.</p>
+  <div class="stat-row">
+    <div class="stat"><span class="stat-num">9</span><span class="stat-label">미니게임</span></div>
+    <div class="stat"><span class="stat-num">58</span><span class="stat-label">업적</span></div>
+    <div class="stat"><span class="stat-num">145</span><span class="stat-label">상점 아이템</span></div>
+    <div class="stat"><span class="stat-num">100</span><span class="stat-label">최대 레벨</span></div>
+  </div>
+  <div class="nav-pills">
+    <a class="nav-pill tone-orange" href="#games">🎮 게임</a>
+    <a class="nav-pill tone-pink" href="#growth">🌱 성장 · 보상</a>
+    <a class="nav-pill tone-lime" href="#social">🤝 소셜 · 운영</a>
+    <a class="nav-pill tone-blue" href="#system">⚙️ 시스템</a>
+  </div>
+  <div class="ext-links">
+    <a class="ext-link" href="https://eunyool10.github.io/FruitArcade/" target="_blank" rel="noopener">게임 열기
+      <svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
+  </div>
+  <p class="doc-meta">기준: v3.37.2 (2026-10-27) · 작성 2026-10-27</p>
+  <p class="landing-hint"><kbd>/</kbd> 키를 눌러 목차와 내용을 바로 검색할 수 있습니다.</p>
+ </div>
+</section>
+
+<!-- ════════════════════════════════════════
+     SECTION 1 · 게임
+════════════════════════════════════════ -->
+<section class="spec-section tone-orange" id="games" aria-labelledby="gamesTitle">
+
+  <div class="spec-header">
+    <div class="spec-header-icon" aria-hidden="true">🎮</div>
+    <div class="spec-header-text">
+      <h2 id="gamesTitle">게임</h2>
+      <p>미니게임 9종의 규칙·조작과 공통 게임 구조</p>
+    </div>
+  </div>
+
+  <div class="card" id="fa-overview">
+    <h3>1. 프로젝트 개요</h3>
+    <p>브라우저에서 바로 하는 과일 테마 미니게임 모음입니다. 로비 하나에서 9개 게임을 고르고, 모든 판의 결과가 <strong>레벨·미션·업적·코인·랭킹</strong>으로 이어집니다. 로그인 없이도 전부 플레이할 수 있고, Google 로그인하면 기록이 기기 사이에 동기화되고 랭킹·친구 기능이 열립니다.</p>
+    <div class="grid-auto">
+      <div class="mini-card"><h4>🏠 로비</h4><p>게임 타일(최고 기록 · 플레이 수), 종류 필터 칩, 내 레벨, 연속 출석, 오늘의 미션, 최근 플레이</p></div>
+      <div class="mini-card"><h4>📱 설치형 앱</h4><p>홈 화면에 설치, 한 번 열어 두면 인터넷 없이 게임 가능(로그인·랭킹 제외)</p></div>
+      <div class="mini-card"><h4>🌗 테마 · 접근성</h4><p>라이트 · 다크 · 시스템 테마, “동작 줄이기” 존중, 키보드만으로 모든 메뉴 사용</p></div>
+      <div class="mini-card"><h4>🎨 같은 그림</h4><p>과일·게임 이모지를 앱에 내장한 그림으로 그려 휴대폰에서도 PC와 똑같이 보임</p></div>
+    </div>
+  </div>
+
+  <div class="card" id="fa-lineup">
+    <h3>2. 게임 라인업</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th scope="col">게임</th><th scope="col">핵심 규칙</th><th scope="col">조작</th><th scope="col">랭킹</th></tr></thead>
+        <tbody>
+          <tr><td class="nowrap"><strong>🍓 과일 메모리</strong></td><td>같은 과일 카드 짝 맞추기. 4×4 · 6×6 · 8×8 타임어택 · 8×8 조커, 콤보 보너스, 오답 감점</td><td>클릭 · 터치, <code>H</code> 플래시 힌트, <code>C</code> 카드 힌트</td><td>✅</td></tr>
+          <tr><td class="nowrap"><strong>🍉 수박 게임</strong></td><td>같은 과일끼리 합쳐 수박 만들기. 망치 · 흔들기 아이템, 넘침 선 위 5초면 끝</td><td><code>←</code> <code>→</code> / <code>A</code> <code>D</code>, <code>Space</code> 낙하, <code>1</code> 망치, <code>2</code> 흔들기</td><td>✅</td></tr>
+          <tr><td class="nowrap"><strong>🏃 FRUIT DASH</strong></td><td>떨어지는 과일 피하며 황금 별 모으기. 쉬움 · 보통 · 어려움, 방패 · 자석 · 느림 · 점수 2배</td><td><code>←</code> <code>→</code> / <code>A</code> <code>D</code>, 마우스 · 터치</td><td>✅</td></tr>
+          <tr><td class="nowrap"><strong>🧩 과일 퍼즐</strong></td><td>매치-3. 클래식(이동 30번 · 랭킹)과 목표가 있는 스테이지 30개, 줄 폭탄 · 큰 폭탄, 연쇄 보너스</td><td>밀기 · 두 칸 차례로 누르기, 방향키 + <code>Enter</code></td><td>✅</td></tr>
+          <tr><td class="nowrap"><strong>🔪 과일 자르기</strong></td><td>날아오르는 과일을 그어서 자르기. 3개 이상 콤보, ⭐ +50, ❄️ 느린 시간, ❤️ 회복, 💣 폭탄. 난이도 3단계</td><td>누른 채 긋기 · 손가락으로 밀기</td><td>✅</td></tr>
+          <tr><td class="nowrap"><strong>🎹 과일 피아노</strong></td><td>내려오는 타일을 아래부터 눌러 연주. 저작권이 끝난 13곡, 왼손 반주, 긴 타일, 완주마다 빨라짐</td><td>터치 · 클릭, <code>D</code> <code>F</code> <code>J</code> <code>K</code></td><td>✅</td></tr>
+          <tr><td class="nowrap"><strong>🧃 과일 주스 가게</strong></td><td>손님 주문대로 과일을 믹서에 넣어 주스 만들기. 순서 무관, 빠르고 연속일수록 고득점, 화난 손님 3번이면 끝</td><td>터치 · 클릭, <code>1</code>–<code>8</code> <code>Enter</code> <code>Backspace</code></td><td>✅</td></tr>
+          <tr><td class="nowrap"><strong>🦘 과일 점프</strong></td><td>달리는 과일로 선인장 · 돌 · 버섯 · 벌 넘기. 길게 누르면 더 높이, 🍒 +20, 점수에 따라 낮 · 밤</td><td>터치 · 클릭, <code>Space</code> <code>↑</code> <code>↓</code></td><td>✅</td></tr>
+          <tr><td class="nowrap"><strong>🎨 과일 그리기</strong></td><td>1~6명이 한 화면을 돌려 가며 제시어 과일 그리기. 싱크율(0~100%)로 채점, 라운드 1등 1점</td><td>터치 · 마우스</td><td>파티 게임</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note">공통 조작: <code>ESC</code> 일시정지 · 창 닫기, <code>Space</code> · <code>Enter</code> 게임 시작. 처음 여는 게임은 짧은 방법 안내가 나오고, 시작 화면의 <strong>?</strong> 버튼으로 다시 봅니다.</p>
+  </div>
+
+  <div class="grid-2">
+    <div class="card" id="fa-suika">
+      <h3>3. 수박 게임</h3>
+      <ul>
+        <li><strong>물리 직접 구현</strong>, 120Hz 고정 틱이라 어느 기기에서나 똑같이 움직임. 병 크기 528×720(논리 단위)</li>
+        <li>체리에서 시작해 같은 과일이 닿으면 한 단계 큰 과일. 수박끼리는 합쳐지지 않고 결과 카드에서 개수를 셈</li>
+        <li>🔨 <strong>망치</strong>(고른 과일 부수기) · 🫨 <strong>흔들기</strong>(병 섞기): 한 판에 2개씩, 합체 10번마다 하나 더, 종류마다 5개까지</li>
+        <li>30초마다 점수 배율 +0.1(5분이면 2배), 시간이 갈수록 큰 과일이 자주 나옴</li>
+        <li>넘침 선 위에 5초 넘게 머물면 끝. 게임 오버 뒤에도 4초 동안 물리가 마저 가라앉음</li>
+        <li>떨어지는 과일 순서는 시드로 정해져 친구 대결에서 같은 판을 재현</li>
+      </ul>
+    </div>
+    <div class="card" id="fa-slice">
+      <h3>4. 과일 자르기 난이도</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th scope="col">항목</th><th scope="col">쉬움</th><th scope="col">중간</th><th scope="col">어려움</th></tr></thead>
+          <tbody>
+            <tr><td><strong>목숨(놓친 과일)</strong></td><td class="num">5</td><td class="num">3</td><td class="num">2</td></tr>
+            <tr><td><strong>끝나는 폭탄 수</strong></td><td class="num">3</td><td class="num">2</td><td class="num">1</td></tr>
+            <tr><td><strong>점수 배율</strong></td><td class="num">×0.5</td><td class="num">×1</td><td class="num">×1.5</td></tr>
+            <tr><td><strong>그 밖</strong></td><td colspan="3">폭탄 확률, 중력, 웨이브 간격, 하트 · 얼음 빈도가 함께 달라짐</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="note"><strong>중간</strong>이 예전 게임과 같아서 이전 기록과 그대로 비교됩니다. 친구 대결 링크에도 난이도가 실리고, 예전 링크는 중간으로 고정됩니다. ❤️ 하트는 목숨이 가득하면 맞은 폭탄 하나를 지워 줍니다.</p>
+    </div>
+  </div>
+
+  <div class="card" id="fa-new-games">
+    <h3>5. 신작 게임 상세</h3>
+    <div class="grid-auto">
+      <div class="mini-card"><h4>🎹 과일 피아노</h4><p>반짝반짝 작은 별부터 엘리제를 위하여까지 13곡. 원본 악보의 음과 박자를 따르고 곡마다 왼손 반주가 붙습니다. 긴 음은 꾹 누르는 긴 타일, 한 곡을 완주할 때마다 빨라지고, 빈 칸을 누르거나 타일을 놓치면 끝. 곡 목록은 카드 형태.</p></div>
+      <div class="mini-card"><h4>🧃 과일 주스 가게</h4><p>손님은 정해진 자리에 앉아 과일 조합을 주문하고, 인내심 막대가 줄어듭니다. 믹서에 넣은 과일은 주문표에 ✓로 표시되고 병 속 색이 섞입니다. 맞는 주스는 빨리 줄수록 점수가 크고, 틀리면 손님의 인내심이 깎입니다. 레벨마다 과일 칸이 하나씩 열리고 주문이 커집니다.</p></div>
+      <div class="mini-card"><h4>🦘 과일 점프</h4><p>장애물 달리기. 🌵🪨🍄 장애물과 낮게 · 높게 나는 벌, 🍒 체리. 공중에서 <code>↓</code>로 빨리 내려오고, 갈수록 빨라지며 점수에 따라 낮과 밤이 바뀝니다.</p></div>
+      <div class="mini-card"><h4>🎨 과일 그리기</h4><p>펜 · 채우기 · 지우개 · 되돌리기. 그림이 진짜 과일 그림과 모양 · 색 · 위치가 얼마나 닮았는지 <strong>싱크율</strong>로 잽니다. 랭킹 · 점수 서버 · 대결 링크가 없는 파티 게임이고, 점수판은 % 로 표시합니다.</p></div>
+    </div>
+  </div>
+
+  <div class="card" id="fa-frame">
+    <h3>6. 공통 게임 구조 · 새 게임 추가</h3>
+    <div class="grid-2">
+      <div>
+        <p class="sub-title">한 판의 흐름</p>
+        <ol class="steps">
+          <li><strong>시작 카드</strong><span>방법 안내, 난이도 · 모드 선택, 최고 기록</span></li>
+          <li><strong>판 진행</strong><span>공용 게임 틀과 HUD. 판이 시작되면 <code>onRoundChange(true)</code></span></li>
+          <li><strong>판 종료</strong><span><code>onGameComplete({ game, score, seconds })</code>를 <strong>한 번만</strong> 호출 → 앱이 경험치 · 코인 · 미션 · 업적 · 순위를 계산해 돌려줌</span></li>
+          <li><strong>결과 카드</strong><span>신기록, 얻은 경험치, 완료한 미션, 순위(“오늘 3위 · 전체 23위”), 결과 이미지 저장 · 공유</span></li>
+        </ol>
+      </div>
+      <div>
+        <p class="sub-title">새 게임을 넣을 때</p>
+        <ol>
+          <li>화면 · 게임 종류와 통계 필드(<code>&lt;게임&gt;PlayCount</code>, <code>&lt;게임&gt;HighScore</code>) 추가</li>
+          <li>게임 정보 목록 <code>GAMES</code> · 순서 · 화면 매핑에 등록</li>
+          <li>게임 컴포넌트 작성: <code>settings</code>, <code>isPaused</code>, <code>onUnlockAchieve</code>, <code>onGameComplete</code>, <code>onRoundChange</code>, <code>onExit</code>를 받음</li>
+          <li>앱에 나눠 불러오기 등록, 미션 · 대결 링크 · 상점 코인 비율 · 배경음악 · 업적 탭 채우기</li>
+          <li>랭킹 게임이면 <code>RANKED_GAMES</code>에 넣고, 보안 규칙의 보드 id와 게임별 점수 상한, 점수 서버 속도 제한을 함께 추가 → <strong>규칙을 먼저 게시</strong>한 뒤 앱 배포</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<!-- ════════════════════════════════════════
+     SECTION 2 · 성장 · 보상
+════════════════════════════════════════ -->
+<section class="spec-section tone-pink" id="growth" aria-labelledby="growthTitle">
+
+  <div class="spec-header">
+    <div class="spec-header-icon" aria-hidden="true">🌱</div>
+    <div class="spec-header-text">
+      <h2 id="growthTitle">성장 · 보상</h2>
+      <p>레벨, 오늘의 미션, 연속 출석, 업적, 코인과 상점</p>
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <div class="card" id="fa-level">
+      <h3>7. 레벨 · 경험치</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th scope="col">얻는 방법</th><th scope="col" class="num">XP</th></tr></thead>
+          <tbody>
+            <tr><td>플레이 1판</td><td class="num">20</td></tr>
+            <tr><td>플레이 30초마다</td><td class="num">5</td></tr>
+            <tr><td>업적 해금</td><td class="num">50</td></tr>
+            <tr><td>미션 도장</td><td class="num">100</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <pre>레벨 L에 필요한 누적 XP = 50 × L × (L − 1)
+Lv.10 → 4,500 XP   ·   Lv.100 → 495,000 XP</pre>
+      <ul style="margin-top:14px;">
+        <li>플레이어는 <strong>Lv.100</strong>에서 멈춤(XP는 계속 쌓임). 운영진은 Lv.999 · “운영진”으로 표시</li>
+        <li>레벨업 코인: 레벨마다 100 + 5 · 10 · 20 · 30 · 40 · 50 · 70 · 100레벨에 레벨 × 100 추가</li>
+        <li>레벨 보상 아이템 9개는 레벨이 오르면 생김</li>
+      </ul>
+    </div>
+    <div class="card" id="fa-level-titles">
+      <h3>8. 레벨 칭호</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th scope="col" class="num">레벨</th><th scope="col">칭호</th></tr></thead>
+          <tbody>
+            <tr><td class="num">1</td><td>🌱 새싹</td></tr>
+            <tr><td class="num">3</td><td>🍒 체리</td></tr>
+            <tr><td class="num">5</td><td>🍓 딸기</td></tr>
+            <tr><td class="num">7</td><td>🍊 한라봉</td></tr>
+            <tr><td class="num">9</td><td>🍑 복숭아</td></tr>
+            <tr><td class="num">12</td><td>🍍 파인애플</td></tr>
+            <tr><td class="num">15</td><td>🍉 수박 마스터</td></tr>
+            <tr><td class="num">20</td><td>👑 과일 왕</td></tr>
+            <tr><td class="num">30</td><td>🔥 불꽃 과일러</td></tr>
+            <tr><td class="num">50</td><td>🌟 별빛 과일러</td></tr>
+            <tr><td class="num">70</td><td>💫 은하 과일러</td></tr>
+            <tr><td class="num">100</td><td>🌈 무지개 전설</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <div class="card" id="fa-missions">
+      <h3>9. 오늘의 미션 · 연속 출석</h3>
+      <ul>
+        <li>날짜마다 정해지는 미션 <strong>3개</strong>. 모두 깨면 도장 1개(+100 XP, 코인 보너스)</li>
+        <li>미션 종류: <span class="badge">플레이 N판</span><span class="badge">클리어</span><span class="badge">N점 이상</span><span class="badge">N초 버티기</span></li>
+        <li>예: “수박 게임 2,000점 이상”, “FRUIT DASH 20초 버티기”, “과일 피아노 한 곡 완주하기”</li>
+        <li>새 게임은 출시 다음 날부터 미션 후보에 들어감</li>
+        <li>매일 한 판씩 하면 🔥 연속 일수가 쌓임. 3 · 7 · 30일 업적</li>
+        <li><strong>연속 출석 알림</strong>: 설정 → 알림에서 켜면(로그인 필요) 그날 아직 안 했을 때 저녁 8시에 “오늘 한 판 해요!” 웹 푸시. 아이폰 · 아이패드는 홈 화면 앱에서만</li>
+      </ul>
+    </div>
+    <div class="card" id="fa-shop">
+      <h3>10. 코인 · 상점</h3>
+      <p>판마다 점수 보너스 · 신기록 · 오늘 첫 판 · 미션 도장 보너스로 코인을 모읍니다. 최대 <strong>999억 9,999만 9,999</strong>개, 큰 숫자는 “12.3억”처럼 짧게 표시합니다.</p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th scope="col">종류</th><th scope="col" class="num">개수</th><th scope="col">적용</th></tr></thead>
+          <tbody>
+            <tr><td>아바타</td><td class="num">42</td><td>프로필 · 랭킹</td></tr>
+            <tr><td>칭호</td><td class="num">28</td><td>이름 옆 · 랭킹</td></tr>
+            <tr><td>프로필 테두리</td><td class="num">27</td><td>프로필 카드 · 랭킹</td></tr>
+            <tr><td>메모리 카드 뒷면</td><td class="num">19</td><td>과일 메모리</td></tr>
+            <tr><td>러너</td><td class="num">11</td><td>FRUIT DASH · 과일 점프</td></tr>
+            <tr><td>칼날</td><td class="num">10</td><td>과일 자르기</td></tr>
+            <tr><td>과일 스킨</td><td class="num">8</td><td>수박 · 자르기 · 대시 · 퍼즐 · 피아노 · 점프</td></tr>
+            <tr><td><strong>합계</strong></td><td class="num"><strong>145</strong></td><td>+ 레벨 보상 9 · 운영진 시리즈 55</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="note"><strong>RGB 시리즈</strong>(색이 계속 바뀌는 테두리 · 러너)는 하나에 777억 코인. 산 물건은 로그인하면 다른 기기에서도 그대로입니다.</p>
+    </div>
+  </div>
+
+  <div class="card" id="fa-achievements">
+    <h3>11. 업적 (58종)</h3>
+    <p>업적마다 칭호를 달 수 있고, 해금하면 50 XP를 받습니다. 로그인하면 기기 기록과 클라우드 기록을 합칩니다.</p>
+
+    <p class="ach-group">🍓 과일 메모리 (15)</p>
+    <div class="ach-grid">
+      <div class="ach-item"><div class="ach-icon" aria-hidden="true">🌱</div><div class="ach-info"><div class="ach-name">상큼한 첫걸음</div><div class="ach-cond">난이도 상관없이 첫 세트 클리어</div></div></div>
+      <div class="ach-item"><div class="ach-icon" aria-hidden="true">👑</div><div class="ach-info"><div class="ach-name">메모리 마스터</div><div class="ach-cond">최종 점수 150점 이상</div></div></div>
+      <div class="ach-item"><div class="ach-icon" aria-hidden="true">🔥</div><div class="ach-info"><div class="ach-name">콤보 폭발 폭주족</div><div class="ach-cond">연속 콤보 5회 이상</div></div></div>
+      <div class="ach-item"><div class="ach-icon" aria-hidden="true">🛡️</div><div class="ach-info"><div class="ach-name">강철의 심장</div><div class="ach-cond">5번 기회(하드코어)에서 클리어</div></div></div>
+      <div class="ach-item"><div class="ach-icon" aria-hidden="true">🃏</div><div class="ach-info"><div class="ach-name">조커 마술사</div><div class="ach-cond">스페셜 조커 모드 완전 클리어</div></div></div>
+      <div class="ach-item"><div class="ach-icon" aria-hidden="true">⚡</div><div class="ach-info"><div class="ach-name">빛보다 빠른 손</div><div class="ach-cond">8×8 타임어택 클리어</div></div></div>
+      <div class="ach-item"><div class="ach-icon" aria-hidden="true">💯</div><div class="ach-info"><div class="ach-name">Perfect 100</div><div class="ach-cond">오답 감점 없이 100점 돌파</div></div></div>
+      <div class="ach-item"><div class="ach-icon" aria-hidden="true">🚫</div><div class="ach-info"><div class="ach-name">미니멀리스트</div><div class="ach-cond">수동 힌트 없이 클리어</div></div></div>
+      <div class="ach-item"><div class="ach-icon" aria-hidden="true">⏱️</div><div class="ach-info"><div class="ach-name">스피드 레이서</div><div class="ach-cond">4×4 · 6×6을 20초 이하로 클리어</div></div></div>
+      <div class="ach-item"><div class="ach-icon" aria-hidden="true">📉</div><div class="ach-info"><div class="ach-name">마이너스의 손</div><div class="ach-cond">최종 점수 0점 미만</div></div></div>
+      <div class="ach-item"><div class="ach-icon" aria-hidden="true">🎆</div><div class="ach-info"><div class="ach-name">조커 대폭발</div><div class="ach-cond">조커 모드에서 조커 3번 연속 오픈</div></div></div>
+      <div class="ach-item"><div class="ach-icon" aria-hidden="true">☠️</div><div class="ach-info"><div class="ach-name">실패는 성공의 어머니</div><div class="ach-cond">라이프 제한 모드 게임 오버 1회</div></div></div>
+      <div class="ach-item"><div class="ach-icon" aria-hidden="true">🍀</div><div class="ach-info"><div class="ach-name">행운의 세븐</div><div class="ach-cond">정확히 최고 콤보 7회</div></div></div>
+      <div class="ach-item"><div class="ach-icon" aria-hidden="true">💵</div><div class="ach-info"><div class="ach-name">자산가 스코어</div><div class="ach-cond">최종 점수 250점 이상</div></div></div>
+      <div class="ach-item"><div class="ach-icon" aria-hidden="true">💥</div><div class="ach-info"><div class="ach-name">초고속 광탈</div><div class="ach-cond">하드코어 모드 15초 안에 게임 오버</div></div></div>
+    </div>
+
+    <p class="ach-group">🍉 수박 게임 (6) · 🏃 FRUIT DASH (6)</p>
+    <div class="ach-grid">
+      <div class="ach-item"><div class="ach-icon" aria-hidden="true">🍉</div><div class="ach-info"><div class="ach-name">전설의 수박 탄생</div><div class="ach-cond">거대 수박 합성 성공</div></div></div>
+      <div class="ach-item"><div class="ach-icon" aria-hidden="true">🤑</div><div class="ach-info"><div class="ach-name">수박 부자</div><div class="ach-cond">10,000점 이상</div></div></div>
+      <div class="ach-item"><div class="ach-icon" aria-hidden="true">🍉</div><div class="ach-info"><div class="ach-name">쌍둥이 수박</div><div class="ach-cond">한 판에서 수박 2개</div></div></div>
+      <div class="ach-item"><div class="ach-icon" aria-hidden="true">🧺</div><div class="ach-info"><div class="ach-name">수박 농장</div><div class="ach-cond">한 판에서 수박 3개</div></div></div>
+      <div class="ach-item"><div class="ach-icon" aria-hidden="true">💎</div><div class="ach-info"><div class="ach-name">수박 재벌</div><div class="ach-cond">100,000점 이상</div></div></div>
+      <div class="ach-item"><div class="ach-icon" aria-hidden="true">🎨</div><div class="ach-info"><div class="ach-name">새 옷 입은 과일</div><div class="ach-cond">과일 스킨을 끼고 가장 큰 과일 만들기</div></div></div>
+      <div class="ach-item"><div class="ach-icon" aria-hidden="true">🏃</div><div class="ach-info"><div class="ach-name">질주의 생존자</div><div class="ach-cond">30초 이상 생존</div></div></div>
+      <div class="ach-item"><div class="ach-icon" aria-hidden="true">🌪️</div><div class="ach-info"><div class="ach-name">빛의 회피 장인</div><div class="ach-cond">60초 이상 생존</div></div></div>
+      <div class="ach-item"><div class="ach-icon" aria-hidden="true">🎯</div><div class="ach-info"><div class="ach-name">회피의 신</div><div class="ach-cond">500점 이상</div></div></div>
+      <div class="ach-item"><div class="ach-icon" aria-hidden="true">🛡️</div><div class="ach-info"><div class="ach-name">위기 탈출</div><div class="ach-cond">방패로 과일 막아내기</div></div></div>
+      <div class="ach-item"><div class="ach-icon" aria-hidden="true">⭐</div><div class="ach-info"><div class="ach-name">별빛 과일 채집가</div><div class="ach-cond">황금 별 5회 획득</div></div></div>
+      <div class="ach-item"><div class="ach-icon" aria-hidden="true">🌶️</div><div class="ach-info"><div class="ach-name">매운맛 생존자</div><div class="ach-cond">어려움에서 30초 이상 생존</div></div></div>
+    </div>
+
+    <p class="ach-group">🧩 과일 퍼즐 (5) · 🔪 과일 자르기 (3) · 🎹 과일 피아노 (3)</p>
+    <div class="ach-grid">
+      <div class="ach-item"><div class="ach-icon" aria-hidden="true">⛓️</div><div class="ach-info"><div class="ach-name">연쇄 반응</div><div class="ach-cond">한 번에 5연쇄</div></div></div>
+      <div class="ach-item"><div class="ach-icon" aria-hidden="true">💣</div><div class="ach-info"><div class="ach-name">과일 폭탄</div><div class="ach-cond">큰 폭탄 만들기</div></div></div>
+      <div class="ach-item"><div class="ach-icon" aria-hidden="true">🗺️</div><div class="ach-info"><div class="ach-name">스테이지 탐험가</div><div class="ach-cond">스테이지 10 클리어</div></div></div>
+      <div class="ach-item"><div class="ach-icon" aria-hidden="true">🏁</div><div class="ach-info"><div class="ach-name">퍼즐 정복자</div><div class="ach-cond">스테이지 30개 모두 클리어</div></div></div>
+      <div class="ach-item"><div class="ach-icon" aria-hidden="true">🧩</div><div class="ach-info"><div class="ach-name">퍼즐 고수</div><div class="ach-cond">3,000점 이상</div></div></div>
+      <div class="ach-item"><div class="ach-icon" aria-hidden="true">🌀</div><div class="ach-info"><div class="ach-name">과일 회오리</div><div class="ach-cond">한 번에 과일 5개 자르기</div></div></div>
+      <div class="ach-item"><div class="ach-icon" aria-hidden="true">🔪</div><div class="ach-info"><div class="ach-name">날쌘 칼솜씨</div><div class="ach-cond">500점 이상</div></div></div>
+      <div class="ach-item"><div class="ach-icon" aria-hidden="true">🎯</div><div class="ach-info"><div class="ach-name">하나도 안 놓쳐</div><div class="ach-cond">놓치지 않고 60초 버티기</div></div></div>
+      <div class="ach-item"><div class="ach-icon" aria-hidden="true">🎹</div><div class="ach-info"><div class="ach-name">첫 연주회</div><div class="ach-cond">한 곡을 끝까지 치기</div></div></div>
+      <div class="ach-item"><div class="ach-icon" aria-hidden="true">🎵</div><div class="ach-info"><div class="ach-name">건반 위의 과일</div><div class="ach-cond">200점 이상</div></div></div>
+      <div class="ach-item"><div class="ach-icon" aria-hidden="true">🎶</div><div class="ach-info"><div class="ach-name">앙코르 앙코르</div><div class="ach-cond">같은 곡 3바퀴 완주</div></div></div>
+    </div>
+
+    <p class="ach-group">🦘 과일 점프 (3) · 🧃 과일 주스 가게 (3) · 🎨 과일 그리기 (3)</p>
+    <div class="ach-grid">
+      <div class="ach-item"><div class="ach-icon" aria-hidden="true">🦘</div><div class="ach-info"><div class="ach-name">폴짝폴짝</div><div class="ach-cond">500점 이상</div></div></div>
+      <div class="ach-item"><div class="ach-icon" aria-hidden="true">🌙</div><div class="ach-info"><div class="ach-name">밤새 달리는 과일</div><div class="ach-cond">1,500점 이상</div></div></div>
+      <div class="ach-item"><div class="ach-icon" aria-hidden="true">🍒</div><div class="ach-info"><div class="ach-name">체리 수집가</div><div class="ach-cond">한 판에서 체리 15개</div></div></div>
+      <div class="ach-item"><div class="ach-icon" aria-hidden="true">🧃</div><div class="ach-info"><div class="ach-name">단골 많은 가게</div><div class="ach-cond">한 판에서 주스 20잔</div></div></div>
+      <div class="ach-item"><div class="ach-icon" aria-hidden="true">🥤</div><div class="ach-info"><div class="ach-name">주스 장인</div><div class="ach-cond">1,000점 이상</div></div></div>
+      <div class="ach-item"><div class="ach-icon" aria-hidden="true">🔥</div><div class="ach-info"><div class="ach-name">쉴 틈 없는 믹서</div><div class="ach-cond">10잔 연속 맞게 주기</div></div></div>
+      <div class="ach-item"><div class="ach-icon" aria-hidden="true">🎨</div><div class="ach-info"><div class="ach-name">그림 좀 그리는데?</div><div class="ach-cond">싱크율 70% 이상</div></div></div>
+      <div class="ach-item"><div class="ach-icon" aria-hidden="true">🖼️</div><div class="ach-info"><div class="ach-name">사진 같은 그림</div><div class="ach-cond">싱크율 90% 이상</div></div></div>
+      <div class="ach-item"><div class="ach-icon" aria-hidden="true">🎉</div><div class="ach-info"><div class="ach-name">그림 대회</div><div class="ach-cond">3명 이상이 끝까지 함께</div></div></div>
+    </div>
+
+    <p class="ach-group">🌟 공통 (11)</p>
+    <div class="ach-grid">
+      <div class="ach-item"><div class="ach-icon" aria-hidden="true">🥊</div><div class="ach-info"><div class="ach-name">도전 성공</div><div class="ach-cond">친구의 도전장에서 이기기</div></div></div>
+      <div class="ach-item"><div class="ach-icon" aria-hidden="true">🍓</div><div class="ach-info"><div class="ach-name">어엿한 딸기</div><div class="ach-cond">레벨 5 달성</div></div></div>
+      <div class="ach-item"><div class="ach-icon" aria-hidden="true">🍑</div><div class="ach-info"><div class="ach-name">과일 장인</div><div class="ach-cond">레벨 10 달성</div></div></div>
+      <div class="ach-item"><div class="ach-icon" aria-hidden="true">🏅</div><div class="ach-info"><div class="ach-name">첫 도장</div><div class="ach-cond">오늘의 미션 3개 모두 깨기</div></div></div>
+      <div class="ach-item"><div class="ach-icon" aria-hidden="true">📮</div><div class="ach-info"><div class="ach-name">도장 수집가</div><div class="ach-cond">미션 도장 10개</div></div></div>
+      <div class="ach-item"><div class="ach-icon" aria-hidden="true">🔥</div><div class="ach-info"><div class="ach-name">사흘 연속</div><div class="ach-cond">3일 연속 플레이</div></div></div>
+      <div class="ach-item"><div class="ach-icon" aria-hidden="true">📅</div><div class="ach-info"><div class="ach-name">일주일 개근</div><div class="ach-cond">7일 연속 플레이</div></div></div>
+      <div class="ach-item"><div class="ach-icon" aria-hidden="true">🗓️</div><div class="ach-info"><div class="ach-name">한 달 개근</div><div class="ach-cond">30일 연속 플레이</div></div></div>
+      <div class="ach-item"><div class="ach-icon" aria-hidden="true">🔎</div><div class="ach-info"><div class="ach-name">크레딧 정독가</div><div class="ach-cond">크레딧 창 3번 이상 열기</div></div></div>
+      <div class="ach-item"><div class="ach-icon" aria-hidden="true">❔</div><div class="ach-info"><div class="ach-name">숨김 업적</div><div class="ach-cond">찾기 전까지 ❔로 표시</div></div></div>
+      <div class="ach-item"><div class="ach-icon" aria-hidden="true">🎖️</div><div class="ach-info"><div class="ach-name">진정한 과일 마스터</div><div class="ach-cond">모든 업적 해금</div></div></div>
+    </div>
+  </div>
+
+  <div class="card" id="fa-titles">
+    <h3>12. 칭호 · 명예의 전당 · 프로필</h3>
+    <div class="grid-auto">
+      <div class="mini-card"><h4>🏷️ 칭호</h4><p>업적 칭호나 상점에서 산 칭호를 달면 이름 옆과 랭킹에 보입니다.</p></div>
+      <div class="mini-card"><h4>👑 명예의 전당</h4><p>지난주 게임별 1등은 왕관과 “주간 챔피언” 칭호. 랭킹의 명예의 전당 탭에서 최근 8주 1등을 봅니다.</p></div>
+      <div class="mini-card"><h4>🪪 프로필 카드</h4><p>닉네임 · 과일 아바타 · 테두리 · 칭호 · 레벨 · 게임별 최고 기록. 로그인하지 않아도 닉네임과 아바타를 정할 수 있습니다.</p></div>
+      <div class="mini-card"><h4>📈 기록 그래프</h4><p>최근 7일 판 수 · 플레이 시간 · 게임별 최고 점수(이 기기 기준), 최근 플레이 목록.</p></div>
+    </div>
+  </div>
+
+</section>
+
+<!-- ════════════════════════════════════════
+     SECTION 3 · 소셜 · 운영
+════════════════════════════════════════ -->
+<section class="spec-section tone-lime" id="social" aria-labelledby="socialTitle">
+
+  <div class="spec-header">
+    <div class="spec-header-icon" aria-hidden="true">🤝</div>
+    <div class="spec-header-text">
+      <h2 id="socialTitle">소셜 · 운영</h2>
+      <p>계정과 동기화, 랭킹, 친구 · 선물 · 대결, 관리자 기능</p>
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <div class="card" id="fa-account">
+      <h3>13. 계정 · 기록 동기화</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th scope="col">상태</th><th scope="col">저장 위치</th></tr></thead>
+          <tbody>
+            <tr><td><strong>로그인 안 함</strong></td><td>설정 · 업적 · 통계 · 최근 플레이 · 미션 진행을 이 브라우저에 저장</td></tr>
+            <tr><td><strong>Google 로그인</strong></td><td>클라우드 문서 <code>users/{uid}</code> 하나에 프로필 · 통계 · 업적 · 설정 · 인벤토리 · 스테이지</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <ul style="margin-top:14px;">
+        <li>로그인하면 기기 기록과 클라우드 기록을 <strong>항목마다 큰 값</strong>으로 합칩니다. 코인은 번 양 · 쓴 양이 늘기만 해서 기기끼리 안전하게 합쳐집니다.</li>
+        <li>게임 결과는 트랜잭션으로 저장해 여러 기기에서 동시에 해도 덮어써지지 않습니다.</li>
+        <li>로그아웃하면 다른 계정과 섞이지 않게 기기 기록을 비우고, 다시 로그인하면 복원합니다.</li>
+        <li>최근 플레이 목록과 미션 진행은 기기에만 둡니다.</li>
+      </ul>
+    </div>
+    <div class="card" id="fa-ranking">
+      <h3>14. 랭킹</h3>
+      <ul>
+        <li>랭킹 게임 8종마다 <strong>오늘 · 이번 주 · 전체</strong> 순위 (한국 시간 자정 · 월요일 기준)</li>
+        <li>보드 경로: <code>leaderboards/{게임}_{all | d&lt;일 번호&gt; | w&lt;주 번호&gt;}/scores/{uid}</code></li>
+        <li>로그인하면 판이 끝날 때 최고 점수가 자동으로 올라가고, 결과 화면에 순위 표시</li>
+        <li>공개되는 정보는 닉네임 · 아바타(기본이면 Google 사진) · 점수 · 칭호 · 테두리뿐</li>
+        <li>점수는 정수, 게임별 상한 이하, 올라갈 때만(3초에 한 번까지) 바뀜. 오늘 · 어제 · 이번 주 · 지난주 · 전체 보드에만 기록</li>
+        <li>욕설 · 성적인 닉네임은 정할 수 없고, 남의 이름에 있으면 <code>*</code>로 가림. 운영진처럼 보이는 이름과 차단 계정은 올라가지 않음</li>
+        <li>운영진 기록에는 파란 체크와 파란 칭호 배지</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <div class="card" id="fa-friends">
+      <h3>15. 친구 · 코인 선물 · 접속 표시</h3>
+      <ul>
+        <li>로그인하면 공개 프로필과 <strong>8자리 친구 코드</strong>가 생깁니다. 코드나 랭킹에서 이름을 눌러 요청 → 상대가 수락</li>
+        <li>친구에게 코인을 <strong>하루 5번, 한 번에 300코인</strong>까지. 보낸 사람의 쓴 코인이 같은 쓰기에서 금액만큼 늘어야 하고, 받는 사람이 선물함에서 한 번만 받음</li>
+        <li>관리자는 하루 20번, 최대치까지 보내며 코인이 줄지 않음</li>
+        <li>친구 목록 · 프로필에 온라인 여부와 마지막 접속 시간. 앱이 앞에 있는 동안 1분마다 기록, 친구와 운영진만 읽음. 설정 → 친구에서 끄면 기록을 지움</li>
+      </ul>
+    </div>
+    <div class="card" id="fa-challenge">
+      <h3>16. 친구 대결</h3>
+      <ul>
+        <li>결과를 공유하면 같은 판(같은 시드)으로 도전하는 링크(<code>#c=…</code>)가 붙습니다.</li>
+        <li>링크를 연 친구가 점수를 넘으면 “도전 성공!” + 🥊 업적</li>
+        <li>수박 게임은 떨어지는 과일 순서, 과일 퍼즐은 판 배치가 시드로 정해짐. 과일 자르기 링크에는 난이도도 실림</li>
+        <li>결과 이미지는 공유 시트나 클립보드로 보냄</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card" id="fa-admin">
+    <h3>17. 관리자 기능</h3>
+    <div class="grid-2">
+      <div>
+        <p class="sub-title">관리자 화면 (상단 방패 버튼)</p>
+        <ul>
+          <li>오늘 플레이어 · 판 수 통계</li>
+          <li><strong>유저 관리</strong>: 모든 유저 검색 · 필터 · 정렬, 실제 닉네임 · 친구 코드 · 최고 기록 · 마지막 접속 · 오늘 판 수, 차단 · 해제 · 랭킹 기록 삭제</li>
+          <li>유저 꾸미기 변경: 관리자가 바꾼 모습이 그 플레이어 기기에 반영</li>
+          <li>신고 · 의견 처리, 차단 관리. 랭킹 창에서도 기록 삭제 · 차단</li>
+        </ul>
+      </div>
+      <div>
+        <p class="sub-title">권한 구조</p>
+        <ul>
+          <li>관리자 목록은 서버 쪽 설정 문서에 있고, 공개 저장소에는 계정 정보가 없습니다.</li>
+          <li>설정 → 운영진에서 관리자 추가(최대 30명). 맨 앞의 소유자는 자리를 유지하고, 소유자만 관리자를 뺄 수 있습니다.</li>
+          <li><strong>운영진 시리즈</strong> <code>staff_*</code> 55종은 관리자만 씀. 관리자는 코인 · 수박 아이템 무한, 업적 전부 달성 상태</li>
+          <li><strong>프리즘(RGB) 테두리 선물</strong>: 관리자가 플레이어에게 줄 수 있는 특별 테두리</li>
+          <li><strong>QA 모드</strong>: 설정 → 운영진에서 켜면 일반 사용자처럼 테스트(무한 코인 · 운영진 물건 · 관리자 버튼 꺼짐, 로비에 🧪 QA 표시)</li>
+        </ul>
+      </div>
+    </div>
+    <p class="note">신고(랭킹 깃발 버튼)는 한 사람이 같은 기록에 한 번, 의견 보내기는 5분에 한 번이고 관리자만 읽습니다(로그인 필요).</p>
+  </div>
+
+</section>
+
+<!-- ════════════════════════════════════════
+     SECTION 4 · 시스템
+════════════════════════════════════════ -->
+<section class="spec-section tone-blue" id="system" aria-labelledby="systemTitle">
+
+  <div class="spec-header">
+    <div class="spec-header-icon" aria-hidden="true">⚙️</div>
+    <div class="spec-header-text">
+      <h2 id="systemTitle">시스템</h2>
+      <p>구조, 점수 검증, 데이터 접근 규칙, 오프라인 · 알림, 배포와 테스트</p>
+    </div>
+  </div>
+
+  <div class="card" id="fa-arch">
+    <h3>18. 시스템 구조</h3>
+    <div class="arch">
+      <div class="arch-col">
+        <p class="arch-title">Client</p>
+        <div class="mini-card"><h4>🎮 웹 앱</h4><p>단일 페이지 앱. 게임 9종은 필요할 때 나눠 불러옴. 화면 전환 · 창 · 테마 · 로그인 동기화 · 결과 → 보상 계산</p></div>
+        <div class="mini-card"><h4>📦 오프라인 캐시</h4><p>직접 작성한 캐시 스크립트가 앱 파일을 저장해 오프라인 플레이, 알림 표시</p></div>
+      </div>
+      <div class="arch-arrow" aria-hidden="true">⇄</div>
+      <div class="arch-col">
+        <p class="arch-title">Server</p>
+        <div class="mini-card"><h4>🛡️ 점수 검증 서버</h4><p>메인 호스트가 앱 파일(압축 · 캐시 헤더)과 <code>/api/round</code> · <code>/api/score</code> · <code>/api/health</code>를 함께 맡음. 로그인 토큰 확인, 판 티켓, 서명, 요청 제한</p></div>
+        <div class="mini-card"><h4>⏰ 예약 작업</h4><p>매일 20:00(한국 시간) 연속 출석 알림 발송. 수동 실행은 기본이 “대상만 세는” 연습 실행</p></div>
+      </div>
+      <div class="arch-arrow" aria-hidden="true">⇄</div>
+      <div class="arch-col">
+        <p class="arch-title">Data</p>
+        <div class="mini-card"><h4>☁️ 클라우드 문서 DB</h4><p>사용자 데이터 · 랭킹 · 친구 · 선물 · 신고 · 활동 통계. 모든 쓰기는 보안 규칙이 필드 · 크기 · 권한 · 점수 서명을 검사</p></div>
+        <div class="mini-card"><h4>🔑 Google 로그인</h4><p>로그인한 플레이어만 클라우드 저장 · 랭킹 · 친구 · 알림 사용</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <div class="card" id="fa-score">
+      <h3>19. 점수 검증</h3>
+      <ol class="steps">
+        <li><strong>판 시작</strong><span>로그인한 플레이어는 서버에서 판 티켓을 받습니다. 무료 인스턴스가 잠들어 있을 수 있어 로그인할 때 미리 깨웁니다.</span></li>
+        <li><strong>판 종료</strong><span>점수 · 걸린 시간 · (퍼즐은) 시드와 둔 수를 서버로 보냅니다.</span></li>
+        <li><strong>서버 검사</strong><span>과일 퍼즐은 시드와 수로 점수를 <strong>그대로 다시 계산</strong>. 실시간 게임은 티켓으로 잰 실제 시간 대비 점수가 게임별 이론상 최대 속도를 넘지 않는지 봅니다.</span></li>
+        <li><strong>서명 · 등록</strong><span>믿을 만한 판에만 서명(proof)을 붙이고, DB 보안 규칙이 클라이언트가 읽을 수 없는 키로 서명을 다시 계산해 맞을 때만 랭킹에 씁니다. 2026-10-20부터 서명 없는 점수는 올라가지 않습니다.</span></li>
+      </ol>
+      <p class="note">점수 확인은 최대 90초까지 기다립니다. 과일 그리기는 랭킹이 없어 검증 대상이 아닙니다.</p>
+    </div>
+    <div class="card" id="fa-rules">
+      <h3>20. 데이터 접근 규칙</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th scope="col">데이터</th><th scope="col">읽기</th><th scope="col">쓰기</th></tr></thead>
+          <tbody>
+            <tr><td><code>users/{uid}</code></td><td>본인</td><td>본인. 정해진 필드만 크기 제한 안에서, uid · 이메일 · 가입일 불변</td></tr>
+            <tr><td><code>leaderboards/…</code></td><td>누구나</td><td>로그인 본인 칸만, 서명 · 상한 · 상승만</td></tr>
+            <tr><td><code>players/{uid}</code></td><td>로그인 사용자가 한 명씩 (목록은 관리자만)</td><td>본인</td></tr>
+            <tr><td><code>friendCodes/{code}</code></td><td>로그인 사용자</td><td>처음 한 번만 등록</td></tr>
+            <tr><td><code>friendships/{a_b}</code></td><td>두 사람</td><td>요청 → 상대가 수락</td></tr>
+            <tr><td><code>gifts/{from_day_n}</code></td><td>보낸 · 받는 사람</td><td>친구에게만, 하루 개수 제한, 받는 사람이 한 번 수령</td></tr>
+            <tr><td><code>presence/{uid}</code></td><td>친구 · 운영진</td><td>본인</td></tr>
+            <tr><td><code>push/{uid}~{기기}</code></td><td>봉인되어 발송기만 열 수 있음</td><td>본인. 40일 넘게 갱신 없으면 발송기가 삭제</td></tr>
+            <tr><td><code>reports</code> · <code>feedback</code></td><td>관리자</td><td>같은 기록 1번 · 5분에 1번</td></tr>
+            <tr><td><code>activity/{날짜}/players/{uid}</code></td><td>관리자</td><td>본인의 하루 판 수 · 플레이 시간</td></tr>
+            <tr><td><code>bans/{uid}</code></td><td>규칙</td><td>관리자</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <div class="card" id="fa-offline">
+      <h3>21. 설치 · 오프라인 · 알림</h3>
+      <ul>
+        <li>홈 화면에 설치 가능. 한 번 열면 앱 파일을 캐시해 인터넷 없이 플레이(로그인 · 랭킹 제외). 이모지 그림은 미리 받아 두지 않음</li>
+        <li>배포 때 캐시 목록을 빌드가 채워 새 버전을 받음</li>
+        <li>연속 출석 알림: 브라우저의 푸시 구독 · 마지막으로 한 날 · 연속 일수를 발송기의 공개 키로 봉인해 저장. 알림을 끄거나 로그아웃하면 지움</li>
+        <li>키를 바꾸면 앱이 다음에 열릴 때 새 키로 다시 구독 · 봉인</li>
+      </ul>
+    </div>
+    <div class="card" id="fa-ux">
+      <h3>22. 사운드 · 설정 · 접근성</h3>
+      <ul>
+        <li><strong>사운드</strong>: 게임마다 다른 배경음악과 효과음을 브라우저에서 직접 합성. 배경음악 · 효과음 볼륨 따로</li>
+        <li><strong>설정</strong>: 라이트 · 다크 · 시스템 테마, 볼륨, 연출, 휴대폰 진동, 고대비 카드, 카드 크기, 앱 설치, 데이터 초기화</li>
+        <li><strong>접근성</strong>: 운영체제 “동작 줄이기” 존중, 키보드만으로 모든 메뉴</li>
+        <li><strong>크레딧</strong>: 스크립트로 움직이는 엔딩 크레딧(탭 일시정지 · 길게 눌러 빨리 감기), 업데이트 발자취</li>
+        <li><strong>약관</strong>: 로비 아래와 설정에서 이용약관 · 개인정보 처리방침. 데이터 처리가 바뀌면 약관과 패치노트를 함께 고침</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <div class="card" id="fa-deploy">
+      <h3>23. 배포 · 테스트</h3>
+      <ul>
+        <li><code>main</code>에 push하면 두 곳에 자동 배포
+          <ul>
+            <li><strong>메인 서버</strong> — 설치 후 자동 빌드, 앱 파일 + 점수 API. 정적 사이트가 아니라 웹 서비스여야 함</li>
+            <li><strong>웹 페이지</strong> <a href="https://eunyool10.github.io/FruitArcade/" target="_blank" rel="noopener">eunyool10.github.io/FruitArcade</a> — 타입 검사와 자동 테스트가 통과해야 배포. 점수 확인은 메인 서버로</li>
+          </ul>
+        </li>
+        <li>무료 인스턴스는 한동안 접속이 없으면 잠들어 첫 접속에 약 50초</li>
+        <li><strong>보안 규칙은 자동 배포되지 않음</strong>. 바꾸면 규칙 테스트를 돌리고, 새 랭킹 게임처럼 앱이 의존하는 변경은 규칙을 먼저 게시</li>
+        <li>로그인을 쓰는 두 도메인은 인증 승인 도메인에 등록되어 있어야 함</li>
+      </ul>
+      <p class="sub-title">테스트</p>
+      <ul>
+        <li><strong>타입 검사</strong></li>
+        <li><strong>자동 테스트</strong>: 수박 물리, 점수 서버 검사, 상점 · 스킨 · 그림 목록, 업적 수, 그리기 싱크율</li>
+        <li><strong>규칙 테스트</strong>: 보안 규칙 시나리오 묶음(배포 없이 실행)</li>
+        <li>로컬 에뮬레이터 모드: 가짜 로그인으로 랭킹 · 점수 검증까지 시험(실제 빌드에는 포함 안 됨)</li>
+      </ul>
+    </div>
+    <div class="card" id="fa-history">
+      <h3>24. 업데이트 발자취</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th scope="col">버전</th><th scope="col">날짜</th><th scope="col">내용</th></tr></thead>
+          <tbody>
+            <tr><td class="nowrap">v2.0</td><td class="nowrap">2026. 6.</td><td>과일 메모리 · 수박 게임</td></tr>
+            <tr><td class="nowrap">v2.1</td><td class="nowrap">2026. 8.</td><td>FRUIT DASH · 구글 연동</td></tr>
+            <tr><td class="nowrap">v3.0</td><td class="nowrap">2026. 10. 12.</td><td>새 단장 · 레벨 · 오늘의 미션</td></tr>
+            <tr><td class="nowrap">v3.1</td><td class="nowrap">2026. 10. 12.</td><td>랭킹 · 과일 퍼즐 · 친구 대결</td></tr>
+            <tr><td class="nowrap">v3.5</td><td class="nowrap">2026. 10. 13.</td><td>코인 · 상점</td></tr>
+            <tr><td class="nowrap">v3.7</td><td class="nowrap">2026. 10. 13.</td><td>과일 자르기</td></tr>
+            <tr><td class="nowrap">v3.8</td><td class="nowrap">2026. 10. 13.</td><td>점수 검증 서버</td></tr>
+            <tr><td class="nowrap">v3.12</td><td class="nowrap">2026. 10. 14.</td><td>친구 · 코인 선물</td></tr>
+            <tr><td class="nowrap">v3.23</td><td class="nowrap">2026. 10. 25.</td><td>모든 게임에 과일 스킨</td></tr>
+            <tr><td class="nowrap">v3.26</td><td class="nowrap">2026. 10. 26.</td><td>과일 피아노</td></tr>
+            <tr><td class="nowrap">v3.32</td><td class="nowrap">2026. 10. 26.</td><td>과일 자르기 난이도</td></tr>
+            <tr><td class="nowrap">v3.34</td><td class="nowrap">2026. 10. 27.</td><td>일곱 번째 게임, 과일 점프</td></tr>
+            <tr><td class="nowrap">v3.35</td><td class="nowrap">2026. 10. 27.</td><td>과일 주스 가게 · 과일 그리기</td></tr>
+            <tr><td class="nowrap">v3.36</td><td class="nowrap">2026. 10. 27.</td><td>주스 가게 새 단장 · 그리기 점수판</td></tr>
+            <tr><td class="nowrap">v3.37</td><td class="nowrap">2026. 10. 27.</td><td>RGB 러너 · 운영진 아이템 18종 추가</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" id="fa-roadmap">
+    <h3>25. 알려진 제한 · 다음 과제</h3>
+    <div class="grid-2">
+      <div>
+        <p class="sub-title">알려진 제한</p>
+        <ul>
+          <li>실시간 게임(메모리 · 수박 · 대시 · 자르기 등)은 판을 다시 계산할 수 없어 시간 대비 상한까지만 검사합니다. 그 안의 이상한 기록은 관리자가 지우고 차단합니다.</li>
+          <li>무료 서버가 잠들면 첫 점수 확인이 늦어질 수 있습니다.</li>
+          <li>예약 알림은 저장소에 60일 동안 활동이 없으면 멈추므로 다시 켜야 합니다.</li>
+          <li>프로필 카드가 읽는 보드 수가 한도에 닿아, 랭킹 게임을 더 늘리려면 구조 변경이 필요합니다.</li>
+        </ul>
+      </div>
+      <div>
+        <p class="sub-title">다음 과제</p>
+        <ul>
+          <li>코인 지급 서버 검증 마무리(서버 서명 지급은 준비됨, 클라이언트 연결 남음)</li>
+          <li>수박 게임 리플레이 검증: 시드로 정해진 낙하 순서로 서버가 합체를 다시 셈</li>
+          <li>다른 실시간 게임의 리플레이 검증 확대</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+</main>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <nav class="footer-links" aria-label="다른 명세서">
+    <a href="index.html">명세서 선택</a>
+    <a href="schoolfix.html">SchoolFix AI 명세서</a>
+    <a href="https://eunyool10.github.io/FruitArcade/" target="_blank" rel="noopener">과일 아케이드 열기</a>
+  </nav>
+  <p class="footer-meta">© 2026 · Sweet Fruit Arcade Zone Development Specification</p>
+</footer>
+
+<!-- ── TOC · SEARCH DRAWER ── -->
+<dialog class="toc" id="toc" aria-labelledby="tocTitle">
+  <div class="toc-panel">
+    <div class="toc-head">
+      <h2 id="tocTitle">목차</h2>
+      <button class="icon-btn" id="tocClose" type="button" aria-label="목차 닫기">
+        <svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <div class="toc-search">
+      <label class="sr-only" for="tocSearch">명세서 내용 검색</label>
+      <svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input id="tocSearch" type="search" placeholder="내용 검색 (예: 수박, 코인, 랭킹)" autocomplete="off" spellcheck="false" aria-describedby="tocCount">
+    </div>
+    <p class="toc-count" id="tocCount" aria-live="polite"></p>
+    <nav class="toc-nav" id="tocNav" aria-label="명세서 목차"></nav>
+    <p class="toc-empty" id="tocEmpty" hidden>일치하는 항목이 없습니다.</p>
+  </div>
+</dialog>
+
+<button class="to-top" id="toTop" type="button" aria-label="맨 위로 이동" title="맨 위로">
+  <svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg>
+</button>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="assets/spec.js"></script>
+</body>
+</html>
