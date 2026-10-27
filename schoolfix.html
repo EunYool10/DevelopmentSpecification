@@ -703,10 +703,9 @@
     </div>
   </div>
 
-  <div class="grid-2">
-    <div class="card" id="sf-tests">
-      <h3>29. 테스트</h3>
-      <pre>npm run lint            # 타입 검사
+  <div class="card" id="sf-tests">
+    <h3>29. 테스트</h3>
+    <pre>npm run lint            # 타입 검사
 npm run test:risk       # 위험도 채점
 npm run test:clarify    # AI 추가 질문
 npm run test:location   # 위치 정규화·집계 (API 호출 없음)
@@ -717,19 +716,6 @@ npm run test:examples   # 작성 예시 데이터·빈칸·학교별 예시
 npm run test:features   # 사진 신고·진짜 고쳐졌나요·소음·공감 알림·내가 바꾼 학교
 npm run test:e2e        # 빌드한 서버로 API 처음부터 끝까지
 npm run test:e2e:supabase  # Supabase 흉내 서버, 서버 두 대 동시 쓰기 포함</pre>
-    </div>
-    <div class="card" id="sf-limits">
-      <h3>30. 알려진 제한</h3>
-      <ul>
-        <li>운영진 화면은 30초마다 다시 받아옴(WebSocket 아님). 바로 알아야 하면 웹훅 알림을 함께 사용</li>
-        <li>Rate Limit이 인메모리. 인스턴스를 늘리면 Redis 같은 공유 저장소 필요</li>
-        <li>욕설 필터는 모음 삽입 우회를 잡지 못함(정상 문장 오탐 방지를 위해 의도적으로 제외)</li>
-        <li>AI 추가 질문 대화는 서버 메모리에 있어 재시작하면 처음부터</li>
-        <li>확인 코드가 없는 예전 신고는 다른 기기에서 불러올 수 없음</li>
-        <li>백업 되돌리기는 계정·로그인·알림 구독을 바꾸지 않음. 보관 기간이 지난 사진은 복구 불가</li>
-        <li>학생 알림은 브라우저에 따라 다름(iOS는 홈 화면 앱, 일부 인앱 브라우저 불가)</li>
-      </ul>
-    </div>
   </div>
 
 </section>
