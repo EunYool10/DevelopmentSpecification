@@ -41,6 +41,7 @@
 .page-fruit     { --page-accent: #c2620a; }
 .page-egg       { --page-accent: #8c6b00; }
 .page-maze      { --page-accent: #4f52c9; }
+.page-hub       { --page-accent: #2f6fd6; }
 
 /* 섹션 강조색: --accent(글자·선), --accent-rgb(옅은 배경용) */
 .tone-green  { --accent: #1a7f5a; --accent-rgb: 26, 127, 90; }
@@ -57,6 +58,7 @@
   .page-fruit     { --page-accent: #e0954f; }
   .page-egg       { --page-accent: #d9a93f; }
   .page-maze      { --page-accent: #9ea2ef; }
+  .page-hub       { --page-accent: #7ea6e8; }
   .tone-amber  { --accent: #d9a93f; --accent-rgb: 217, 169, 63; }
   .tone-indigo { --accent: #9ea2ef; --accent-rgb: 158, 162, 239; }
   .tone-green  { --accent: #5bb894; --accent-rgb: 91, 184, 148; }
@@ -764,6 +766,7 @@ footer {
 .chooser-title { font-size: clamp(30px, 5vw, 42px); font-weight: 700; letter-spacing: -.5px; line-height: 1.2; }
 .chooser-sub { margin-top: 10px; font-size: 17px; color: var(--sub); }
 .choices { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 40px; }
+.choices > :last-child:nth-child(odd) { grid-column: 1 / -1; } /* 홀수 개면 마지막 카드가 한 줄을 다 쓴다 */
 .choice {
   display: flex;
   flex-direction: column;
