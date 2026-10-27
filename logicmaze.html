@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="논리 미궁: 대우의 열쇠 v4.2.0 — 명제의 대우를 골라 다섯 개의 방을 탈출하는 고1 공통수학 명제 논리 퀴즈 게임의 개발 명세서">
+<meta name="theme-color" content="#f6f7f9" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#121417" media="(prefers-color-scheme: dark)">
+<title>논리 미궁 개발 명세서</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🗝️</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&family=Space+Mono:wght@400;700&display=swap">
+<link rel="stylesheet" href="assets/spec.css">
+</head>
+<body class="page-maze">
+
+<a class="skip-link" href="#play">본문으로 건너뛰기</a>
+
+<!-- ═══════ TOP BAR ═══════ -->
+<header class="topbar" id="topbar">
+  <div class="topbar-inner">
+    <a class="topbar-brand" href="index.html" title="명세서 선택으로">
+      <svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><polyline points="15 18 9 12 15 6"/></svg>
+      <span class="brand-label">명세서 선택</span>
+    </a>
+    <nav class="topbar-tabs" aria-label="명세서 섹션 바로가기">
+      <a class="tab tone-indigo" href="#play" data-section="play"><span class="lbl-long">게임</span><span class="lbl-short">게임</span></a>
+      <a class="tab tone-green" href="#learn" data-section="learn"><span class="lbl-long">문제 · 학습</span><span class="lbl-short">문제</span></a>
+      <a class="tab tone-amber" href="#rewards" data-section="rewards"><span class="lbl-long">보상 · 상점</span><span class="lbl-short">상점</span></a>
+      <a class="tab tone-violet" href="#account" data-section="account"><span class="lbl-long">계정 · 운영</span><span class="lbl-short">계정</span></a>
+    </nav>
+    <div class="topbar-actions">
+      <button class="icon-btn" id="printBtn" type="button" title="인쇄 / PDF로 저장" aria-label="인쇄 또는 PDF로 저장">
+        <svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+      </button>
+      <button class="icon-btn" id="tocBtn" type="button" aria-haspopup="dialog" aria-controls="toc" aria-label="목차 · 검색" title="목차 · 검색 (/)">
+        <svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+        <span class="btn-label">목차 · 검색</span>
+        <kbd aria-hidden="true">/</kbd>
+      </button>
+    </div>
+  </div>
+  <div class="progress" aria-hidden="true"><div class="progress-bar" id="progressBar"></div></div>
+</header>
+
+<main id="main">
+
+<!-- ═══════ PAGE HEADER ═══════ -->
+<section class="landing" id="top" aria-labelledby="pageTitle">
+ <div class="landing-inner">
+  <p class="eyebrow">개발 명세서 · v4.2.0</p>
+  <h1 class="landing-title" id="pageTitle">논리 미궁: 대우의 열쇠</h1>
+  <p class="landing-sub">원래 명제(p → q)의 올바른 <strong>대우(~q → ~p)</strong>를 골라 다섯 개의 방을 탈출하는 명제 논리 퀴즈 게임. 문제는 고등학교 1학년 공통수학 범위에서만 나옵니다.</p>
+  <div class="stat-row">
+    <div class="stat"><span class="stat-num">5</span><span class="stat-label">한 도전의 방</span></div>
+    <div class="stat"><span class="stat-num">7</span><span class="stat-label">방 유형</span></div>
+    <div class="stat"><span class="stat-num">7</span><span class="stat-label">공통수학 단원</span></div>
+    <div class="stat"><span class="stat-num">5</span><span class="stat-label">상점 물건</span></div>
+  </div>
+  <div class="nav-pills">
+    <a class="nav-pill tone-indigo" href="#play">게임</a>
+    <a class="nav-pill tone-green" href="#learn">문제 · 학습</a>
+    <a class="nav-pill tone-amber" href="#rewards">보상 · 상점</a>
+    <a class="nav-pill tone-violet" href="#account">계정 · 운영</a>
+  </div>
+  <div class="ext-links">
+    <a class="ext-link" href="https://eunyool10.github.io/LogicMaze/" target="_blank" rel="noopener">웹사이트 바로가기
+      <svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
+  </div>
+  <p class="doc-meta">기준: v4.2.0 (2026-10-26) · 작성 2026-10-27</p>
+  <p class="landing-hint"><kbd>/</kbd> 키를 눌러 목차와 내용을 바로 검색할 수 있습니다.</p>
+ </div>
+</section>
+
+<!-- ════════════════════════════════════════
+     SECTION 1 · 게임
+════════════════════════════════════════ -->
+<section class="spec-section tone-indigo" id="play" aria-labelledby="playTitle">
+
+  <div class="spec-header">
+    <div class="spec-header-text">
+      <h2 id="playTitle">게임</h2>
+      <p>한 도전의 흐름과 열쇠 규칙</p>
+    </div>
+  </div>
+
+  <div class="card" id="lm-overview">
+    <h3>1. 프로젝트 개요</h3>
+    <p>미궁의 방마다 명제 문제가 하나씩 나오고, 보기 셋 중 알맞은 답을 고르면 다음 방으로 나아갑니다. 대우를 찾는 방을 중심으로 역 · 부정 · 필요충분조건 · 반례 · 참거짓 · 진리집합 방이 섞여 나오고, 마지막 방은 ‘그리고’ · ‘또는’이 섞인 명제입니다.</p>
+    <div class="grid-auto">
+      <div class="mini-card"><h4>다섯 방 탈출</h4><p>열쇠를 지키며 방 I부터 V까지 통과하면 탈출입니다. 탈출과 완벽 탈출에 금화를 받습니다.</p></div>
+      <div class="mini-card"><h4>보기마다 해설</h4><p>답을 고르면 맞았는지와 함께 보기 하나하나가 왜 맞고 틀린지 해설을 보여 줍니다.</p></div>
+      <div class="mini-card"><h4>로그인 없이 시작</h4><p>손님으로 바로 플레이하고, Google 로그인하면 금화와 기록이 계정에 저장됩니다.</p></div>
+    </div>
+  </div>
+
+  <div class="card" id="lm-run">
+    <h3>2. 한 도전의 흐름</h3>
+    <ol class="steps">
+      <li><strong>입장 준비</strong><span>여분의 열쇠와 가져갈 물건(보호의 인장 · 불사조 깃털 · 지혜의 촛대)을 고릅니다.</span></li>
+      <li><strong>방 I · II</strong><span>원래 명제의 대우를 찾는 방에서 시작하고, 두 번째 방은 대우나 역을 찾습니다.</span></li>
+      <li><strong>방 III · IV</strong><span>수학 명제의 대우 방 하나와, 조건 · 반례 · 부정 · 참거짓 · 진리집합 중 무작위로 고른 방 하나가 무작위 순서로 나옵니다.</span></li>
+      <li><strong>방 V</strong><span>‘그리고’ · ‘또는’이 섞인 명제의 대우를 찾는 마지막 방입니다.</span></li>
+      <li><strong>결과</strong><span>탈출하면 맞힌 문제 · 첫 시도 · 탈출 · 완벽 탈출 보상을 합쳐 금화를 받습니다. 열쇠를 모두 잃으면 도전이 끝나고 정답을 보여 줍니다.</span></li>
+    </ol>
+  </div>
+
+  <div class="card" id="lm-keys">
+    <h3>3. 열쇠 규칙 · 조작</h3>
+    <ul>
+      <li>도전마다 열쇠 <strong>3개</strong>로 시작하고, 상점에서 산 여분의 열쇠를 한 번에 <strong>2개</strong>까지 더 가져갈 수 있습니다.</li>
+      <li>틀리면 열쇠를 하나 잃고, 열쇠가 0개가 되면 도전이 끝납니다.</li>
+      <li>통찰의 렌즈를 쓰면 오답 하나를 지웁니다(방마다 한 번).</li>
+      <li>보기는 키보드 <code>1</code> · <code>2</code> · <code>3</code>으로도 고르고, 같은 문제는 연달아 나오지 않습니다.</li>
+      <li>방이 바뀐 직후 잠깐은 입력을 받지 않아, 연달아 눌러도 다음 방의 보기가 잘못 눌리지 않습니다.</li>
+    </ul>
+  </div>
+
+</section>
+
+<!-- ════════════════════════════════════════
+     SECTION 2 · 문제 · 학습
+════════════════════════════════════════ -->
+<section class="spec-section tone-green" id="learn" aria-labelledby="learnTitle">
+
+  <div class="spec-header">
+    <div class="spec-header-text">
+      <h2 id="learnTitle">문제 · 학습</h2>
+      <p>방 유형, 보기와 해설, 출제 범위, 연습과 오답 노트</p>
+    </div>
+  </div>
+
+  <div class="card" id="lm-kinds">
+    <h3>4. 방 유형 7가지</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th scope="col">방</th><th scope="col">묻는 것</th><th scope="col">핵심</th></tr></thead>
+        <tbody>
+          <tr><td class="nowrap"><strong>대우</strong></td><td>원래 명제 p → q의 대우를 고르세요</td><td><code>~q → ~p</code> · 원래 명제와 참 · 거짓이 언제나 같음</td></tr>
+          <tr><td class="nowrap"><strong>역</strong></td><td>이 명제의 역을 고르세요</td><td><code>q → p</code> · 원래 명제가 참이어도 거짓일 수 있음</td></tr>
+          <tr><td class="nowrap"><strong>부정</strong></td><td>이 명제의 부정을 고르세요</td><td>‘모든’ ↔ ‘어떤’, ‘그리고’ ↔ ‘또는’, ‘&gt;’ ↔ ‘≤’, ‘=’ ↔ ‘≠’</td></tr>
+          <tr><td class="nowrap"><strong>조건</strong></td><td>p는 q이기 위한 어떤 조건인가요</td><td>충분조건 · 필요조건 · 필요충분조건</td></tr>
+          <tr><td class="nowrap"><strong>반례</strong></td><td>명제가 거짓임을 보이는 반례를 고르세요</td><td>가정은 만족하고 결론은 만족하지 않는 예</td></tr>
+          <tr><td class="nowrap"><strong>참 · 거짓</strong></td><td>다음 중 참인 명제를 고르세요</td><td>반례가 있으면 거짓</td></tr>
+          <tr><td class="nowrap"><strong>진리집합</strong></td><td>조건 p의 진리집합을 고르세요</td><td>전체집합 U = {1, 2, …, 10}에서 조건을 참이 되게 하는 원소</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="card" id="lm-choices">
+    <h3>5. 대우 방의 보기와 해설</h3>
+    <p>대우 방의 보기 셋 중 하나만 대우이고, 나머지는 헷갈리기 쉬운 함정입니다.</p>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th scope="col">보기</th><th scope="col">해설</th></tr></thead>
+        <tbody>
+          <tr><td class="nowrap"><strong>대우</strong></td><td>가정과 결론을 맞바꾸고 둘 다 부정한 문장. 원래 명제와 참 · 거짓이 언제나 같습니다.</td></tr>
+          <tr><td class="nowrap"><strong>역</strong></td><td>가정과 결론의 자리만 맞바꾼 문장. 원래 명제가 참이어도 역은 거짓일 수 있습니다.</td></tr>
+          <tr><td class="nowrap"><strong>한쪽만 부정</strong></td><td>대우처럼 자리를 바꿨지만 가정과 결론 중 한쪽만 부정한 문장. 대우는 둘 다 부정해야 합니다.</td></tr>
+          <tr><td class="nowrap"><strong>잘못된 부정</strong></td><td>자리는 바꿨지만 부정을 잘못한 문장. ‘그리고’를 부정하면 ‘또는’이, ‘또는’을 부정하면 ‘그리고’가 됩니다(드모르간 법칙).</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note">교육과정에서 다루지 않는 명제의 ‘이’(~p → ~q)는 나오지 않습니다.</p>
+  </div>
+
+  <div class="card" id="lm-scope">
+    <h3>6. 출제 범위</h3>
+    <p>모든 방은 「집합과 명제」의 명제 문제이고, 명제에 담긴 수학은 고등학교 1학년 공통수학1 · 공통수학2에 나오는 내용만 씁니다. 방마다 그 문제의 단원을 보여 줍니다.</p>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th scope="col">과목</th><th scope="col">단원</th></tr></thead>
+        <tbody>
+          <tr><td><strong>공통수학1</strong></td><td>다항식 · 방정식과 부등식 · 경우의 수 · 행렬</td></tr>
+          <tr><td><strong>공통수학2</strong></td><td>도형의 방정식 · 집합과 명제 · 함수와 그래프</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note">날씨 · 동물 · 과학처럼 수학이 아닌 명제는 쓰지 않습니다.</p>
+  </div>
+
+  <div class="card" id="lm-practice">
+    <h3>7. 유형별 연습 · 오답 노트</h3>
+    <div class="grid-auto">
+      <div class="mini-card"><h4>유형별 연습</h4><p>열쇠와 금화 걱정 없이 원하는 방 유형만 골라 풉니다. 유형마다 무엇을 연습하는지 한 줄 설명과 문제 수를 보여 줍니다.</p></div>
+      <div class="mini-card"><h4>오답 노트</h4><p>틀린 문제와 해설을 모아 다시 봅니다. 이 기기에 기록마다 따로 저장하고, 최대 50개까지 남깁니다.</p></div>
+    </div>
+  </div>
+
+</section>
+
+<!-- ════════════════════════════════════════
+     SECTION 3 · 보상 · 상점
+════════════════════════════════════════ -->
+<section class="spec-section tone-amber" id="rewards" aria-labelledby="rewardsTitle">
+
+  <div class="spec-header">
+    <div class="spec-header-text">
+      <h2 id="rewardsTitle">보상 · 상점</h2>
+      <p>금화 보상, 상점 물건, 테마</p>
+    </div>
+  </div>
+
+  <div class="card" id="lm-coins">
+    <h3>8. 금화 보상</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th scope="col">받는 때</th><th scope="col" class="num">금화</th></tr></thead>
+        <tbody>
+          <tr><td>문제를 맞힐 때마다</td><td class="num">10</td></tr>
+          <tr><td>첫 시도에 맞히면 추가</td><td class="num">5</td></tr>
+          <tr><td>탈출</td><td class="num">30</td></tr>
+          <tr><td>완벽 탈출(실수 없이)</td><td class="num">20</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note">친구에게 받은 금화와 운영진이 준 금화도 더해집니다. 운영진 계정은 금화가 무한으로 표시되고 물건값을 내지 않습니다.</p>
+  </div>
+
+  <div class="card" id="lm-shop">
+    <h3>9. 상점 물건</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th scope="col">물건</th><th scope="col" class="num">값</th><th scope="col">효과</th></tr></thead>
+        <tbody>
+          <tr><td class="nowrap"><strong>여분의 열쇠</strong></td><td class="num">80</td><td>다음 도전에 열쇠를 하나 더 가져감(한 번에 2개까지)</td></tr>
+          <tr><td class="nowrap"><strong>통찰의 렌즈</strong></td><td class="num">50</td><td>방 안에서 오답 하나 지우기(방마다 한 번)</td></tr>
+          <tr><td class="nowrap"><strong>보호의 인장</strong></td><td class="num">70</td><td>가져간 도전에서 첫 실수 한 번, 열쇠를 잃지 않게 막기</td></tr>
+          <tr><td class="nowrap"><strong>불사조 깃털</strong></td><td class="num">120</td><td>열쇠를 모두 잃으면 한 번 되살아나 열쇠 하나로 이어 가기</td></tr>
+          <tr><td class="nowrap"><strong>지혜의 촛대</strong></td><td class="num">40</td><td>도전 동안 방마다 실마리(가정과 결론을 나눠 보여 주기)</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note">물건은 종류마다 9개까지 가질 수 있습니다. 인장 · 깃털 · 촛대는 입장 전에 골라 가져가는 물건입니다.</p>
+  </div>
+
+  <div class="card" id="lm-themes">
+    <h3>10. 테마</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th scope="col">테마</th><th scope="col" class="num">값</th><th scope="col">분위기</th></tr></thead>
+        <tbody>
+          <tr><td class="nowrap"><strong>에메랄드 금고</strong></td><td class="num">기본</td><td>짙은 녹색 가죽과 황동 장식</td></tr>
+          <tr><td class="nowrap"><strong>사파이어 천문대</strong></td><td class="num">300</td><td>한밤의 남색 위에 은빛 계기판</td></tr>
+          <tr><td class="nowrap"><strong>가넷 서고</strong></td><td class="num">300</td><td>오래된 적갈색 서고와 로즈골드 장식</td></tr>
+          <tr><td class="nowrap"><strong>흑요석 전당</strong></td><td class="num">400</td><td>검은 흑요석 벽에 샴페인 금빛 장식</td></tr>
+          <tr><td class="nowrap"><strong>호박 공방</strong></td><td class="num">400</td><td>호박색 등불 아래의 오래된 시계 공방</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</section>
+
+<!-- ════════════════════════════════════════
+     SECTION 4 · 계정 · 운영
+════════════════════════════════════════ -->
+<section class="spec-section tone-violet" id="account" aria-labelledby="accountTitle">
+
+  <div class="spec-header">
+    <div class="spec-header-text">
+      <h2 id="accountTitle">계정 · 운영</h2>
+      <p>로그인과 저장, 친구와 선물, 공정한 플레이, 운영자 화면, 의견과 설치</p>
+    </div>
+  </div>
+
+  <div class="card" id="lm-login">
+    <h3>11. 로그인 · 계정 저장</h3>
+    <ul>
+      <li>Google 계정으로 로그인하면 금화, 물건, 테마, 판 수 · 탈출 · 완벽 탈출 · 지나온 방 수가 계정에 저장됩니다.</li>
+      <li>처음 로그인하면 그 기기의 손님 기록이 계정으로 옮겨지고, 새 기기에서는 새로 한 플레이만 계정 기록에 더해집니다.</li>
+      <li>저장은 잠깐 모았다가 한 번에 보내고, 로그아웃하거나 창을 닫을 때 마지막 기록을 먼저 저장합니다.</li>
+      <li>저장이 끝나기 전에 연결이 끊겨도 다음에 열 때 이어서 계정에 올립니다.</li>
+    </ul>
+  </div>
+
+  <div class="card" id="lm-friends">
+    <h3>12. 친구 · 금화 선물</h3>
+    <div class="grid-2">
+      <div>
+        <p class="sub-title">친구</p>
+        <ul>
+          <li>로그인하면 친구 기능이 처음부터 켜져 있습니다. 이름은 무작위로 정해지고 바꿀 수 있습니다.</li>
+          <li>친구 코드나 초대 링크로 친구를 맺습니다(요청 → 수락).</li>
+          <li>친구들과 탈출 · 완벽 탈출 · 지나온 방 수 순위를 봅니다.</li>
+          <li>친구 기능을 끄면 다시 켤 때까지 꺼져 있습니다.</li>
+        </ul>
+      </div>
+      <div>
+        <p class="sub-title">금화 선물</p>
+        <ul>
+          <li>서로 친구인 사람에게 한 번에 <strong>10~100개</strong>, 하루 <strong>300개</strong>까지 보냅니다.</li>
+          <li>받은 금화는 친구 화면의 ‘받은 금화’에 기록됩니다.</li>
+          <li>운영진은 이벤트나 보상으로 금화를 줄 수 있습니다(한도 없음).</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" id="lm-fair">
+    <h3>13. 공정한 플레이</h3>
+    <ul>
+      <li>저장할 때마다 서버 규칙이 금화가 플레이 기록 · 받은 선물과 맞는지, 상점 물건값을 냈는지 확인합니다.</li>
+      <li>무료 혜택을 받는 계정이 정말 운영진인지 서버에서 확인합니다.</li>
+      <li>진행 기록이 앞뒤가 맞는지(완벽 탈출 ≤ 탈출 ≤ 판 수 등) 확인합니다.</li>
+      <li>선물은 보낸 양과 받는 쪽 기록이 같은 쓰기에서 맞아야 해, 한 번에 두 번 쓰는 식의 부정을 막습니다.</li>
+      <li>운영진 계정은 이메일 대신 해시로 등록해 공개 저장소에 이메일이 드러나지 않습니다.</li>
+    </ul>
+  </div>
+
+  <div class="card" id="lm-ops">
+    <h3>14. 운영자 화면</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th scope="col">탭</th><th scope="col">할 수 있는 것</th></tr></thead>
+        <tbody>
+          <tr><td class="nowrap"><strong>문의</strong></td><td>받은 의견을 최신순으로 보기, 처리 전 · 완료 · 전체와 분류로 거르기, 답변 달기, 처리 상태 바꾸기, 삭제. 새 문의는 메뉴의 ‘운영자’에 숫자로 표시</td></tr>
+          <tr><td class="nowrap"><strong>사용자</strong></td><td>최근 저장 순 목록, uid · 친구 코드 · 친구 이름으로 찾기, 기록 고치기, 초기화, 금화 주기, 친구 프로필 내리기, 이용 제한(의견 · 친구 막기)과 풀기, 삭제 요청 처리</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note">운영자가 기록을 고치는 사이에 그 사용자가 저장하면 고치기가 취소되고, 오래된 기기의 저장은 거부되어 바뀐 기록 위에 다시 맞춰집니다.</p>
+  </div>
+
+  <div class="card" id="lm-support">
+    <h3>15. 의견 · 약관 · 설치</h3>
+    <div class="grid-auto">
+      <div class="mini-card"><h4>의견 보내기</h4><p>로그인한 플레이어가 1분에 한 번 보냅니다. 보낸 의견과 처리 상태, 운영진의 답변을 볼 수 있고, 새 답변이 오면 메뉴 아래에 숫자로 알려 줍니다.</p></div>
+      <div class="mini-card"><h4>약관 · 개인정보</h4><p>이용약관과 개인정보 처리방침(2026년 10월 19일 시행)에 모으는 정보, 보이는 정보, 보관과 삭제, 공정한 플레이, 운영진 내용을 담습니다.</p></div>
+      <div class="mini-card"><h4>앱으로 설치</h4><p>메뉴 아래 ‘앱으로 설치’로 홈 화면에 설치하고(아이폰은 방법 안내), 한 번 열어 둔 뒤에는 오프라인에서도 메뉴가 열립니다.</p></div>
+      <div class="mini-card"><h4>메뉴 아래 링크</h4><p>게임 안내 · 패치노트 · 크레딧 · 의견 보내기 · 약관 · 개인정보 · 은율이의 다른 앱 · 버전 표시</p></div>
+    </div>
+  </div>
+
+  <div class="card" id="lm-history">
+    <h3>16. 업데이트 발자취</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th scope="col">버전</th><th scope="col">날짜</th><th scope="col">내용</th></tr></thead>
+        <tbody>
+          <tr><td class="nowrap">4.2.0</td><td class="nowrap">2026. 10. 26.</td><td>친구 기능 기본 켜기, 친구끼리 금화 선물, 운영진 금화 주기</td></tr>
+          <tr><td class="nowrap">4.1.0</td><td class="nowrap">2026. 10. 25.</td><td>운영자 화면(문의 처리 · 사용자 관리), 보낸 의견과 답변 보기</td></tr>
+          <tr><td class="nowrap">4.0.0</td><td class="nowrap">2026. 10. 25.</td><td>공통수학 문제 전면 검토, 참거짓 · 진리집합 방, 유형별 연습, 오답 노트, 친구</td></tr>
+          <tr><td class="nowrap">3.3.0</td><td class="nowrap">2026. 10. 20.</td><td>메뉴 아래 ‘은율이의 다른 앱’</td></tr>
+          <tr><td class="nowrap">3.2.0</td><td class="nowrap">2026. 10. 19.</td><td>부정행위 방지 규칙, 계정 저장 안정화, 의견 1분 제한</td></tr>
+          <tr><td class="nowrap">3.1.0</td><td class="nowrap">2026. 10. 19.</td><td>문제 범위를 「집합과 명제」에 맞춤, 게임 안내 · 패치노트 · 의견 · 약관, 앱으로 설치</td></tr>
+          <tr><td class="nowrap">3.0.0</td><td class="nowrap">2026. 10. 19.</td><td>새 물건과 테마, 역 · 부정 · 필요충분조건 · 반례 방</td></tr>
+          <tr><td class="nowrap">2.2.0</td><td class="nowrap">2026. 10. 19.</td><td>입력 잠금, 종료 전 저장, 관리자 무료 물건, 아이콘 새 단장</td></tr>
+          <tr><td class="nowrap">2.1.0</td><td class="nowrap">2026. 10. 19.</td><td>Google 로그인, 계정 저장</td></tr>
+          <tr><td class="nowrap">2.0.0</td><td class="nowrap">2026. 10. 18.</td><td>새 디자인, 무작위 문제, 시작 메뉴 · 상점 · 크레딧</td></tr>
+          <tr><td class="nowrap">1.0.0</td><td class="nowrap">2026. 10. 18.</td><td>논리 미궁 첫 공개</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</section>
+
+</main>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <nav class="footer-links" aria-label="다른 명세서">
+    <a href="index.html">명세서 선택</a>
+    <a href="fruitarcade.html">상큼 과일 아케이드 존</a>
+    <a href="schoolfix.html">SchoolFix AI</a>
+    <a href="egggame.html">계란이의 모험</a>
+  </nav>
+  <p class="footer-meta">© 2026 · 논리 미궁 Development Specification</p>
+</footer>
+
+<!-- ── TOC · SEARCH DRAWER ── -->
+<dialog class="toc" id="toc" aria-labelledby="tocTitle">
+  <div class="toc-panel">
+    <div class="toc-head">
+      <h2 id="tocTitle">목차</h2>
+      <button class="icon-btn" id="tocClose" type="button" aria-label="목차 닫기">
+        <svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <div class="toc-search">
+      <label class="sr-only" for="tocSearch">명세서 내용 검색</label>
+      <svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input id="tocSearch" type="search" placeholder="내용 검색 (예: 대우, 열쇠, 금화)" autocomplete="off" spellcheck="false" aria-describedby="tocCount">
+    </div>
+    <p class="toc-count" id="tocCount" aria-live="polite"></p>
+    <nav class="toc-nav" id="tocNav" aria-label="명세서 목차"></nav>
+    <p class="toc-empty" id="tocEmpty" hidden>일치하는 항목이 없습니다.</p>
+  </div>
+</dialog>
+
+<button class="to-top" id="toTop" type="button" aria-label="맨 위로 이동" title="맨 위로">
+  <svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg>
+</button>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="assets/spec.js"></script>
+</body>
+</html>

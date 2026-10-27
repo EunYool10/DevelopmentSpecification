@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="계란이의 모험 v3.8.1 — 현대·고대·미래 세 시대의 계란이가 엄마 품을 찾아 떠나는 선택형 텍스트 어드벤처의 개발 명세서">
+<meta name="theme-color" content="#f6f7f9" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#121417" media="(prefers-color-scheme: dark)">
+<title>계란이의 모험 개발 명세서</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🥚</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&family=Space+Mono:wght@400;700&display=swap">
+<link rel="stylesheet" href="assets/spec.css">
+</head>
+<body class="page-egg">
+
+<a class="skip-link" href="#play">본문으로 건너뛰기</a>
+
+<!-- ═══════ TOP BAR ═══════ -->
+<header class="topbar" id="topbar">
+  <div class="topbar-inner">
+    <a class="topbar-brand" href="index.html" title="명세서 선택으로">
+      <svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><polyline points="15 18 9 12 15 6"/></svg>
+      <span class="brand-label">명세서 선택</span>
+    </a>
+    <nav class="topbar-tabs" aria-label="명세서 섹션 바로가기">
+      <a class="tab tone-amber" href="#play" data-section="play"><span class="lbl-long">게임</span><span class="lbl-short">게임</span></a>
+      <a class="tab tone-orange" href="#collect" data-section="collect"><span class="lbl-long">수집 · 기록</span><span class="lbl-short">수집</span></a>
+      <a class="tab tone-blue" href="#screens" data-section="screens"><span class="lbl-long">화면 · 설정</span><span class="lbl-short">화면</span></a>
+      <a class="tab tone-violet" href="#account" data-section="account"><span class="lbl-long">계정 · 운영</span><span class="lbl-short">계정</span></a>
+    </nav>
+    <div class="topbar-actions">
+      <button class="icon-btn" id="printBtn" type="button" title="인쇄 / PDF로 저장" aria-label="인쇄 또는 PDF로 저장">
+        <svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+      </button>
+      <button class="icon-btn" id="tocBtn" type="button" aria-haspopup="dialog" aria-controls="toc" aria-label="목차 · 검색" title="목차 · 검색 (/)">
+        <svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+        <span class="btn-label">목차 · 검색</span>
+        <kbd aria-hidden="true">/</kbd>
+      </button>
+    </div>
+  </div>
+  <div class="progress" aria-hidden="true"><div class="progress-bar" id="progressBar"></div></div>
+</header>
+
+<main id="main">
+
+<!-- ═══════ PAGE HEADER ═══════ -->
+<section class="landing" id="top" aria-labelledby="pageTitle">
+ <div class="landing-inner">
+  <p class="eyebrow">개발 명세서 · v3.8.1</p>
+  <h1 class="landing-title" id="pageTitle">계란이의 모험</h1>
+  <p class="landing-sub">현대·고대·미래, 세 시대의 계란이가 엄마 품을 찾아 떠나는 <strong>선택형 텍스트 어드벤처</strong>. 상황을 읽고 A·B·C 중 하나를 고르면, 고른 길에 따라 서로 다른 엔딩에 도착합니다.</p>
+  <div class="stat-row">
+    <div class="stat"><span class="stat-num">3</span><span class="stat-label">이야기</span></div>
+    <div class="stat"><span class="stat-num">49</span><span class="stat-label">엔딩</span></div>
+    <div class="stat"><span class="stat-num">50</span><span class="stat-label">장면</span></div>
+    <div class="stat"><span class="stat-num">6</span><span class="stat-label">미니게임 종류</span></div>
+  </div>
+  <div class="nav-pills">
+    <a class="nav-pill tone-amber" href="#play">게임</a>
+    <a class="nav-pill tone-orange" href="#collect">수집 · 기록</a>
+    <a class="nav-pill tone-blue" href="#screens">화면 · 설정</a>
+    <a class="nav-pill tone-violet" href="#account">계정 · 운영</a>
+  </div>
+  <div class="ext-links">
+    <a class="ext-link" href="https://egggame.onrender.com" target="_blank" rel="noopener">웹사이트 바로가기
+      <svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
+  </div>
+  <p class="doc-meta">기준: v3.8.1 (2026-10-25) · 작성 2026-10-27</p>
+  <p class="landing-hint"><kbd>/</kbd> 키를 눌러 목차와 내용을 바로 검색할 수 있습니다.</p>
+ </div>
+</section>
+
+<!-- ════════════════════════════════════════
+     SECTION 1 · 게임
+════════════════════════════════════════ -->
+<section class="spec-section tone-amber" id="play" aria-labelledby="playTitle">
+
+  <div class="spec-header">
+    <div class="spec-header-text">
+      <h2 id="playTitle">게임</h2>
+      <p>이야기, 진행 규칙, 매번 달라지는 모험, 미니게임과 엔딩</p>
+    </div>
+  </div>
+
+  <div class="card" id="eg-overview">
+    <h3>1. 프로젝트 개요</h3>
+    <p>이야기를 하나 고르고, 장면마다 상황 설명을 읽은 뒤 A·B·C 중 하나를 고르는 텍스트 어드벤처입니다. 온기를 지키고 껍질이 깨지지 않게 하면서 엄마 품까지 가는 것이 목표이고, 고른 길과 만난 친구, 챙긴 물건에 따라 49가지 엔딩 중 하나에 도착합니다.</p>
+    <div class="grid-auto">
+      <div class="mini-card"><h4>선택형 이야기</h4><p>이야기 3편, 장면 50곳. 같은 장소라도 어떤 길로 왔는지, 누구와 함께인지에 따라 글이 달라집니다.</p></div>
+      <div class="mini-card"><h4>로그인 없이 플레이</h4><p>게스트로 바로 시작하고, Google 로그인하면 기록이 계정에 저장돼 다른 기기에서도 이어집니다.</p></div>
+      <div class="mini-card"><h4>설치형 앱</h4><p>휴대폰 홈 화면에 설치할 수 있고, 한 번 열어 둔 뒤에는 인터넷 없이도 플레이할 수 있습니다.</p></div>
+    </div>
+  </div>
+
+  <div class="card" id="eg-stories">
+    <h3>2. 이야기 3편</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th scope="col">이야기</th><th scope="col">시대</th><th scope="col">줄거리</th><th scope="col" class="num">엔딩</th></tr></thead>
+        <tbody>
+          <tr><td class="nowrap"><strong>「냉장고 대탈출」</strong></td><td>현대</td><td>할머니 댁 냉장고 맨 끝자리에서 들판 끝 꼬꼬엄마 품까지</td><td class="num">22</td></tr>
+          <tr><td class="nowrap"><strong>「구지봉의 일곱째 알」</strong></td><td>고대</td><td>하늘에서 내려온 황금알 여섯 개 사이에 끼어 버린 하얀 알이 신라 “닭의 숲”까지</td><td class="num">14</td></tr>
+          <tr><td class="nowrap"><strong>「화성으로 간 마지막 계란」</strong></td><td>미래</td><td>2126년 화성행 우주선의 마지막 지구산 계란이 화성 붉은 온실까지</td><td class="num">13</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note">이야기마다 4장으로 이루어지고, 시작 카드에서 줄거리와 목표를 먼저 알려 줍니다.</p>
+  </div>
+
+  <div class="card" id="eg-rules">
+    <h3>3. 진행 규칙</h3>
+    <div class="grid-auto">
+      <div class="mini-card"><h4>온기</h4><p>차가운 곳에서 시작합니다. 둥지까지 20℃ 넘게 데워 오고 마지막 밤(폭풍우 · 첫서리 · 모래폭풍)을 잘 버티면 진엔딩 조건을 채웁니다.</p></div>
+      <div class="mini-card"><h4>껍질</h4><p>떨어지거나 부딪히면 금이 갑니다. 금이 3개가 되면 그 자리에서 그 이야기의 ‘와장창’ 엔딩입니다.</p></div>
+      <div class="mini-card"><h4>가방</h4><p>버터 · 쇠비늘 갑옷 · 수리 테이프는 금 1번을 막고, 밀짚 · 비단 · 은박 담요는 추운 밤을 따뜻하게 합니다. 멸치 · 금실은 동물의 마음을 엽니다.</p></div>
+      <div class="mini-card"><h4>친구</h4><p>현대 9명, 고대 5명, 미래 4명. 한 모험에서 셋 이상 사귀면 마지막 밤에 숨은 엔딩이 열립니다.</p></div>
+    </div>
+  </div>
+
+  <div class="card" id="eg-random">
+    <h3>4. 매번 다른 모험</h3>
+    <div class="grid-2">
+      <div>
+        <p class="sub-title">달라지는 것</p>
+        <ul>
+          <li><strong>지나는 장면</strong>: 중간 장면이 구역(현대: 집 안 → 바깥 마을 / 고대: 가야 마을 → 먼 길 / 미래: 우주선 안 → 화성으로)으로 나뉘어, 구역마다 1~3곳을 무작위로 골라 무작위 순서로 지납니다.</li>
+          <li><strong>선택지 순서</strong>: 모험마다 섞입니다. 키보드 A·B·C는 화면에 보이는 순서를 따릅니다.</li>
+          <li><strong>그날의 분위기와 길 위의 일</strong>: 출발할 때 분위기 한 줄, 장면 사이에 온기 ±1~2℃ 같은 작은 사건이 무작위로 나옵니다(이야기마다 10개 남짓).</li>
+        </ul>
+      </div>
+      <div>
+        <p class="sub-title">그대로인 것</p>
+        <ul>
+          <li>출발 장면과 구역의 앞뒤 순서</li>
+          <li>마지막 장(엄마 둥지 → 마지막 밤)</li>
+          <li>“트럭에 올라탄다 → 트럭”처럼 다음 장소를 콕 집는 선택</li>
+          <li>한 모험에서 같은 장면은 다시 지나지 않음</li>
+          <li>같은 모험 안에서는 순서와 사건이 고정되어 이어하기 · 되돌리기에도 같음</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" id="eg-minigames">
+    <h3>5. 미니게임 6종</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th scope="col">미니게임</th><th scope="col">하는 방법</th></tr></thead>
+        <tbody>
+          <tr><td><strong>타이밍</strong></td><td>노란 칸에서 멈추기</td></tr>
+          <tr><td><strong>연타</strong></td><td>시간 안에 게이지 채우기</td></tr>
+          <tr><td><strong>균형</strong></td><td>◀ ▶로 버티기</td></tr>
+          <tr><td><strong>피하기</strong></td><td>세 줄에서 떨어지는 것 피하기</td></tr>
+          <tr><td><strong>순서 기억</strong></td><td>반짝인 순서대로 누르기</td></tr>
+          <tr><td><strong>수수께끼</strong></td><td>알맞은 답 고르기</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <ul style="margin-top:14px;">
+      <li>이야기 속 미니게임은 21개(현대 11 · 고대 6 · 미래 4). 선택지에 붙어 있다가 고르면 시작됩니다.</li>
+      <li>시작 전 준비 카운트다운, 시간 제한이 있고, 설정의 난이도에 따라 칸 넓이 · 시간 · 기회가 바뀝니다.</li>
+      <li>실패하면 금이 가거나 다른 장소로 가는 등 결과가 이야기에 이어집니다.</li>
+    </ul>
+  </div>
+
+  <div class="card" id="eg-endings">
+    <h3>6. 엔딩 49가지</h3>
+    <div class="grid-2">
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th scope="col">종류</th><th scope="col" class="num">수</th></tr></thead>
+          <tbody>
+            <tr><td><strong>진엔딩</strong></td><td class="num">3</td></tr>
+            <tr><td><strong>히든</strong></td><td class="num">8</td></tr>
+            <tr><td><strong>해피</strong></td><td class="num">8</td></tr>
+            <tr><td><strong>노멀</strong></td><td class="num">11</td></tr>
+            <tr><td><strong>배드</strong></td><td class="num">19</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <ul>
+        <li>엔딩마다 고유한 그림이 있고, 입은 스킨과 상관없이 그 엔딩의 모습으로 그립니다.</li>
+        <li>현대 이야기 양계장 부화실의 「B*C치킨이 되어 버렸다!」 같은 특별 엔딩이 있습니다.</li>
+        <li>엔딩 화면에서 이 이야기에서 아직 못 본 엔딩 수와 힌트 하나를 볼 수 있습니다.</li>
+        <li>엔딩 화면 아래 버튼: 되돌리기 · 결과 공유 · 엔딩 도감 · 크레딧</li>
+        <li>모험을 시작한 뒤 새로 열린 계란 스킨을 엔딩 화면에서 알려 줍니다.</li>
+      </ul>
+    </div>
+  </div>
+
+</section>
+
+<!-- ════════════════════════════════════════
+     SECTION 2 · 수집 · 기록
+════════════════════════════════════════ -->
+<section class="spec-section tone-orange" id="collect" aria-labelledby="collectTitle">
+
+  <div class="spec-header">
+    <div class="spec-header-text">
+      <h2 id="collectTitle">수집 · 기록</h2>
+      <p>엔딩 도감, 계란 옷장, 저장과 이어하기, 안내와 새 소식</p>
+    </div>
+  </div>
+
+  <div class="card" id="eg-book">
+    <h3>7. 엔딩 도감</h3>
+    <ul>
+      <li>이야기별 탭으로 나뉘고, 번호는 이야기마다 엔딩이 적힌 순서대로 매겨집니다.</li>
+      <li>본 엔딩은 그림과 함께 다시 읽을 수 있고, 잠긴 엔딩은 힌트만 보입니다.</li>
+      <li>플레이 기록(모험 횟수, 엔딩 본 횟수, 와장창 횟수, 선택 횟수)과 최단 진엔딩 기록을 보여 줍니다.</li>
+      <li>도감 아래 <strong>지난 모험</strong>에서 최근 모험의 지나온 길과 엔딩을 다시 볼 수 있습니다.</li>
+    </ul>
+  </div>
+
+  <div class="card" id="eg-closet">
+    <h3>8. 계란 옷장</h3>
+    <p>계란이가 입는 스킨(껍질 색 · 무늬 · 모자)은 플레이어용 199종입니다. 처음부터 23종이 있고, 엔딩 49개마다 계란이 하나씩 열리며, 나머지는 아래 조건으로 열립니다.</p>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th scope="col">해금 조건</th><th scope="col">예</th></tr></thead>
+        <tbody>
+          <tr><td><strong>엔딩 모으기</strong></td><td>엔딩 1~45개, 전부</td></tr>
+          <tr><td><strong>엔딩 종류</strong></td><td>진 · 해피 · 노멀 · 히든 · 배드 엔딩 n개</td></tr>
+          <tr><td><strong>이야기</strong></td><td>시대별 엔딩 n개, 시대별 전부</td></tr>
+          <tr><td><strong>탐험과 기록</strong></td><td>가 본 장면 수, 모험 횟수, 엔딩 본 횟수, 와장창 횟수, 선택 횟수</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <ul style="margin-top:14px;">
+      <li>옷장은 묶음(기본 · 현대 · 고대 · 미래 · 모으기 · 종류 · 이야기 · 기록)으로 나뉘고, 위쪽 바로 가기로 묶음 사이를 오갑니다.</li>
+      <li><strong>운영진 전용 계란 103종</strong>은 운영진 계정만 입을 수 있습니다. 일반 플레이어 옷장에는 맨 아래 ‘운영진 전용’ 묶음에 보이기만 하고, 옷장 개수에는 들어가지 않습니다.</li>
+    </ul>
+  </div>
+
+  <div class="card" id="eg-save">
+    <h3>9. 저장 · 이어하기</h3>
+    <ul>
+      <li>모험은 자동으로 저장되고, 타이틀에서 이어하기로 돌아옵니다.</li>
+      <li>한 걸음 되돌리기, 지난 이야기 다시 보기를 지원합니다.</li>
+      <li><strong>지난 모험</strong>: 이 기기에서 최근에 끝낸 모험(최대 20번)의 지나온 길, 엔딩, 마지막 상태를 남깁니다. 계정에는 올리지 않습니다.</li>
+      <li>예전 버전(v1 · v2)에서 본 엔딩과 이어하기도 그대로 이어집니다.</li>
+    </ul>
+  </div>
+
+  <div class="card" id="eg-guide">
+    <h3>10. 플레이 가이드 · 새 소식</h3>
+    <div class="grid-auto">
+      <div class="mini-card"><h4>플레이 가이드</h4><p>그림 한 장과 짧은 설명을 한 장씩 넘겨 보는 카드 5장(고르기 · 온기 · 껍질 · 미니게임 · 엔딩과 옷장). 첫 모험을 시작할 때, 타이틀, 진행 중 메뉴에서 열립니다.</p></div>
+      <div class="mini-card"><h4>새 소식</h4><p>타이틀 아래에서 업데이트 내역을 봅니다. 아직 읽지 않은 새 버전이 있으면 NEW 표시가 붙습니다.</p></div>
+    </div>
+  </div>
+
+</section>
+
+<!-- ════════════════════════════════════════
+     SECTION 3 · 화면 · 설정
+════════════════════════════════════════ -->
+<section class="spec-section tone-blue" id="screens" aria-labelledby="screensTitle">
+
+  <div class="spec-header">
+    <div class="spec-header-text">
+      <h2 id="screensTitle">화면 · 설정</h2>
+      <p>화면 흐름, 설정과 조작, 소리와 그림, 설치와 공유</p>
+    </div>
+  </div>
+
+  <div class="card" id="eg-flow">
+    <h3>11. 화면 흐름</h3>
+    <ol class="steps">
+      <li><strong>타이틀</strong><span>모험 시작, 이어하기, 엔딩 도감, 계란 옷장, 플레이 가이드, 설정, 크레딧, 새 소식, 앱으로 설치, 은율이의 다른 앱 보기, 로그인</span></li>
+      <li><strong>이야기 고르기</strong><span>세 이야기 중 하나를 고르면 시작 카드가 줄거리와 목표를 알려 줍니다.</span></li>
+      <li><strong>진행 화면</strong><span>무대 위에 장 진행이 표시되고, 이미 가 본 길에는 “가 본 길” 표시가 붙습니다. 새 장면은 부드럽게 전환됩니다.</span></li>
+      <li><strong>잠깐 멈춤</strong><span>지금 장 · 온기 · 금 · 고른 선택 요약, 큰 ‘이어서 하기’, 지난 이야기 · 가방과 친구 · 플레이 가이드 · 설정 네 칸, 그 아래 처음부터 다시 · 다른 이야기 · 타이틀로</span></li>
+      <li><strong>엔딩</strong><span>엔딩 그림과 글, 못 본 엔딩 수와 힌트, 되돌리기 · 결과 공유 · 엔딩 도감 · 크레딧</span></li>
+    </ol>
+  </div>
+
+  <div class="card" id="eg-settings">
+    <h3>12. 설정 · 조작</h3>
+    <div class="grid-2">
+      <div>
+        <p class="sub-title">설정</p>
+        <ul>
+          <li><strong>화면</strong>: 글자 속도 · 크기, 라이트 · 다크 테마, 움직임 줄이기, 읽은 글 바로 보기</li>
+          <li><strong>소리와 진동</strong>: 효과음 · 배경 음악 · 음량, 진동</li>
+          <li><strong>게임</strong>: 미니게임 난이도, 데이터 초기화</li>
+        </ul>
+      </div>
+      <div>
+        <p class="sub-title">키보드</p>
+        <ul>
+          <li><code>A</code> <code>B</code> <code>C</code> 또는 <code>1</code> <code>2</code> <code>3</code>: 선택</li>
+          <li><code>Space</code> · <code>Enter</code>: 글 넘기기</li>
+          <li><code>Esc</code>: 메뉴</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" id="eg-art">
+    <h3>13. 소리 · 그림</h3>
+    <ul>
+      <li>음원 파일 없이 효과음과 배경 음악을 실시간으로 합성합니다.</li>
+      <li>계란이, 병아리, 모자, 소품, 장소 배경, 엔딩 그림을 모두 코드로 직접 그린 벡터 그림으로 만듭니다. 이미지 파일은 마스코트와 아이콘뿐입니다.</li>
+      <li>그림 수: 배경 36개, 엔딩 그림 49개, 계란 스킨 302개(운영진 전용 103개 포함)</li>
+      <li>시대마다 다른 색을 쓰고, 라이트 · 다크 테마를 지원합니다.</li>
+    </ul>
+  </div>
+
+  <div class="card" id="eg-install">
+    <h3>14. 설치 · 공유 · 다른 앱</h3>
+    <div class="grid-auto">
+      <div class="mini-card"><h4>앱으로 설치</h4><p>타이틀 아래 ‘앱으로 설치’로 홈 화면에 설치합니다. 아이폰은 공유 → 홈 화면에 추가 방법을 안내합니다. 한 번 열어 둔 뒤에는 오프라인으로 플레이합니다.</p></div>
+      <div class="mini-card"><h4>결과 공유</h4><p>휴대폰에서는 공유 창이 바로 열리고, 그 밖의 기기에서는 결과 글을 복사합니다.</p></div>
+      <div class="mini-card"><h4>은율이의 다른 앱</h4><p>타이틀에서 상큼 과일 아케이드 존 · 논리 미궁 · SchoolFix를 새 탭으로 엽니다. 카드는 각 앱의 아이콘과 색으로 꾸몄습니다.</p></div>
+    </div>
+  </div>
+
+</section>
+
+<!-- ════════════════════════════════════════
+     SECTION 4 · 계정 · 운영
+════════════════════════════════════════ -->
+<section class="spec-section tone-violet" id="account" aria-labelledby="accountTitle">
+
+  <div class="spec-header">
+    <div class="spec-header-text">
+      <h2 id="accountTitle">계정 · 운영</h2>
+      <p>로그인과 저장, 데이터 보호, 운영진 기능, 이야기 데이터, 배포</p>
+    </div>
+  </div>
+
+  <div class="card" id="eg-login">
+    <h3>15. 로그인 · 계정 저장</h3>
+    <ul>
+      <li>Google 로그인은 선택입니다. 로그인하지 않아도 게스트로 모든 이야기를 플레이합니다.</li>
+      <li>계정마다 문서 하나에 엔딩별 횟수, 다녀간 장면, 플레이 기록, 이어하기, 입은 스킨을 저장합니다. <strong>이름이나 이메일은 저장하지 않습니다.</strong></li>
+      <li>처음 로그인하면 그 기기의 게스트 기록이 계정으로 옮겨지고, 같은 계정의 기기끼리는 더 많이 진행한 쪽 기록으로 합쳐집니다.</li>
+      <li>로그인 기능은 로그인할 때(또는 전에 로그인했던 기기에서)만 불러옵니다.</li>
+      <li>타이틀의 계정 줄에 저장 상태(계정에 저장됨 / 저장 실패)가 표시됩니다.</li>
+    </ul>
+  </div>
+
+  <div class="card" id="eg-rules-data">
+    <h3>16. 데이터 보호 규칙</h3>
+    <ul>
+      <li>본인 문서만 읽고 쓸 수 있습니다.</li>
+      <li>저장할 때 필드 구성, 엔딩 · 장면 이름, 스킨 id 모양(영어 소문자 · 숫자 · 하이픈, 32자 이하), 기록 숫자, 크기를 검사합니다.</li>
+      <li>엔딩별 횟수는 규칙에서 하나하나 검사하지 않고, 게임이 계정 기록을 읽을 때 1~100000으로 바로잡습니다(한 요청에서 검사할 수 있는 양의 한도 때문).</li>
+      <li>엔딩이나 장면을 추가하면 규칙의 엔딩 · 장면 목록도 함께 고쳐 먼저 게시해야 저장됩니다. 스킨은 모양만 검사해 규칙을 고칠 필요가 없습니다.</li>
+    </ul>
+  </div>
+
+  <div class="card" id="eg-staff">
+    <h3>17. 운영진 권한</h3>
+    <ul>
+      <li>계란 옷장의 모든 스킨 사용, 엔딩 도감 전체 열람(글 읽기 포함)</li>
+      <li>운영진 전용 계란 103종: 운영진 계란 · 운영진 왕관 · 개발자 계란, GM · 관리자 · QA · 도우미 · 이벤트 같은 명찰 10종 등</li>
+      <li><strong>관리자 뷰어</strong>: 타이틀과 진행 중 메뉴에서 엽니다.</li>
+      <li>운영진 계정은 이메일 대신 해시로 등록해 공개 저장소에 이메일이 드러나지 않습니다.</li>
+      <li>관리자 기능은 게임 화면 안에서만 동작하고, 다른 사람의 기록에는 접근할 수 없습니다. ‘일반 플레이어로 보기’로 권한을 잠시 끌 수 있습니다.</li>
+    </ul>
+  </div>
+
+  <div class="card" id="eg-viewer">
+    <h3>18. 관리자 뷰어</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th scope="col">탭</th><th scope="col">할 수 있는 것</th></tr></thead>
+        <tbody>
+          <tr><td class="nowrap"><strong>진행 상태</strong></td><td>지금 모험의 온기, 껍질 금, 가방 아이템, 친구를 하나씩 켜고 끄기. 이야기 바로 시작</td></tr>
+          <tr><td class="nowrap"><strong>장면 지도</strong></td><td>이야기별 모든 장면의 글, 조건 문단, 선택지가 어디로 가고 무엇이 바뀌는지 보기. 아무 장면으로 이동</td></tr>
+          <tr><td class="nowrap"><strong>엔딩</strong></td><td>엔딩 미리 보기(도감에 기록하지 않음), 글 읽기, 엔딩 하나씩 또는 이야기 전체 기록하기 · 지우기</td></tr>
+          <tr><td class="nowrap"><strong>기록</strong></td><td>플레이 기록 보기, 모든 엔딩 · 장면 기록, 도감 비우기, 기록 초기화, 이어하기 지우기, 기록 내보내기 · 가져오기, 계정에 바로 저장</td></tr>
+          <tr><td class="nowrap"><strong>그림</strong></td><td>배경 36개, 스킨 302개, 엔딩 그림 49개 모아 보기. 스킨 바로 입기</td></tr>
+          <tr><td class="nowrap"><strong>미니게임</strong></td><td>난이도 바꾸기, 6종 연습, 이야기 속 미니게임 21개 하나씩 해 보기</td></tr>
+          <tr><td class="nowrap"><strong>옵션</strong></td><td>미니게임 항상 성공, 선택지 결과 미리 보기, 장면 id 보기, 글자 바로 보이기, 일반 플레이어로 보기</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="card" id="eg-data">
+    <h3>19. 이야기 데이터 구조</h3>
+    <dl class="kv">
+      <dt>장면</dt><dd>장 번호, 장소 이름, 배경, 분위기, 글 문단. 문단은 조건을 달 수 있음: 가진 아이템 · 친구, 바로 전 장면, 표시(flag), 껍질에 금이 갔는지</dd>
+      <dt>선택지</dt><dd>글, 가는 곳(장면 이름 또는 다음 정류장), 온기 · 금 변화, 얻는 것 · 쓰는 것, 표시, 조건을 채우면 바뀌는 결과, 미니게임</dd>
+      <dt>미니게임</dt><dd>종류(타이밍 · 연타 · 균형 · 피하기 · 순서 기억 · 수수께끼), 제목, 힌트, 빠르기 배율, 수수께끼 문제와 보기, 성공 · 실패 결과</dd>
+      <dt>엔딩</dt><dd>종류(진 · 해피 · 노멀 · 히든 · 배드), 제목, 배경, 엔딩 그림, 힌트, 글</dd>
+      <dt>경로</dt><dd>구역, 구역마다 고르는 장면 수, 마지막 장</dd>
+    </dl>
+    <p class="note">장면 이름과 엔딩 이름은 세 이야기를 통틀어 겹치면 안 됩니다. 새 중간 장면은 어느 장면에서 와도 자연스럽게 읽히는 글로 구역에 넣습니다.</p>
+  </div>
+
+  <div class="card" id="eg-deploy">
+    <h3>20. 배포</h3>
+    <ul>
+      <li>프레임워크 · 라이브러리 · 빌드 과정 없는 정적 웹앱입니다. 첫 화면 파일을 브라우저로 열면 바로 플레이할 수 있습니다.</li>
+      <li><code>main</code>에 올리면 서버가 자동으로 다시 배포합니다(약 2분).</li>
+      <li>무료 서버라 한동안 접속이 없으면 잠들어 첫 접속에 시간이 걸릴 수 있습니다.</li>
+      <li>서버는 게임 파일만 내보내고, 상태 확인 주소가 따로 있습니다.</li>
+    </ul>
+  </div>
+
+  <div class="card" id="eg-history">
+    <h3>21. 업데이트 발자취</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th scope="col">버전</th><th scope="col">날짜</th><th scope="col">내용</th></tr></thead>
+        <tbody>
+          <tr><td class="nowrap">v3.8.1</td><td class="nowrap">2026. 10. 25.</td><td>엔딩 화면 버튼 정리, 휴대폰 결과 공유</td></tr>
+          <tr><td class="nowrap">v3.8</td><td class="nowrap">2026. 10. 25.</td><td>앱으로 설치 · 오프라인, 새 소식, 읽은 글 바로 보기, 지난 모험</td></tr>
+          <tr><td class="nowrap">v3.7</td><td class="nowrap">2026. 10. 20.</td><td>새 장면 12곳, 계란 101종</td></tr>
+          <tr><td class="nowrap">v3.6</td><td class="nowrap">2026. 10. 20.</td><td>매번 다른 길</td></tr>
+          <tr><td class="nowrap">v3.5</td><td class="nowrap">2026. 10. 20.</td><td>선택지 섞기, 길 위의 일, 잠깐 멈춤 메뉴 새 단장</td></tr>
+          <tr><td class="nowrap">v3.4</td><td class="nowrap">2026. 10. 19.</td><td>계란 95종, 옷장 묶음, 다른 앱 보기, 플레이 가이드</td></tr>
+          <tr><td class="nowrap">v3.3</td><td class="nowrap">2026. 10. 19.</td><td>운영진 전용 계란</td></tr>
+          <tr><td class="nowrap">v3.2</td><td class="nowrap">2026. 10. 19.</td><td>계란 35종, 옷장 묶음 정리</td></tr>
+          <tr><td class="nowrap">v3.1</td><td class="nowrap">2026. 10. 19.</td><td>「B*C치킨이 되어 버렸다!」 엔딩, 미니게임 6종</td></tr>
+          <tr><td class="nowrap">v3.0</td><td class="nowrap">2026. 10. 18.</td><td>현대 · 고대 · 미래 세 이야기, 새 타이틀 화면</td></tr>
+          <tr><td class="nowrap">v1 – v2</td><td class="nowrap">2026. 10.</td><td>첫 공개, Google 로그인, 마스코트</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</section>
+
+</main>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <nav class="footer-links" aria-label="다른 명세서">
+    <a href="index.html">명세서 선택</a>
+    <a href="fruitarcade.html">상큼 과일 아케이드 존</a>
+    <a href="schoolfix.html">SchoolFix AI</a>
+    <a href="logicmaze.html">논리 미궁</a>
+  </nav>
+  <p class="footer-meta">© 2026 · 계란이의 모험 Development Specification</p>
+</footer>
+
+<!-- ── TOC · SEARCH DRAWER ── -->
+<dialog class="toc" id="toc" aria-labelledby="tocTitle">
+  <div class="toc-panel">
+    <div class="toc-head">
+      <h2 id="tocTitle">목차</h2>
+      <button class="icon-btn" id="tocClose" type="button" aria-label="목차 닫기">
+        <svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <div class="toc-search">
+      <label class="sr-only" for="tocSearch">명세서 내용 검색</label>
+      <svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input id="tocSearch" type="search" placeholder="내용 검색 (예: 온기, 옷장, 엔딩)" autocomplete="off" spellcheck="false" aria-describedby="tocCount">
+    </div>
+    <p class="toc-count" id="tocCount" aria-live="polite"></p>
+    <nav class="toc-nav" id="tocNav" aria-label="명세서 목차"></nav>
+    <p class="toc-empty" id="tocEmpty" hidden>일치하는 항목이 없습니다.</p>
+  </div>
+</dialog>
+
+<button class="to-top" id="toTop" type="button" aria-label="맨 위로 이동" title="맨 위로">
+  <svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg>
+</button>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="assets/spec.js"></script>
+</body>
+</html>

@@ -1,4 +1,4 @@
-/* 개발 명세서 공용 스타일 (index.html · schoolfix.html · fruitarcade.html)
+/* 개발 명세서 공용 스타일 (index.html · fruitarcade.html · schoolfix.html · egggame.html · logicmaze.html)
    밝은 기본 테마 + 시스템 다크 모드. 섹션마다 .tone-* 클래스로 차분한 강조색을 바꾼다. */
 
 :root {
@@ -14,6 +14,7 @@
   --focus: #2f6fd6;
   --shadow: 0 1px 2px rgba(16,24,40,.04), 0 4px 12px rgba(16,24,40,.05);
   --topbar-h: 60px;
+  --page-w: 1008px; /* 상단바 · 머리말 · 본문이 같은 폭(안쪽 960px)을 쓴다 */
   --page-accent: #374151;
   color-scheme: light;
 }
@@ -38,6 +39,8 @@
 /* 페이지 대표색 (진행률 막대) */
 .page-schoolfix { --page-accent: #1a7f5a; }
 .page-fruit     { --page-accent: #c2620a; }
+.page-egg       { --page-accent: #8c6b00; }
+.page-maze      { --page-accent: #4f52c9; }
 
 /* 섹션 강조색: --accent(글자·선), --accent-rgb(옅은 배경용) */
 .tone-green  { --accent: #1a7f5a; --accent-rgb: 26, 127, 90; }
@@ -47,9 +50,15 @@
 .tone-orange { --accent: #c2620a; --accent-rgb: 194, 98, 10; }
 .tone-pink   { --accent: #c03a6b; --accent-rgb: 192, 58, 107; }
 .tone-lime   { --accent: #3f7d3a; --accent-rgb: 63, 125, 58; }
+.tone-amber  { --accent: #8c6b00; --accent-rgb: 140, 107, 0; }
+.tone-indigo { --accent: #4f52c9; --accent-rgb: 79, 82, 201; }
 @media (prefers-color-scheme: dark) {
   .page-schoolfix { --page-accent: #5bb894; }
   .page-fruit     { --page-accent: #e0954f; }
+  .page-egg       { --page-accent: #d9a93f; }
+  .page-maze      { --page-accent: #9ea2ef; }
+  .tone-amber  { --accent: #d9a93f; --accent-rgb: 217, 169, 63; }
+  .tone-indigo { --accent: #9ea2ef; --accent-rgb: 158, 162, 239; }
   .tone-green  { --accent: #5bb894; --accent-rgb: 91, 184, 148; }
   .tone-blue   { --accent: #7ea6e8; --accent-rgb: 126, 166, 232; }
   .tone-violet { --accent: #a493e6; --accent-rgb: 164, 147, 230; }
@@ -132,7 +141,7 @@ input:focus-visible {
   border-bottom: 1px solid var(--line);
 }
 .topbar-inner {
-  max-width: 1120px;
+  max-width: var(--page-w);
   height: var(--topbar-h);
   margin: 0 auto;
   padding: 0 24px;
@@ -227,7 +236,7 @@ input:focus-visible {
   background: var(--surface);
 }
 .landing-inner {
-  max-width: 1120px;
+  max-width: var(--page-w);
   margin: 0 auto;
   padding: 56px 24px 48px;
 }
@@ -238,16 +247,12 @@ input:focus-visible {
   margin-bottom: 10px;
 }
 .landing-title {
-  display: flex;
-  align-items: center;
-  gap: 14px;
   font-size: clamp(30px, 5vw, 44px);
   font-weight: 700;
   line-height: 1.2;
   letter-spacing: -.5px;
   margin-bottom: 12px;
 }
-.landing-icon { font-size: .9em; line-height: 1; }
 .landing-sub {
   max-width: 720px;
   font-size: 17px;
@@ -255,12 +260,12 @@ input:focus-visible {
   margin-bottom: 28px;
 }
 .landing-sub strong { color: var(--text); }
+/* 숫자 칸과 섹션 버튼은 같은 4칸 격자라 세로줄이 맞는다 */
 .stat-row {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 12px;
-  max-width: 720px;
-  margin-bottom: 28px;
+  margin-bottom: 12px;
 }
 .stat {
   padding: 14px 16px;
@@ -270,12 +275,13 @@ input:focus-visible {
 }
 .stat-num { display: block; font-size: 24px; font-weight: 700; line-height: 1.2; }
 .stat-label { display: block; font-size: 13px; color: var(--sub); }
-.nav-pills { display: flex; gap: 8px; flex-wrap: wrap; }
+.nav-pills { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
 .nav-pill {
-  display: inline-flex;
+  display: flex;
   align-items: center;
-  gap: 6px;
-  min-height: 40px;
+  justify-content: center;
+  gap: 8px;
+  min-height: 44px;
   padding: 8px 16px;
   border-radius: 8px;
   border: 1px solid var(--line);
@@ -325,26 +331,11 @@ input:focus-visible {
 /* ── SECTION ── */
 .spec-section {
   padding: 0 24px 64px;
-  max-width: 1120px;
+  max-width: var(--page-w);
   margin: 0 auto;
 }
-.spec-header {
-  padding: 56px 0 24px;
-  display: flex;
-  align-items: center;
-  gap: 14px;
-}
-.spec-header-icon {
-  display: grid;
-  place-items: center;
-  width: 44px;
-  height: 44px;
-  border-radius: 10px;
-  font-size: 22px;
-  line-height: 1;
-  background: rgba(var(--accent-rgb), .1);
-  flex: none;
-}
+.spec-header { padding: 56px 0 20px; }
+.spec-header-text { border-left: 4px solid var(--accent); padding-left: 14px; }
 .spec-header-text h2 { font-size: 26px; font-weight: 700; line-height: 1.25; letter-spacing: -.3px; }
 .spec-header-text p { color: var(--sub); font-size: 14px; margin-top: 2px; }
 
@@ -415,7 +406,10 @@ input:focus-visible {
 /* ── GRID ── */
 .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
 .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
-.grid-auto { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; }
+/* 작은 카드 묶음: 2칸, 정확히 3개면 3칸. 홀수 개면 마지막 카드가 한 줄을 다 써서 빈칸이 생기지 않는다 */
+.grid-auto { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.grid-auto:has(> :nth-child(3):last-child) { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.grid-auto:not(:has(> :nth-child(3):last-child)) > :last-child:nth-child(odd) { grid-column: 1 / -1; }
 .grid-2 > *, .grid-3 > *, .grid-auto > * { min-width: 0; }
 .card .grid-auto, .card .grid-2, .card .grid-3 { margin-top: 14px; }
 
@@ -604,7 +598,7 @@ pre {
 .arch-title { font-size: 12px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--muted); }
 
 /* ── ACHIEVEMENTS ── */
-.ach-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 8px; margin-top: 10px; }
+.ach-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; margin-top: 10px; }
 .ach-item {
   display: flex;
   align-items: center;
@@ -762,7 +756,7 @@ footer {
 .chooser-main {
   flex: 1;
   width: 100%;
-  max-width: 920px;
+  max-width: var(--page-w);
   margin: 0 auto;
   padding: 88px 24px 64px;
 }
@@ -773,10 +767,11 @@ footer {
 .choice {
   display: flex;
   flex-direction: column;
-  gap: 14px;
-  padding: 26px;
+  gap: 12px;
+  padding: 24px 26px;
   border-radius: 14px;
   border: 1px solid var(--line);
+  border-top: 3px solid var(--accent);
   background: var(--surface);
   box-shadow: var(--shadow);
   color: var(--text);
@@ -785,15 +780,7 @@ footer {
 }
 .choice:hover,
 .choice:focus-visible { border-color: var(--accent); transform: translateY(-2px); }
-.choice-icon {
-  display: grid;
-  place-items: center;
-  width: 52px;
-  height: 52px;
-  border-radius: 12px;
-  font-size: 28px;
-  background: rgba(var(--accent-rgb), .1);
-}
+.choice-kind { font-size: 13px; font-weight: 700; color: var(--accent); }
 .choice-name { font-size: 21px; font-weight: 700; line-height: 1.3; }
 .choice-desc { font-size: 15px; color: var(--sub); }
 .choice-facts { display: flex; flex-wrap: wrap; gap: 6px; }
@@ -811,17 +798,18 @@ footer {
 
 /* ── RESPONSIVE ── */
 @media (max-width: 960px) {
-  .grid-3 { grid-template-columns: 1fr 1fr; }
   .arch { grid-template-columns: 1fr; }
   .arch-arrow { transform: rotate(90deg); }
+  .ach-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 @media (max-width: 768px) {
   .grid-2, .grid-3, .choices { grid-template-columns: 1fr; }
+  .grid-auto, .grid-auto:has(> :nth-child(3):last-child) { grid-template-columns: 1fr; }
   .spec-section { padding: 0 16px 48px; }
   .spec-header { padding: 40px 0 18px; }
   .card { padding: 20px 16px; }
   th, td { padding: 9px 10px; }
-  .stat-row { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .stat-row, .nav-pills { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .kv { grid-template-columns: 1fr; gap: 0; }
   .kv dd { margin-bottom: 8px; }
   .chooser-main { padding: 56px 16px 48px; }
@@ -833,7 +821,7 @@ footer {
   .topbar-brand .brand-label, .btn-label, .icon-btn kbd, #printBtn { display: none; }
   .topbar-tabs { justify-content: flex-start; gap: 2px; }
   .tab { padding: 6px 10px; font-size: 13px; }
-  .tab > [aria-hidden="true"] { display: none; }
+  .ach-grid { grid-template-columns: 1fr; }
   .lbl-long { display: none; }
   .lbl-short { display: inline; }
   .landing-inner { padding: 36px 16px 32px; }

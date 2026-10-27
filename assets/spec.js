@@ -1,5 +1,5 @@
-/* 프로젝트별 상세 명세서 공용 스크립트: 목차·검색, 링크·코드 복사, 진행률, 인쇄.
-   index.html의 스크립트와 같은 동작이고, 섹션 색은 .tone-* 클래스에서 가져온다. */
+/* 프로젝트별 명세서 공용 스크립트: 목차·검색, 링크·코드 복사, 진행률, 인쇄.
+   목차는 .spec-section의 h2와 .card[id]의 h3로 만들고, 섹션 색은 .tone-* 클래스에서 가져온다. */
 (() => {
   'use strict';
 
@@ -136,10 +136,7 @@
     const groupTitle = document.createElement('a');
     groupTitle.className = 'toc-group-title';
     groupTitle.href = '#' + section.id;
-    const emoji = document.createElement('span');
-    emoji.setAttribute('aria-hidden', 'true');
-    emoji.textContent = section.querySelector('.spec-header-icon').textContent.trim() + ' ';
-    groupTitle.append(emoji, section.querySelector('h2').textContent.trim());
+    groupTitle.textContent = section.querySelector('h2').textContent.trim();
 
     const list = document.createElement('ul');
     list.className = 'toc-list';
