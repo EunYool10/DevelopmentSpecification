@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="마지막 방 — 특수청소부의 기록 v1.2.0 — 고인이 남긴 방을 치우고, 남겨진 물건으로 마지막 이야기를 듣는 1인칭 추리 게임의 개발 명세서">
+<meta name="description" content="마지막 방 — 특수청소부의 기록 v1.2.1 — 고인이 남긴 방을 치우고, 남겨진 물건으로 마지막 이야기를 듣는 1인칭 추리 게임의 개발 명세서">
 <meta name="theme-color" content="#f6f7f9" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#121417" media="(prefers-color-scheme: dark)">
 <title>마지막 방 개발 명세서</title>
@@ -49,7 +49,7 @@
 <!-- ═══════ PAGE HEADER ═══════ -->
 <section class="landing" id="top" aria-labelledby="pageTitle">
  <div class="landing-inner">
-  <p class="eyebrow">개발 명세서 · v1.2.0</p>
+  <p class="eyebrow">개발 명세서 · v1.2.1</p>
   <h1 class="landing-title" id="pageTitle">마지막 방 — 특수청소부의 기록</h1>
   <p class="landing-sub">고인이 남긴 방을 치우고, 남겨진 물건으로 마지막 이야기를 듣는 <strong>1인칭 추리 게임</strong>. 방 한 칸이 이야기 하나인 옴니버스 구성이고, 장마다 현장 정리 → 유품 조사 → 사건 재구성 순서로 진행합니다.</p>
   <div class="stat-row">
@@ -68,7 +68,7 @@
     <a class="ext-link" href="https://eunyool10.github.io/LastRoom/" target="_blank" rel="noopener">웹사이트 바로가기
       <svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
   </div>
-  <p class="doc-meta">기준: v1.2.0 (2026-11-03) · 작성 2026-11-02</p>
+  <p class="doc-meta">기준: v1.2.1 (2026-11-03) · 작성 2026-11-02</p>
   <p class="landing-hint"><kbd>/</kbd> 키를 눌러 목차와 내용을 바로 검색할 수 있습니다.</p>
  </div>
 </section>
@@ -157,7 +157,9 @@
     </div>
     <ul style="margin-top:14px;">
       <li>방은 어둡고, 손전등(<code>F</code>)과 방의 작은 조명만 있습니다.</li>
-      <li>장마다 얼룩 3곳(모두 15곳). 얼마나 지웠는지가 오염 제거율로 기록됩니다.</li>
+      <li>장마다 얼룩 3곳(모두 15곳). 얼마나 지웠는지가 오염 제거율로 기록되고, 얼룩마다 90%를 지우면 끝납니다.</li>
+      <li><strong>도구 판정</strong>: 분무기 · 스크러버는 얼룩 위에 놓인 물건을 지나 얼룩에 닿고, 벽과 가구에서는 막힙니다. 얼룩 가장자리 바로 바깥(9cm 안)을 겨눠도 그 얼룩으로 칩니다.</li>
+      <li><strong>숙이기</strong>: <code>Ctrl</code>을 누르고 있는 동안 몸을 낮춰 낮은 곳을 봅니다(웹 버전은 <code>C</code>, 휴대폰은 숙이기 버튼). 숙이면 천천히 걷습니다.</li>
     </ul>
   </div>
 
@@ -342,7 +344,7 @@
           <li>왼쪽 버튼 누르고 있기: 도구 사용</li>
           <li><code>E</code> · 왼쪽 클릭: 집어 보기 · 조사 / 들고 있으면 보관함에 넣기</li>
           <li><code>Q</code>: 폐기 · <code>X</code> · 오른쪽 클릭: 내려놓기</li>
-          <li><code>F</code>: 손전등 · <code>I</code> · <code>Tab</code>: 보관함</li>
+          <li><code>F</code>: 손전등 · <code>I</code> · <code>Tab</code>: 보관함 · <code>Ctrl</code>: 숙이기</li>
           <li><code>Esc</code>: 멈춤 · <code>F11</code>: 전체 화면</li>
         </ul>
       </div>
@@ -377,7 +379,7 @@
       <table>
         <thead><tr><th scope="col">기기</th><th scope="col">받는 것</th><th scope="col">단계</th></tr></thead>
         <tbody>
-          <tr><td class="nowrap"><strong>Windows</strong></td><td>설치 파일 (약 54MB)</td><td class="nowrap">정식 1.2.0</td></tr>
+          <tr><td class="nowrap"><strong>Windows</strong></td><td>설치 파일 (약 54MB)</td><td class="nowrap">정식 1.2.1</td></tr>
           <tr><td class="nowrap"><strong>Android</strong></td><td>APK (Android 7.0 이상, 약 52MB)</td><td class="nowrap">베타 1.2.0</td></tr>
           <tr><td class="nowrap"><strong>Mac</strong></td><td>앱 압축 파일 (Apple 칩 · Intel, 약 84MB)</td><td class="nowrap">베타 1.2.0</td></tr>
           <tr><td class="nowrap"><strong>iPhone · iPad · 브라우저</strong></td><td>설치 없이 웹에서 실행, 홈 화면에 추가 가능 (처음 약 68MB)</td><td class="nowrap">베타 1.2.0</td></tr>
@@ -390,7 +392,8 @@
       <div class="mini-card"><h4>‘PC 보호’ 창</h4><p>개인 제작 프로그램이라 처음 실행할 때 확인 창이 뜰 수 있습니다. 추가 정보 → 실행을 누르면 됩니다.</p></div>
     </div>
     <ul style="margin-top:14px;">
-      <li>이용 안내 첫머리에 <strong>저작권 소유: 은율</strong>을 적고, 허락 없는 수정 · 재배포를 금지합니다.</li>
+      <li><strong>이용 안내 및 약관</strong>: 저작권 소유(은율), 배우면서 만든 개인 작품이라 서비스가 언제든 바뀌거나 끝날 수 있음, 기록은 기기에만 남아 지워지면 되살리기 어려움(Windows 백업 위치 안내), 시험판, 있는 그대로 제공, 새 버전 확인 때의 접속, 저작권과 라이선스, 문의처를 적습니다.</li>
+      <li>같은 글을 설치 화면, 게임 안(설정 → 이용 안내), 내려받기 페이지에서 보여 줍니다. 설치 프로그램이 없는 Android · Mac · 웹은 처음 켤 때(약관이 바뀌면 다시) 동의를 받습니다.</li>
       <li><strong>자동 업데이트</strong>: 게임을 켤 때 새 버전 정보를 확인합니다. Windows는 게임 안에서 새 설치 파일을 받아 덮어 설치한 뒤 다시 켜고, Android는 새 APK를 받아 기존 앱 위에 설치합니다. 웹은 저장해 둔 옛 파일을 비우고 새 버전으로 다시 불러옵니다. 저장 기록은 그대로 남습니다.</li>
       <li>내려받기 페이지가 접속한 기기를 알아보고 맞는 파일을 먼저 보여 줍니다. 기기별 탭에 받는 방법을 단계별로 적었습니다.</li>
     </ul>
@@ -402,6 +405,7 @@
       <table>
         <thead><tr><th scope="col">버전</th><th scope="col">날짜</th><th scope="col">내용</th></tr></thead>
         <tbody>
+          <tr><td class="nowrap">v1.2.1</td><td class="nowrap">2026. 11. 3.</td><td>숙이기(Ctrl), 소독약 · 스크러버 판정 개선(물건 통과, 가장자리, 90%면 끝), 이용 안내 및 약관 구체화</td></tr>
           <tr><td class="nowrap">v1.2.0</td><td class="nowrap">2026. 11. 3.</td><td>보관함(꺼내기), 업데이트 노트, 새 버전 알림과 게임 안 자동 업데이트, 설정 화면 새 단장, 크레딧 역할 표기, 휴대폰 UV · 조사 버튼 개선, Android · Mac · 웹 테스트 베타, 휴대폰 · 태블릿 터치 조작(이동 스틱, 둘러보기, 도구 · 보관 · 폐기 버튼, 두 손가락 확대), 내려받기 페이지</td></tr>
           <tr><td class="nowrap">v1.1.0</td><td class="nowrap">2026. 11. 2.</td><td>4장 「편도」 · 5장 「닫힌 문」, 설치 프로그램, 만든 사람들, 멈춤 화면 새 단장, 물건을 한 번 다룬 뒤 상호작용이 멈추던 문제 등 버그 수정</td></tr>
           <tr><td class="nowrap">v1.0.0</td><td class="nowrap">2026. 11. 2.</td><td>첫 공개: 1장 「합격 통보」 · 2장 「겨울 통장」 · 3장 「필터」</td></tr>
