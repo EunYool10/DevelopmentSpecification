@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="마지막 방 — 특수청소부의 기록 v1.1.0 — 고인이 남긴 방을 치우고, 남겨진 물건으로 마지막 이야기를 듣는 1인칭 추리 게임의 개발 명세서">
+<meta name="theme-color" content="#f6f7f9" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#121417" media="(prefers-color-scheme: dark)">
+<title>마지막 방 개발 명세서</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🚪</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&family=Space+Mono:wght@400;700&display=swap">
+<link rel="stylesheet" href="assets/spec.css?v=20261102">
+</head>
+<body class="page-room">
+
+<a class="skip-link" href="#play">본문으로 건너뛰기</a>
+
+<!-- ═══════ TOP BAR ═══════ -->
+<header class="topbar" id="topbar">
+  <div class="topbar-inner">
+    <a class="topbar-brand" href="index.html" title="명세서 선택으로">
+      <svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><polyline points="15 18 9 12 15 6"/></svg>
+      <span class="brand-label">명세서 선택</span>
+    </a>
+    <nav class="topbar-tabs" aria-label="명세서 섹션 바로가기">
+      <a class="tab tone-cyan" href="#play" data-section="play"><span class="lbl-long">게임</span><span class="lbl-short">게임</span></a>
+      <a class="tab tone-orange" href="#work" data-section="work"><span class="lbl-long">정리 · 조사</span><span class="lbl-short">조사</span></a>
+      <a class="tab tone-violet" href="#solve" data-section="solve"><span class="lbl-long">재구성 · 기록</span><span class="lbl-short">기록</span></a>
+      <a class="tab tone-blue" href="#screens" data-section="screens"><span class="lbl-long">화면 · 설치</span><span class="lbl-short">설치</span></a>
+    </nav>
+    <div class="topbar-actions">
+      <button class="icon-btn" id="printBtn" type="button" title="인쇄 / PDF로 저장" aria-label="인쇄 또는 PDF로 저장">
+        <svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+      </button>
+      <button class="icon-btn" id="tocBtn" type="button" aria-haspopup="dialog" aria-controls="toc" aria-label="목차 · 검색" title="목차 · 검색 (/)">
+        <svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+        <span class="btn-label">목차 · 검색</span>
+        <kbd aria-hidden="true">/</kbd>
+      </button>
+    </div>
+  </div>
+  <div class="progress" aria-hidden="true"><div class="progress-bar" id="progressBar"></div></div>
+</header>
+
+<main id="main">
+
+<!-- ═══════ PAGE HEADER ═══════ -->
+<section class="landing" id="top" aria-labelledby="pageTitle">
+ <div class="landing-inner">
+  <p class="eyebrow">개발 명세서 · v1.1.0</p>
+  <h1 class="landing-title" id="pageTitle">마지막 방 — 특수청소부의 기록</h1>
+  <p class="landing-sub">고인이 남긴 방을 치우고, 남겨진 물건으로 마지막 이야기를 듣는 <strong>1인칭 추리 게임</strong>. 방 한 칸이 이야기 하나인 옴니버스 구성이고, 장마다 현장 정리 → 유품 조사 → 사건 재구성 순서로 진행합니다.</p>
+  <div class="stat-row">
+    <div class="stat"><span class="stat-num">5</span><span class="stat-label">이야기(장)</span></div>
+    <div class="stat"><span class="stat-num">110</span><span class="stat-label">현장 물건</span></div>
+    <div class="stat"><span class="stat-num">60</span><span class="stat-label">단서</span></div>
+    <div class="stat"><span class="stat-num">10</span><span class="stat-label">결말</span></div>
+  </div>
+  <div class="nav-pills">
+    <a class="nav-pill tone-cyan" href="#play">게임</a>
+    <a class="nav-pill tone-orange" href="#work">정리 · 조사</a>
+    <a class="nav-pill tone-violet" href="#solve">재구성 · 기록</a>
+    <a class="nav-pill tone-blue" href="#screens">화면 · 설치</a>
+  </div>
+  <div class="ext-links">
+    <a class="ext-link" href="https://github.com/EunYool10/LastRoom/releases/latest" target="_blank" rel="noopener">다운로드 바로가기
+      <svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
+  </div>
+  <p class="doc-meta">기준: v1.1.0 (2026-11-02) · 작성 2026-11-02</p>
+  <p class="landing-hint"><kbd>/</kbd> 키를 눌러 목차와 내용을 바로 검색할 수 있습니다.</p>
+ </div>
+</section>
+
+<!-- ════════════════════════════════════════
+     SECTION 1 · 게임
+════════════════════════════════════════ -->
+<section class="spec-section tone-cyan" id="play" aria-labelledby="playTitle">
+
+  <div class="spec-header">
+    <div class="spec-header-text">
+      <h2 id="playTitle">게임</h2>
+      <p>게임 소개, 다섯 개의 방, 한 장의 흐름, 편지와 결말</p>
+    </div>
+  </div>
+
+  <div class="card" id="lr-overview">
+    <h3>1. 프로젝트 개요</h3>
+    <p>플레이어는 고독사 현장을 치우는 특수청소부입니다. 손전등 하나로 방에 들어가 얼룩을 지우고 물건을 분류한 뒤, 작업실로 가져온 유품을 살펴 고인이 왜, 어떻게 세상을 떠났는지 밝힙니다. 마지막에는 고인이 끝내 전하지 못한 편지를 유족에게 전할지, 태울지 정합니다.</p>
+    <div class="grid-auto">
+      <div class="mini-card"><h4>1인칭 3D</h4><p>방 안을 직접 걸어 다니며 도구를 들고 치웁니다. 유품은 손에 들고 돌려 보며 숨은 흔적을 찾습니다.</p></div>
+      <div class="mini-card"><h4>옴니버스</h4><p>방 한 칸이 이야기 하나입니다. 다섯 장을 모두 끝내면 마지막 이야기가 이어집니다.</p></div>
+      <div class="mini-card"><h4>설치형 PC 게임</h4><p>Windows 설치 파일로 배포하고, 설치한 뒤에는 인터넷 없이 플레이합니다.</p></div>
+    </div>
+    <p class="note">죽음, 고독사, 과로, 약물 오남용 같은 무거운 이야기를 다룹니다. 게임 속 인물과 사건은 모두 지어낸 이야기입니다.</p>
+  </div>
+
+  <div class="card" id="lr-rooms">
+    <h3>2. 다섯 개의 방</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th scope="col">장</th><th scope="col">제목</th><th scope="col">현장</th><th scope="col">고인</th><th scope="col">한 줄 소개</th></tr></thead>
+        <tbody>
+          <tr><td class="nowrap">1장</td><td class="nowrap"><strong>「합격 통보」</strong></td><td class="nowrap">고시원 307호</td><td class="nowrap">한지우 (29)</td><td>한 평 반짜리 방, 끝나지 않은 면접</td></tr>
+          <tr><td class="nowrap">2장</td><td class="nowrap"><strong>「겨울 통장」</strong></td><td class="nowrap">반지하 B01호</td><td class="nowrap">박순례 (81)</td><td>보일러는 한 번도 켜지지 않았다</td></tr>
+          <tr><td class="nowrap">3장</td><td class="nowrap"><strong>「필터」</strong></td><td class="nowrap">오피스텔 1203호</td><td class="nowrap">서하린 (26)</td><td>카메라 반대편의 방</td></tr>
+          <tr><td class="nowrap">4장</td><td class="nowrap"><strong>「편도」</strong></td><td class="nowrap">공단 원룸 202호</td><td class="nowrap">김민서 (17)</td><td>집으로 가는 기차표 한 장</td></tr>
+          <tr><td class="nowrap">5장</td><td class="nowrap"><strong>「닫힌 문」</strong></td><td class="nowrap">아파트 9층, 지현의 방</td><td class="nowrap">박지현 (31)</td><td>6년 만에 열린 방문</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note">장마다 의뢰서에 적힌 첫 소견(약물 과다 복용, 연탄가스, 타살 의심 등)이 있지만, 현장의 단서를 모으면 다른 진실이 드러납니다.</p>
+  </div>
+
+  <div class="card" id="lr-loop">
+    <h3>3. 한 장의 흐름</h3>
+    <ol class="steps">
+      <li><strong>의뢰서</strong><span>고인의 이름 · 나이 · 직업, 발견 경위, 경찰 소견, 의뢰인을 서류 한 장으로 읽고 현장으로 갑니다.</span></li>
+      <li><strong>현장 정리</strong><span>어두운 방에서 손전등을 켜고 얼룩에 소독약을 뿌려 문지르고, 물건마다 보관할지 버릴지 정합니다.</span></li>
+      <li><strong>유품 조사</strong><span>작업실 책상에서 보관한 유품을 돌려 보고, UV 라이트를 비추고, 잠긴 휴대폰과 상자를 엽니다.</span></li>
+      <li><strong>사건 재구성</strong><span>코르크 보드에 단서를 붙여 사망 원인과 고인의 사연, 두 가지 질문에 답합니다.</span></li>
+      <li><strong>편지와 퇴근</strong><span>편지를 전할지 태울지 고르면 결말이 나오고, 퇴근 기록에 점수와 등급이 찍힙니다.</span></li>
+    </ol>
+  </div>
+
+  <div class="card" id="lr-letter">
+    <h3>4. 편지와 결말</h3>
+    <ul>
+      <li>장마다 고인이 남긴 편지가 한 통 숨어 있고, 편지마다 쉽게 정할 수 없는 사정이 붙어 있습니다. 예: “붙으면 이 편지는 버리고” — 그리고 고인은 붙었다.</li>
+      <li><strong>전한다</strong>: 유족이 편지를 읽은 뒤의 이야기가 이어집니다.</li>
+      <li><strong>태운다</strong>: 작업실 소각로에서 편지가 재가 되고, 유족은 그 내용을 모른 채 살아갑니다.</li>
+      <li>장마다 결말 2가지, 모두 10가지. 다섯 장을 끝내면 마지막 이야기와 만든 사람들 화면이 나옵니다.</li>
+    </ul>
+  </div>
+
+</section>
+
+<!-- ════════════════════════════════════════
+     SECTION 2 · 정리 · 조사
+════════════════════════════════════════ -->
+<section class="spec-section tone-orange" id="work" aria-labelledby="workTitle">
+
+  <div class="spec-header">
+    <div class="spec-header-text">
+      <h2 id="workTitle">정리 · 조사</h2>
+      <p>현장 도구, 물건 분류, 유품 조사, 잠긴 물건, 휴대폰과 기록물</p>
+    </div>
+  </div>
+
+  <div class="card" id="lr-tools">
+    <h3>5. 현장 도구</h3>
+    <div class="grid-auto">
+      <div class="mini-card"><h4>손</h4><p>물건을 집어 들고 살펴봅니다. 든 채로 보관함에 넣거나, 폐기하거나, 내려놓습니다.</p></div>
+      <div class="mini-card"><h4>소독 분무기</h4><p>얼룩에 소독약을 뿌리면 거품이 일어납니다. 소독하지 않은 얼룩은 잘 지워지지 않습니다.</p></div>
+      <div class="mini-card"><h4>스크러버</h4><p>버튼을 누른 채 마우스를 움직여 문지르면, 문지른 자리만큼 얼룩이 지워집니다.</p></div>
+    </div>
+    <ul style="margin-top:14px;">
+      <li>방은 어둡고, 손전등(<code>F</code>)과 방의 작은 조명만 있습니다.</li>
+      <li>장마다 얼룩 3곳(모두 15곳). 얼마나 지웠는지가 오염 제거율로 기록됩니다.</li>
+    </ul>
+  </div>
+
+  <div class="card" id="lr-sort">
+    <h3>6. 물건 분류</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th scope="col">장</th><th scope="col" class="num">물건</th><th scope="col" class="num">폐기물</th><th scope="col" class="num">유품</th><th scope="col" class="num">단서가 되는 물건</th></tr></thead>
+        <tbody>
+          <tr><td>1장 고시원</td><td class="num">24</td><td class="num">15</td><td class="num">2</td><td class="num">7</td></tr>
+          <tr><td>2장 반지하</td><td class="num">24</td><td class="num">14</td><td class="num">2</td><td class="num">8</td></tr>
+          <tr><td>3장 오피스텔</td><td class="num">23</td><td class="num">12</td><td class="num">3</td><td class="num">8</td></tr>
+          <tr><td>4장 공단 원룸</td><td class="num">19</td><td class="num">10</td><td class="num">3</td><td class="num">6</td></tr>
+          <tr><td>5장 지현의 방</td><td class="num">20</td><td class="num">10</td><td class="num">2</td><td class="num">8</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <ul style="margin-top:14px;">
+      <li>물건을 들면 이름과 짧은 설명 카드가 뜨고, 보관함에 넣을지 버릴지 고릅니다.</li>
+      <li>쓰레기를 보관하면 작은 실수, 유족에게 돌려줄 유품을 버리면 큰 실수로 기록됩니다.</li>
+      <li>단서가 되는 물건은 버릴 수 없습니다. 버리려 하면 “무언가 알려 줄지도 모른다”는 혼잣말이 나옵니다.</li>
+    </ul>
+  </div>
+
+  <div class="card" id="lr-inspect">
+    <h3>7. 유품 조사</h3>
+    <ul>
+      <li>보관한 유품이 작업실 책상에 놓이고, 하나씩 골라 손에 들고 살펴봅니다.</li>
+      <li>마우스로 끌어 돌리고, 휠로 확대 · 축소합니다. <code>R</code>은 정면으로 되돌리기.</li>
+      <li><strong>UV 라이트</strong>(<code>U</code>): 맨눈으로 안 보이는 글씨와 흔적을 비춰 봅니다.</li>
+      <li><strong>단서 위치</strong>(<code>H</code>): 막혔을 때 아직 못 찾은 단서가 있는 곳을 잠깐 알려 줍니다.</li>
+      <li>물건의 특정 면을 클릭하면 단서가 수첩에 적힙니다. 물건 뒤편이나 바닥처럼 돌려 봐야 보이는 곳이 많습니다.</li>
+    </ul>
+  </div>
+
+  <div class="card" id="lr-locks">
+    <h3>8. 잠긴 물건</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th scope="col">장</th><th scope="col">잠긴 물건</th><th scope="col">여는 방법</th></tr></thead>
+        <tbody>
+          <tr><td class="nowrap">1장</td><td class="nowrap"><strong>스마트폰</strong></td><td>화면 패턴 잠금. 방 안의 흔적에서 패턴을 찾아 그립니다.</td></tr>
+          <tr><td class="nowrap">2장</td><td class="nowrap"><strong>자개함</strong></td><td>네 자리 숫자 자물쇠. 다이얼을 돌려 맞추면 통장과 편지가 나옵니다.</td></tr>
+          <tr><td class="nowrap">3장</td><td class="nowrap"><strong>화장품 상자</strong></td><td>바닥을 두드려 이중 바닥을 찾습니다. 스마트폰은 패턴 잠금.</td></tr>
+          <tr><td class="nowrap">4장</td><td class="nowrap"><strong>꺼진 휴대폰</strong></td><td>배터리가 다 닳아 있어 충전기에 꽂고 켜질 때까지 기다립니다.</td></tr>
+          <tr><td class="nowrap">5장</td><td class="nowrap"><strong>노트북 · 선물 상자</strong></td><td>노트북은 네 자리 비밀번호, 선물 상자는 포장을 풀면 안에 든 것이 나옵니다.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="card" id="lr-phone">
+    <h3>9. 휴대폰 · 기록물</h3>
+    <div class="grid-2">
+      <div>
+        <p class="sub-title">휴대폰 · 노트북 앱</p>
+        <ul>
+          <li>메시지, 메일, 메모, 사진, DM, 통화 기록, 문자, 길드 채팅</li>
+          <li>기기 모양도 장마다 다릅니다: 스마트폰, 폴더폰, 노트북</li>
+          <li>대화방 하나하나가 단서가 되어 수첩에 적힙니다.</li>
+        </ul>
+      </div>
+      <div>
+        <p class="sub-title">종이 기록물 19종</p>
+        <ul>
+          <li>건강검진 통보서, 가스 요금 고지서, 실습 일지, 달력, 일기, 심박 기록 같은 서류</li>
+          <li>서류 · 손글씨 · 영수증 · 메모지 네 가지 모양으로 보여 줍니다.</li>
+          <li>중요한 줄은 굵게 표시되고, 펼쳐 읽으면 단서로 기록됩니다.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<!-- ════════════════════════════════════════
+     SECTION 3 · 재구성 · 기록
+════════════════════════════════════════ -->
+<section class="spec-section tone-violet" id="solve" aria-labelledby="solveTitle">
+
+  <div class="spec-header">
+    <div class="spec-header-text">
+      <h2 id="solveTitle">재구성 · 기록</h2>
+      <p>단서 보드, 점수와 등급, 저장과 장 열림, 마지막 이야기</p>
+    </div>
+  </div>
+
+  <div class="card" id="lr-board">
+    <h3>10. 단서 보드</h3>
+    <ul>
+      <li>모은 단서가 코르크 보드에 메모 카드로 붙습니다.</li>
+      <li>장마다 질문 2개: 첫째는 <strong>사망 원인</strong>, 둘째는 고인이 숨긴 것이나 하려던 일 같은 <strong>사연</strong>입니다. 보기는 4개입니다.</li>
+      <li>답을 고를 때 근거가 되는 단서 카드를 최대 2장 함께 고릅니다. 결정적 근거를 고를수록 점수가 올라갑니다.</li>
+      <li>틀리면 그 보기가 왜 아닌지 짧은 설명이 나오고, 다시 고를 수 있습니다.</li>
+      <li>두 질문을 풀면 고인의 이야기가 다섯 문단으로 이어서 펼쳐집니다.</li>
+    </ul>
+  </div>
+
+  <div class="card" id="lr-score">
+    <h3>11. 점수 · 등급</h3>
+    <div class="grid-2">
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th scope="col">항목</th><th scope="col" class="num">배점</th><th scope="col">기준</th></tr></thead>
+          <tbody>
+            <tr><td><strong>현장 정리</strong></td><td class="num">25</td><td>오염 제거율</td></tr>
+            <tr><td><strong>유품 분류</strong></td><td class="num">25</td><td>쓰레기 보관 −2, 유품 폐기 −5</td></tr>
+            <tr><td><strong>유품 조사</strong></td><td class="num">25</td><td>찾은 단서 비율</td></tr>
+            <tr><td><strong>사건 재구성</strong></td><td class="num">25</td><td>질문마다 정답 7.5(오답마다 −2.5) + 결정적 근거 2개까지 2.5씩</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th scope="col">등급</th><th scope="col" class="num">점수</th></tr></thead>
+          <tbody>
+            <tr><td><strong>S</strong></td><td class="num">90 이상</td></tr>
+            <tr><td><strong>A</strong></td><td class="num">75 이상</td></tr>
+            <tr><td><strong>B</strong></td><td class="num">60 이상</td></tr>
+            <tr><td><strong>C</strong></td><td class="num">60 미만</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <p class="note">퇴근 기록에는 오염 제거율, 분류 실수, 찾은 단서, 오답 수, 작업 시간, 점수가 적히고 등급이 도장으로 찍힙니다.</p>
+  </div>
+
+  <div class="card" id="lr-save">
+    <h3>12. 저장 · 장 열림</h3>
+    <ul>
+      <li>장을 끝내면 이 PC에 자동으로 저장됩니다: 등급, 최고 점수, 편지를 전했는지 태웠는지.</li>
+      <li>1장은 처음부터 열려 있고, 앞 장을 끝내야 다음 장이 열립니다.</li>
+      <li>끝낸 장은 몇 번이든 다시 할 수 있고, 최고 점수만 남깁니다.</li>
+      <li>타이틀의 <strong>기록 지우기</strong>로 처음 상태로 되돌립니다.</li>
+    </ul>
+  </div>
+
+  <div class="card" id="lr-final">
+    <h3>13. 마지막 이야기 · 만든 사람들</h3>
+    <ul>
+      <li>다섯 장을 모두 끝내면 처음 한 번 마지막 이야기가 나오고, 장마다 남긴 등급과 편지 선택을 한 장에 모아 보여 줍니다.</li>
+      <li>이어서 만든 사람들 화면이 천천히 올라갑니다. 타이틀에서 언제든 다시 볼 수 있고, <code>Esc</code>로 건너뜁니다.</li>
+    </ul>
+  </div>
+
+</section>
+
+<!-- ════════════════════════════════════════
+     SECTION 4 · 화면 · 설치
+════════════════════════════════════════ -->
+<section class="spec-section tone-blue" id="screens" aria-labelledby="screensTitle">
+
+  <div class="spec-header">
+    <div class="spec-header-text">
+      <h2 id="screensTitle">화면 · 설치</h2>
+      <p>화면 흐름, 조작과 설정, 그림과 소리, 설치와 배포, 업데이트</p>
+    </div>
+  </div>
+
+  <div class="card" id="lr-flow">
+    <h3>14. 화면 흐름</h3>
+    <ol class="steps">
+      <li><strong>타이틀</strong><span>뒤편에 작업할 방이 천천히 보이고, 장 선택 카드(끝낸 장은 등급 · 편지 선택 표시)와 설정 · 조작법 · 기록 지우기 · 만든 사람들 · 끝내기</span></li>
+      <li><strong>의뢰서</strong><span>종이 서류 모양으로 고인 정보와 의뢰 내용을 보여 주고, 현장으로 가기 · 돌아가기</span></li>
+      <li><strong>현장</strong><span>1인칭 화면. 아래에 도구 칸, 위에 오염 제거와 유품 분류 진행 상황, 들고 있는 물건의 카드</span></li>
+      <li><strong>작업실</strong><span>책상 위 유품, 단서 수첩, UV · 단서 위치 · 정면 보기 버튼</span></li>
+      <li><strong>단서 보드 → 퇴근 기록</strong><span>질문과 단서 카드, 고인의 이야기, 편지 선택, 점수와 등급 도장</span></li>
+    </ol>
+    <p class="note">작업 중 <code>Esc</code>를 누르면 화면이 흐려지며 멈춤 메뉴가 열립니다: 지금 장과 단계, 계속하기 · 설정 · 장 선택으로, 그리고 이 단계의 조작키 안내.</p>
+  </div>
+
+  <div class="card" id="lr-controls">
+    <h3>15. 조작 · 설정</h3>
+    <div class="grid-2">
+      <div>
+        <p class="sub-title">키보드 · 마우스</p>
+        <ul>
+          <li><code>W</code> <code>A</code> <code>S</code> <code>D</code> · 마우스: 이동 · 둘러보기</li>
+          <li><code>1</code> <code>2</code> <code>3</code> · 휠: 손 · 분무기 · 스크러버</li>
+          <li>왼쪽 버튼 누르고 있기: 도구 사용</li>
+          <li><code>E</code> · 왼쪽 클릭: 집어 보기 · 조사 / 들고 있으면 보관함에 넣기</li>
+          <li><code>Q</code>: 폐기 · <code>X</code> · 오른쪽 클릭: 내려놓기</li>
+          <li><code>F</code>: 손전등 · <code>Esc</code>: 멈춤 · <code>F11</code>: 전체 화면</li>
+        </ul>
+      </div>
+      <div>
+        <p class="sub-title">설정</p>
+        <ul>
+          <li>마우스 감도 (0.3 ~ 2.5배)</li>
+          <li>소리 크기</li>
+          <li>전체 화면</li>
+          <li>설정은 저장되어 다음 실행에도 이어집니다.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" id="lr-art">
+    <h3>16. 그림 · 소리</h3>
+    <ul>
+      <li>방, 가구, 소품을 모두 직접 만든 3D 모델로 짓고, 벽지 · 장판 · 라벨 같은 질감도 직접 그려 넣었습니다.</li>
+      <li>방마다 다른 벽지, 바닥, 조명 색, 안개 농도로 분위기를 나눕니다.</li>
+      <li>글꼴은 명조 · 고딕 · 손글씨 세 가지를 써서 서류, 화면 글자, 고인의 손글씨를 구분합니다.</li>
+      <li>효과음(분무, 문지르기, 종이, 잠금 해제, 소각 등)은 직접 합성해 만들었습니다.</li>
+      <li>화면 디자인은 서류 · 도장 · 코르크 보드 · 포스트잇처럼 실제 작업 현장의 물건을 본떠 꾸몄습니다.</li>
+    </ul>
+  </div>
+
+  <div class="card" id="lr-install">
+    <h3>17. 설치 · 배포</h3>
+    <div class="grid-auto">
+      <div class="mini-card"><h4>설치 파일</h4><p>Windows 10 · 11(64비트)용 설치 파일 하나(약 54MB). 이용 안내에 동의하고 설치 위치를 고르면 바탕 화면과 시작 메뉴에 바로 가기가 생깁니다.</p></div>
+      <div class="mini-card"><h4>관리자 권한 없이</h4><p>사용자 폴더에 설치해 관리자 권한을 묻지 않습니다. Windows 설정의 앱 목록이나 시작 메뉴의 제거 바로 가기로 지웁니다.</p></div>
+      <div class="mini-card"><h4>‘PC 보호’ 창</h4><p>개인 제작 프로그램이라 처음 실행할 때 확인 창이 뜰 수 있습니다. 추가 정보 → 실행을 누르면 됩니다.</p></div>
+    </div>
+    <ul style="margin-top:14px;">
+      <li>이용 안내 첫머리에 <strong>저작권 소유: 은율</strong>을 적고, 허락 없는 수정 · 재배포를 금지합니다.</li>
+      <li>새 버전은 다운로드 페이지에 설치 파일로 올립니다.</li>
+    </ul>
+  </div>
+
+  <div class="card" id="lr-history">
+    <h3>18. 업데이트 발자취</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th scope="col">버전</th><th scope="col">날짜</th><th scope="col">내용</th></tr></thead>
+        <tbody>
+          <tr><td class="nowrap">v1.1.0</td><td class="nowrap">2026. 11. 2.</td><td>4장 「편도」 · 5장 「닫힌 문」, 설치 프로그램, 만든 사람들, 멈춤 화면 새 단장, 물건을 한 번 다룬 뒤 상호작용이 멈추던 문제 등 버그 수정</td></tr>
+          <tr><td class="nowrap">v1.0.0</td><td class="nowrap">2026. 11. 2.</td><td>첫 공개: 1장 「합격 통보」 · 2장 「겨울 통장」 · 3장 「필터」</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</section>
+
+</main>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <nav class="footer-links" aria-label="다른 명세서">
+    <a href="index.html">명세서 선택</a>
+    <a href="fruitarcade.html">상큼 과일 아케이드 존</a>
+    <a href="schoolfix.html">SchoolFix AI</a>
+    <a href="egggame.html">계란이의 모험</a>
+    <a href="logicmaze.html">논리 미궁</a>
+    <a href="aihub.html">AI Hub</a>
+  </nav>
+  <p class="footer-meta">© 2026 · 마지막 방 Development Specification</p>
+</footer>
+
+<!-- ── TOC · SEARCH DRAWER ── -->
+<dialog class="toc" id="toc" aria-labelledby="tocTitle">
+  <div class="toc-panel">
+    <div class="toc-head">
+      <h2 id="tocTitle">목차</h2>
+      <button class="icon-btn" id="tocClose" type="button" aria-label="목차 닫기">
+        <svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <div class="toc-search">
+      <label class="sr-only" for="tocSearch">명세서 내용 검색</label>
+      <svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input id="tocSearch" type="search" placeholder="내용 검색 (예: 단서, 편지, 등급)" autocomplete="off" spellcheck="false" aria-describedby="tocCount">
+    </div>
+    <p class="toc-count" id="tocCount" aria-live="polite"></p>
+    <nav class="toc-nav" id="tocNav" aria-label="명세서 목차"></nav>
+    <p class="toc-empty" id="tocEmpty" hidden>일치하는 항목이 없습니다.</p>
+  </div>
+</dialog>
+
+<button class="to-top" id="toTop" type="button" aria-label="맨 위로 이동" title="맨 위로">
+  <svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg>
+</button>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="assets/spec.js?v=20261102"></script>
+</body>
+</html>
