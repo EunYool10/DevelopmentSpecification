@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="계란이의 모험 v3.8.1 — 현대·고대·미래 세 시대의 계란이가 엄마 품을 찾아 떠나는 선택형 텍스트 어드벤처의 개발 명세서">
+<meta name="description" content="계란이의 모험 v3.8.2 — 현대·고대·미래 세 시대의 계란이가 엄마 품을 찾아 떠나는 선택형 텍스트 어드벤처의 개발 명세서">
 <meta name="theme-color" content="#f6f7f9" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#121417" media="(prefers-color-scheme: dark)">
 <title>계란이의 모험 개발 명세서</title>
@@ -49,7 +49,7 @@
 <!-- ═══════ PAGE HEADER ═══════ -->
 <section class="landing" id="top" aria-labelledby="pageTitle">
  <div class="landing-inner">
-  <p class="eyebrow">개발 명세서 · v3.8.1</p>
+  <p class="eyebrow">개발 명세서 · v3.8.2</p>
   <h1 class="landing-title" id="pageTitle">계란이의 모험</h1>
   <p class="landing-sub">현대·고대·미래, 세 시대의 계란이가 엄마 품을 찾아 떠나는 <strong>선택형 텍스트 어드벤처</strong>. 상황을 읽고 A·B·C 중 하나를 고르면, 고른 길에 따라 서로 다른 엔딩에 도착합니다.</p>
   <div class="stat-row">
@@ -68,7 +68,7 @@
     <a class="ext-link" href="https://egggame.onrender.com" target="_blank" rel="noopener">웹사이트 바로가기
       <svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
   </div>
-  <p class="doc-meta">기준: v3.8.1 (2026-10-25) · 작성 2026-10-27</p>
+  <p class="doc-meta">기준: v3.8.2 (2026-10-27) · 작성 2026-10-27 · 갱신 2026-11-03</p>
   <p class="landing-hint"><kbd>/</kbd> 키를 눌러 목차와 내용을 바로 검색할 수 있습니다.</p>
  </div>
 </section>
@@ -315,7 +315,7 @@
     <div class="grid-auto">
       <div class="mini-card"><h4>앱으로 설치</h4><p>타이틀 아래 ‘앱으로 설치’로 홈 화면에 설치합니다. 아이폰은 공유 → 홈 화면에 추가 방법을 안내합니다. 한 번 열어 둔 뒤에는 오프라인으로 플레이합니다.</p></div>
       <div class="mini-card"><h4>결과 공유</h4><p>휴대폰에서는 공유 창이 바로 열리고, 그 밖의 기기에서는 결과 글을 복사합니다.</p></div>
-      <div class="mini-card"><h4>은율이의 다른 앱</h4><p>타이틀에서 상큼 과일 아케이드 존 · 논리 미궁 · SchoolFix를 새 탭으로 엽니다. 카드는 각 앱의 아이콘과 색으로 꾸몄습니다.</p></div>
+      <div class="mini-card"><h4>은율이의 다른 앱</h4><p>타이틀에서 상큼 과일 아케이드 존 · 논리 미궁 · SchoolFix · AI Hub를 새 탭으로 엽니다. 카드는 각 앱의 아이콘과 색으로 꾸몄습니다.</p></div>
     </div>
   </div>
 
@@ -367,15 +367,16 @@
 
   <div class="card" id="eg-viewer">
     <h3>18. 관리자 뷰어</h3>
+    <p>맨 위 요약판에 엔딩 · 장면 · 계란을 모은 수와 지금 진행 중인 이야기, 관리자 권한이 켜졌는지가 나옵니다. 탭마다 아이콘이 붙어 있습니다.</p>
     <div class="table-wrap">
       <table>
         <thead><tr><th scope="col">탭</th><th scope="col">할 수 있는 것</th></tr></thead>
         <tbody>
           <tr><td class="nowrap"><strong>진행 상태</strong></td><td>지금 모험의 온기, 껍질 금, 가방 아이템, 친구를 하나씩 켜고 끄기. 이야기 바로 시작</td></tr>
           <tr><td class="nowrap"><strong>장면 지도</strong></td><td>이야기별 모든 장면의 글, 조건 문단, 선택지가 어디로 가고 무엇이 바뀌는지 보기. 아무 장면으로 이동</td></tr>
-          <tr><td class="nowrap"><strong>엔딩</strong></td><td>엔딩 미리 보기(도감에 기록하지 않음), 글 읽기, 엔딩 하나씩 또는 이야기 전체 기록하기 · 지우기</td></tr>
-          <tr><td class="nowrap"><strong>기록</strong></td><td>플레이 기록 보기, 모든 엔딩 · 장면 기록, 도감 비우기, 기록 초기화, 이어하기 지우기, 기록 내보내기 · 가져오기, 계정에 바로 저장</td></tr>
-          <tr><td class="nowrap"><strong>그림</strong></td><td>배경 36개, 스킨 302개, 엔딩 그림 49개 모아 보기. 스킨 바로 입기</td></tr>
+          <tr><td class="nowrap"><strong>엔딩</strong></td><td>본 엔딩 수, 본 것 · 안 본 것 · 종류별로 거르기, 엔딩 미리 보기(도감에 기록하지 않음), 글 읽기, 엔딩 하나씩 도감에 기록 · 지우기, 이야기 전체 모두 기록 · 기록 지우기</td></tr>
+          <tr><td class="nowrap"><strong>기록</strong></td><td>플레이 기록 보기, 모든 엔딩 · 장면 기록, 기록 내보내기 · 가져오기, 계정에 바로 저장. 도감 비우기 · 기록 초기화 · 이어하기 지우기는 ‘되돌릴 수 없는 작업’ 칸에 따로 모아 한 번 더 확인</td></tr>
+          <tr><td class="nowrap"><strong>그림</strong></td><td>배경 36개, 스킨 302개, 엔딩 그림 49개 모아 보기. 계란 이름으로 찾기, 전체 · 일반 · 운영진으로 거르기, 스킨 바로 입기</td></tr>
           <tr><td class="nowrap"><strong>미니게임</strong></td><td>난이도 바꾸기, 6종 연습, 이야기 속 미니게임 21개 하나씩 해 보기</td></tr>
           <tr><td class="nowrap"><strong>옵션</strong></td><td>미니게임 항상 성공, 선택지 결과 미리 보기, 장면 id 보기, 글자 바로 보이기, 일반 플레이어로 보기</td></tr>
         </tbody>
@@ -411,6 +412,7 @@
       <table>
         <thead><tr><th scope="col">버전</th><th scope="col">날짜</th><th scope="col">내용</th></tr></thead>
         <tbody>
+          <tr><td class="nowrap">v3.8.2</td><td class="nowrap">2026. 10. 27.</td><td>다른 앱에 AI Hub, 관리자 뷰어 요약판 · 엔딩 거르기 · 계란 찾기</td></tr>
           <tr><td class="nowrap">v3.8.1</td><td class="nowrap">2026. 10. 25.</td><td>엔딩 화면 버튼 정리, 휴대폰 결과 공유</td></tr>
           <tr><td class="nowrap">v3.8</td><td class="nowrap">2026. 10. 25.</td><td>앱으로 설치 · 오프라인, 새 소식, 읽은 글 바로 보기, 지난 모험</td></tr>
           <tr><td class="nowrap">v3.7</td><td class="nowrap">2026. 10. 20.</td><td>새 장면 12곳, 계란 101종</td></tr>
