@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="마지막 방 — 특수청소부의 기록 v1.3.1 — 고인이 남긴 방을 치우고, 남겨진 물건으로 마지막 이야기를 듣는 1인칭 추리 게임의 개발 명세서">
+<meta name="description" content="마지막 방 — 특수청소부의 기록 v1.3.2 — 고인이 남긴 방을 치우고, 남겨진 물건으로 마지막 이야기를 듣는 1인칭 추리 게임의 개발 명세서">
 <meta name="theme-color" content="#f6f7f9" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#121417" media="(prefers-color-scheme: dark)">
 <title>마지막 방 개발 명세서</title>
@@ -49,7 +49,7 @@
 <!-- ═══════ PAGE HEADER ═══════ -->
 <section class="landing" id="top" aria-labelledby="pageTitle">
  <div class="landing-inner">
-  <p class="eyebrow">개발 명세서 · v1.3.1</p>
+  <p class="eyebrow">개발 명세서 · v1.3.2</p>
   <h1 class="landing-title" id="pageTitle">마지막 방 — 특수청소부의 기록</h1>
   <p class="landing-sub">고인이 남긴 방을 치우고, 남겨진 물건으로 마지막 이야기를 듣는 <strong>1인칭 추리 게임</strong>. 방 한 칸이 이야기 하나인 옴니버스 구성이고, 장마다 현장 정리 → 유품 조사 → 사건 재구성 순서로 진행합니다.</p>
   <div class="stat-row">
@@ -68,7 +68,7 @@
     <a class="ext-link" href="https://eunyool10.github.io/LastRoom/" target="_blank" rel="noopener">웹사이트 바로가기
       <svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
   </div>
-  <p class="doc-meta">기준: v1.3.1 (2026-11-03) · 작성 2026-11-02</p>
+  <p class="doc-meta">기준: v1.3.2 (2026-11-03) · 작성 2026-11-02</p>
   <p class="landing-hint"><kbd>/</kbd> 키를 눌러 목차와 내용을 바로 검색할 수 있습니다.</p>
  </div>
 </section>
@@ -386,10 +386,10 @@
       <table>
         <thead><tr><th scope="col">기기</th><th scope="col">받는 것</th><th scope="col">단계</th></tr></thead>
         <tbody>
-          <tr><td class="nowrap"><strong>Windows</strong></td><td>설치 파일 (약 54MB)</td><td class="nowrap">정식 1.3.1</td></tr>
-          <tr><td class="nowrap"><strong>Android</strong></td><td>APK (Android 7.0 이상, 약 52MB)</td><td class="nowrap">베타 1.3.1</td></tr>
-          <tr><td class="nowrap"><strong>Mac</strong></td><td>앱 압축 파일 (Apple 칩 · Intel, 약 84MB)</td><td class="nowrap">베타 1.3.1</td></tr>
-          <tr><td class="nowrap"><strong>iPhone · iPad · 브라우저</strong></td><td>설치 없이 웹에서 실행, 홈 화면에 추가 가능 (처음 약 68MB)</td><td class="nowrap">베타 1.3.1</td></tr>
+          <tr><td class="nowrap"><strong>Windows</strong></td><td>설치 파일 (약 54MB)</td><td class="nowrap">정식 1.3.2</td></tr>
+          <tr><td class="nowrap"><strong>Android</strong></td><td>APK (Android 7.0 이상, 약 52MB)</td><td class="nowrap">베타 1.3.2</td></tr>
+          <tr><td class="nowrap"><strong>Mac</strong></td><td>앱 압축 파일 (Apple 칩 · Intel, 약 84MB)</td><td class="nowrap">베타 1.3.2</td></tr>
+          <tr><td class="nowrap"><strong>iPhone · iPad · 브라우저</strong></td><td>설치 없이 웹에서 실행, 홈 화면에 추가 가능 (처음 약 68MB)</td><td class="nowrap">베타 1.3.2</td></tr>
         </tbody>
       </table>
     </div>
@@ -413,6 +413,7 @@
       <table>
         <thead><tr><th scope="col">버전</th><th scope="col">날짜</th><th scope="col">내용</th></tr></thead>
         <tbody>
+          <tr><td class="nowrap">v1.3.2</td><td class="nowrap">2026. 11. 3.</td><td>숨은 물건 안내(보이는 물건을 다 분류하면 아직 못 찾은 물건 수와 열어 볼 곳을 알려 줌)</td></tr>
           <tr><td class="nowrap">v1.3.1</td><td class="nowrap">2026. 11. 3.</td><td>버튼이 씹히던 문제 수정(글자 버튼은 글자 둘레까지 눌림, 유품 조사는 손 떨림을 누르기로 인정, 현장에서 살짝 비껴 겨눠도 집기)</td></tr>
           <tr><td class="nowrap">v1.3.0</td><td class="nowrap">2026. 11. 3.</td><td>시작 화면(YOOL 제작 → 문 표지), 설정을 현장 장비 점검표로 새 단장(시야 · 화질 · 깜빡임 줄이기 · 효과음과 주변 소리 · 숙이기 방식), 기록 백업 코드, 보관함 꼬리표와 폐기 봉투 꺼내기, 3장 다이어리를 집을 수 없던 문제 수정, 서랍 · 문 · 뚜껑 다시 닫기, 펼쳐 읽기 버튼, 연탄난로 · 싱크대 새 모델, 앞 장 기록 없이 끝낸 장이 잠기던 문제 수정, 새 앱 아이콘, 업데이트 파일 확인, Android 새 버전 확인 수정, 문의 이메일</td></tr>
           <tr><td class="nowrap">v1.2.1</td><td class="nowrap">2026. 11. 3.</td><td>숙이기(Ctrl), 소독약 · 스크러버 판정 개선(물건 통과, 가장자리, 90%면 끝), 이용 안내 및 약관 구체화</td></tr>
