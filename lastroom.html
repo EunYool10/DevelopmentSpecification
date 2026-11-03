@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="마지막 방 — 특수청소부의 기록 v1.2.1 — 고인이 남긴 방을 치우고, 남겨진 물건으로 마지막 이야기를 듣는 1인칭 추리 게임의 개발 명세서">
+<meta name="description" content="마지막 방 — 특수청소부의 기록 v1.3.0 — 고인이 남긴 방을 치우고, 남겨진 물건으로 마지막 이야기를 듣는 1인칭 추리 게임의 개발 명세서">
 <meta name="theme-color" content="#f6f7f9" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#121417" media="(prefers-color-scheme: dark)">
 <title>마지막 방 개발 명세서</title>
@@ -49,7 +49,7 @@
 <!-- ═══════ PAGE HEADER ═══════ -->
 <section class="landing" id="top" aria-labelledby="pageTitle">
  <div class="landing-inner">
-  <p class="eyebrow">개발 명세서 · v1.2.1</p>
+  <p class="eyebrow">개발 명세서 · v1.3.0</p>
   <h1 class="landing-title" id="pageTitle">마지막 방 — 특수청소부의 기록</h1>
   <p class="landing-sub">고인이 남긴 방을 치우고, 남겨진 물건으로 마지막 이야기를 듣는 <strong>1인칭 추리 게임</strong>. 방 한 칸이 이야기 하나인 옴니버스 구성이고, 장마다 현장 정리 → 유품 조사 → 사건 재구성 순서로 진행합니다.</p>
   <div class="stat-row">
@@ -68,7 +68,7 @@
     <a class="ext-link" href="https://eunyool10.github.io/LastRoom/" target="_blank" rel="noopener">웹사이트 바로가기
       <svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
   </div>
-  <p class="doc-meta">기준: v1.2.1 (2026-11-03) · 작성 2026-11-02</p>
+  <p class="doc-meta">기준: v1.3.0 (2026-11-03) · 작성 2026-11-02</p>
   <p class="landing-hint"><kbd>/</kbd> 키를 눌러 목차와 내용을 바로 검색할 수 있습니다.</p>
  </div>
 </section>
@@ -180,7 +180,8 @@
     <ul style="margin-top:14px;">
       <li>물건을 들면 이름과 짧은 설명 카드가 뜨고, 보관함에 넣을지 버릴지 고릅니다.</li>
       <li>쓰레기를 보관하면 작은 실수, 유족에게 돌려줄 유품을 버리면 큰 실수로 기록됩니다.</li>
-      <li><strong>보관함</strong>: <code>I</code> · <code>Tab</code>(휴대폰은 보관함 버튼)으로 지금까지 넣은 물건을 번호순으로 봅니다. 잘못 넣은 물건은 <strong>꺼내기</strong>로 처음 있던 자리에 돌려놓고, 그 실수도 기록에서 지웁니다.</li>
+      <li><strong>보관함</strong>: <code>I</code> · <code>Tab</code>(휴대폰은 보관함 버튼)으로 엽니다. 넣은 물건과 폐기 봉투에 버린 물건이 끈 구멍이 뚫린 종이 꼬리표로 나뉘어 놓이고, 위에는 보관 · 폐기 · 남은 물건 수가 적힙니다. 꼬리표를 고르면 오른쪽에 이름과 설명이 적히고, <strong>꺼내서 제자리에 두기</strong>로 처음 있던 자리에 돌려놓으며 그 실수도 기록에서 지웁니다.</li>
+      <li>서랍 · 자개장 문은 한 번 연 뒤에도 다시 닫고 열 수 있습니다. 안에서 나온 물건을 아직 집지 않았다면 닫을 때 같이 가려집니다.</li>
       <li>단서가 되는 물건은 버릴 수 없습니다. 버리려 하면 “무언가 알려 줄지도 모른다”는 혼잣말이 나옵니다.</li>
     </ul>
   </div>
@@ -197,6 +198,7 @@
   </div>
 
   <div class="card" id="lr-locks">
+    <p class="note">다이어리 · 편지 · 쪽지처럼 글이 있는 물건은 이름 아래 <strong>펼쳐 읽기</strong> 버튼으로도 바로 엽니다. 휴대폰 · 노트북은 <strong>화면 켜기</strong>.</p>
     <h3>8. 잠긴 물건</h3>
     <div class="table-wrap">
       <table>
@@ -292,9 +294,11 @@
     <h3>12. 저장 · 장 열림</h3>
     <ul>
       <li>장을 끝내면 이 PC에 자동으로 저장됩니다: 등급, 최고 점수, 편지를 전했는지 태웠는지.</li>
-      <li>1장은 처음부터 열려 있고, 앞 장을 끝내야 다음 장이 열립니다.</li>
+      <li>1장은 처음부터 열려 있고, 앞 장을 끝내야 다음 장이 열립니다. 한 번 끝낸 장은 앞 장 기록이 없어도 열려 있습니다.</li>
       <li>끝낸 장은 몇 번이든 다시 할 수 있고, 최고 점수만 남깁니다.</li>
       <li>타이틀의 <strong>기록 지우기</strong>로 처음 상태로 되돌립니다.</li>
+      <li><strong>백업 코드</strong>: 설정 → 기록에서 끝낸 장 · 등급 · 설정을 글자 코드로 옮겨 적고, 기기를 바꾸거나 기록이 지워졌을 때 타이틀의 설정에서 붙여 넣어 되살립니다. 틀리거나 잘린 코드는 받지 않습니다.</li>
+      <li>저장할 때는 새 파일에 다 쓴 다음 바꿔 끼우고 바로 전 기록을 한 벌 남겨, 쓰는 도중에 꺼지거나 파일이 망가져도 앞 기록으로 되살립니다.</li>
     </ul>
   </div>
 
@@ -324,6 +328,7 @@
   <div class="card" id="lr-flow">
     <h3>14. 화면 흐름</h3>
     <ol class="steps">
+      <li><strong>시작 화면</strong><span>YOOL 제작 → 문틈으로 불빛이 새는 문 표지와 마지막 방 제목 · 한 줄 글 → 타이틀. 누르거나 키를 치면 바로 넘어갑니다</span></li>
       <li><strong>타이틀</strong><span>뒤편에 작업할 방이 천천히 보이고, 장 선택 카드(끝낸 장은 등급 · 편지 선택 표시)와 설정 · 조작법 · 업데이트 노트(새 버전이면 NEW) · 기록 지우기 · 만든 사람들 · 끝내기, 오른쪽 아래 버전 표시</span></li>
       <li><strong>의뢰서</strong><span>종이 서류 모양으로 고인 정보와 의뢰 내용을 보여 주고, 현장으로 가기 · 돌아가기</span></li>
       <li><strong>현장</strong><span>1인칭 화면. 아래에 도구 칸, 위에 오염 제거와 유품 분류 진행 상황, 들고 있는 물건의 카드</span></li>
@@ -342,7 +347,7 @@
           <li><code>W</code> <code>A</code> <code>S</code> <code>D</code> · 마우스: 이동 · 둘러보기</li>
           <li><code>1</code> <code>2</code> <code>3</code> · 휠: 손 · 분무기 · 스크러버</li>
           <li>왼쪽 버튼 누르고 있기: 도구 사용</li>
-          <li><code>E</code> · 왼쪽 클릭: 집어 보기 · 조사 / 들고 있으면 보관함에 넣기</li>
+          <li><code>E</code> · 왼쪽 클릭: 집어 보기 · 조사 / 들고 있으면 보관함에 넣기 / 서랍 · 문 열고 닫기</li>
           <li><code>Q</code>: 폐기 · <code>X</code> · 오른쪽 클릭: 내려놓기</li>
           <li><code>F</code>: 손전등 · <code>I</code> · <code>Tab</code>: 보관함 · <code>Ctrl</code>: 숙이기</li>
           <li><code>Esc</code>: 멈춤 · <code>F11</code>: 전체 화면</li>
@@ -351,11 +356,13 @@
       <div>
         <p class="sub-title">설정</p>
         <ul>
-          <li><strong>화면</strong>: 전체 화면, 밝기(60 ~ 160%), 걷기 흔들림</li>
-          <li><strong>소리</strong>: 소리 크기, 숨소리 켜기 · 끄기</li>
-          <li><strong>조작</strong>: 감도(0.3 ~ 2.5배), 상하 반전, 터치 버튼 크기(휴대폰)</li>
-          <li><strong>업데이트</strong>: 새 버전 자동 확인, 지금 확인</li>
-          <li>바꾸는 즉시 적용되고 저장됩니다. <strong>기본값으로</strong>로 되돌립니다.</li>
+          <li>클립보드에 끼운 <strong>현장 장비 점검표</strong>: 위쪽 색인으로 쪽을 넘기고(키보드 <code>1</code> ~ <code>5</code>), 항목마다 번호를 매긴 표에 고른 보기는 빨간 펜 동그라미, 조절 값은 눈금자와 손글씨로 적습니다. 아래 비고 칸에 쪽마다 손글씨 한마디가 붙습니다.</li>
+          <li><strong>화면</strong>: 전체 화면, 밝기(60 ~ 160%), 시야(60 ~ 90°), 화질(낮음 · 보통 · 높음), 걷기 흔들림, 깜빡임 줄이기</li>
+          <li><strong>소리</strong>: 전체 · 효과음 · 주변 소리 크기, 숨소리, 다른 창을 볼 때 소리 끄기</li>
+          <li><strong>조작</strong>: 감도(0.3 ~ 2.5배), 상하 반전, 숙이기 방식(누르고 있기 · 한 번씩), 터치 버튼 크기(휴대폰), 조작법 보기</li>
+          <li><strong>기록</strong>: 끝낸 장 수, 백업 코드 만들기 · 되살리기, 저장 폴더 열기(PC)</li>
+          <li><strong>정보</strong>: 지금 버전 · 새 버전 확인, 자동 확인, 업데이트 노트, 이용 안내 및 약관, 문의 메일</li>
+          <li>바꾸는 즉시 적용되고 저장됩니다. <strong>기본값으로 되돌리기</strong>로 처음 값으로 돌립니다.</li>
         </ul>
       </div>
     </div>
@@ -379,10 +386,10 @@
       <table>
         <thead><tr><th scope="col">기기</th><th scope="col">받는 것</th><th scope="col">단계</th></tr></thead>
         <tbody>
-          <tr><td class="nowrap"><strong>Windows</strong></td><td>설치 파일 (약 54MB)</td><td class="nowrap">정식 1.2.1</td></tr>
-          <tr><td class="nowrap"><strong>Android</strong></td><td>APK (Android 7.0 이상, 약 52MB)</td><td class="nowrap">베타 1.2.0</td></tr>
-          <tr><td class="nowrap"><strong>Mac</strong></td><td>앱 압축 파일 (Apple 칩 · Intel, 약 84MB)</td><td class="nowrap">베타 1.2.0</td></tr>
-          <tr><td class="nowrap"><strong>iPhone · iPad · 브라우저</strong></td><td>설치 없이 웹에서 실행, 홈 화면에 추가 가능 (처음 약 68MB)</td><td class="nowrap">베타 1.2.0</td></tr>
+          <tr><td class="nowrap"><strong>Windows</strong></td><td>설치 파일 (약 54MB)</td><td class="nowrap">정식 1.3.0</td></tr>
+          <tr><td class="nowrap"><strong>Android</strong></td><td>APK (Android 7.0 이상, 약 52MB)</td><td class="nowrap">베타 1.3.0</td></tr>
+          <tr><td class="nowrap"><strong>Mac</strong></td><td>앱 압축 파일 (Apple 칩 · Intel, 약 84MB)</td><td class="nowrap">베타 1.3.0</td></tr>
+          <tr><td class="nowrap"><strong>iPhone · iPad · 브라우저</strong></td><td>설치 없이 웹에서 실행, 홈 화면에 추가 가능 (처음 약 68MB)</td><td class="nowrap">베타 1.3.0</td></tr>
         </tbody>
       </table>
     </div>
@@ -392,9 +399,10 @@
       <div class="mini-card"><h4>‘PC 보호’ 창</h4><p>개인 제작 프로그램이라 처음 실행할 때 확인 창이 뜰 수 있습니다. 추가 정보 → 실행을 누르면 됩니다.</p></div>
     </div>
     <ul style="margin-top:14px;">
-      <li><strong>이용 안내 및 약관</strong>: 저작권 소유(은율), 배우면서 만든 개인 작품이라 서비스가 언제든 바뀌거나 끝날 수 있음, 기록은 기기에만 남아 지워지면 되살리기 어려움(Windows 백업 위치 안내), 시험판, 있는 그대로 제공, 새 버전 확인 때의 접속, 저작권과 라이선스, 문의처를 적습니다.</li>
+      <li><strong>이용 안내 및 약관</strong>: 저작권 소유(은율), 배우면서 만든 개인 작품이라 서비스가 언제든 바뀌거나 끝날 수 있음, 기록은 기기에만 남아 지워지면 되살리기 어려움(Windows 백업 위치 안내), 시험판, 있는 그대로 제공, 새 버전 확인 때의 접속, 저작권과 라이선스, 문의처(이메일)를 적습니다.</li>
       <li>같은 글을 설치 화면, 게임 안(설정 → 이용 안내), 내려받기 페이지에서 보여 줍니다. 설치 프로그램이 없는 Android · Mac · 웹은 처음 켤 때(약관이 바뀌면 다시) 동의를 받습니다.</li>
       <li><strong>자동 업데이트</strong>: 게임을 켤 때 새 버전 정보를 확인합니다. Windows는 게임 안에서 새 설치 파일을 받아 덮어 설치한 뒤 다시 켜고, Android는 새 APK를 받아 기존 앱 위에 설치합니다. 웹은 저장해 둔 옛 파일을 비우고 새 버전으로 다시 불러옵니다. 저장 기록은 그대로 남습니다.</li>
+      <li><strong>업데이트 파일 확인</strong>: 새 버전 파일은 이 게임의 릴리스 주소에서만 받고, 받은 설치 파일이 원본과 같은지 확인값으로 확인한 다음에만 설치합니다. 내려받기 페이지에도 파일마다 확인값을 적어 두어 직접 비교할 수 있습니다.</li>
       <li>내려받기 페이지가 접속한 기기를 알아보고 맞는 파일을 먼저 보여 줍니다. 기기별 탭에 받는 방법을 단계별로 적었습니다.</li>
     </ul>
   </div>
@@ -405,6 +413,7 @@
       <table>
         <thead><tr><th scope="col">버전</th><th scope="col">날짜</th><th scope="col">내용</th></tr></thead>
         <tbody>
+          <tr><td class="nowrap">v1.3.0</td><td class="nowrap">2026. 11. 3.</td><td>시작 화면(YOOL 제작 → 문 표지), 설정을 현장 장비 점검표로 새 단장(시야 · 화질 · 깜빡임 줄이기 · 효과음과 주변 소리 · 숙이기 방식), 기록 백업 코드, 보관함 꼬리표와 폐기 봉투 꺼내기, 3장 다이어리를 집을 수 없던 문제 수정, 서랍 · 문 · 뚜껑 다시 닫기, 펼쳐 읽기 버튼, 연탄난로 · 싱크대 새 모델, 앞 장 기록 없이 끝낸 장이 잠기던 문제 수정, 새 앱 아이콘, 업데이트 파일 확인, Android 새 버전 확인 수정, 문의 이메일</td></tr>
           <tr><td class="nowrap">v1.2.1</td><td class="nowrap">2026. 11. 3.</td><td>숙이기(Ctrl), 소독약 · 스크러버 판정 개선(물건 통과, 가장자리, 90%면 끝), 이용 안내 및 약관 구체화</td></tr>
           <tr><td class="nowrap">v1.2.0</td><td class="nowrap">2026. 11. 3.</td><td>보관함(꺼내기), 업데이트 노트, 새 버전 알림과 게임 안 자동 업데이트, 설정 화면 새 단장, 크레딧 역할 표기, 휴대폰 UV · 조사 버튼 개선, Android · Mac · 웹 테스트 베타, 휴대폰 · 태블릿 터치 조작(이동 스틱, 둘러보기, 도구 · 보관 · 폐기 버튼, 두 손가락 확대), 내려받기 페이지</td></tr>
           <tr><td class="nowrap">v1.1.0</td><td class="nowrap">2026. 11. 2.</td><td>4장 「편도」 · 5장 「닫힌 문」, 설치 프로그램, 만든 사람들, 멈춤 화면 새 단장, 물건을 한 번 다룬 뒤 상호작용이 멈추던 문제 등 버그 수정</td></tr>
