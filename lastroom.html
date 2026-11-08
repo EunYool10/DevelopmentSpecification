@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="마지막 방 — 특수청소부의 기록 v1.3.5 — 고인이 남긴 방을 치우고, 남겨진 물건으로 마지막 이야기를 듣는 1인칭 추리 게임의 개발 명세서">
+<meta name="description" content="마지막 방 — 특수청소부의 기록 v1.3.6 — 고인이 남긴 방을 치우고, 남겨진 물건으로 마지막 이야기를 듣는 1인칭 추리 게임의 개발 명세서">
 <meta name="theme-color" content="#f6f7f9" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#121417" media="(prefers-color-scheme: dark)">
 <title>마지막 방 개발 명세서</title>
@@ -49,7 +49,7 @@
 <!-- ═══════ PAGE HEADER ═══════ -->
 <section class="landing" id="top" aria-labelledby="pageTitle">
  <div class="landing-inner">
-  <p class="eyebrow">개발 명세서 · v1.3.5</p>
+  <p class="eyebrow">개발 명세서 · v1.3.6</p>
   <h1 class="landing-title" id="pageTitle">마지막 방 — 특수청소부의 기록</h1>
   <p class="landing-sub">고인이 남긴 방을 치우고, 남겨진 물건으로 마지막 이야기를 듣는 <strong>1인칭 추리 게임</strong>. 방 한 칸이 이야기 하나인 옴니버스 구성이고, 장마다 현장 정리 → 유품 조사 → 사건 재구성 순서로 진행합니다.</p>
   <div class="stat-row">
@@ -68,7 +68,7 @@
     <a class="ext-link" href="https://eunyool10.github.io/LastRoom/" target="_blank" rel="noopener">웹사이트 바로가기
       <svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
   </div>
-  <p class="doc-meta">기준: v1.3.5 (2026-11-04) · 작성 2026-11-02</p>
+  <p class="doc-meta">기준: v1.3.6 (2026-11-05) · 작성 2026-11-02</p>
   <p class="landing-hint"><kbd>/</kbd> 키를 눌러 목차와 내용을 바로 검색할 수 있습니다.</p>
  </div>
 </section>
@@ -329,7 +329,7 @@
     <h3>14. 화면 흐름</h3>
     <ol class="steps">
       <li><strong>시작 화면</strong><span>YOOL 제작 → 문틈으로 불빛이 새는 문 표지와 마지막 방 제목 · 한 줄 글 → 타이틀. 누르거나 키를 치면 바로 넘어갑니다</span></li>
-      <li><strong>타이틀 · 의뢰 서류철</strong><span>뒤편에 작업할 방이 천천히 보이고, 왼쪽 서류철에서 의뢰(장)를 고르면 오른쪽에 의뢰서(날짜 · 장소 · 손글씨 한 줄 · 고인 · 의뢰인)가 펼쳐진다. 끝낸 의뢰는 등급 도장 · 편지 선택 · 최고 점수, 잠긴 의뢰는 봉인 도장. 오른쪽 위에 그림 아이콘을 붙인 설정 · 조작법 · 업데이트 노트(새 소식이 있으면 빨간 점) · 만든 사람들 · 끝내기. 키보드 ↑ ↓ · Enter</span></li>
+      <li><strong>타이틀 · 의뢰 서류철</strong><span>뒤편에 작업할 방이 천천히 보이고, 왼쪽 작업 일지(한 장에 의뢰가 한 줄씩, 맨 위에 끝낸 의뢰 수, 줄마다 등급 도장 · 새 의뢰 · 봉인 표시)에서 의뢰(장)를 고르면 번호에 빨간 동그라미와 형광펜이 그어지고, 오른쪽에 의뢰서(날짜 · 장소 · 손글씨 한 줄 · 고인 · 의뢰인)가 펼쳐진다. 끝낸 의뢰는 등급 도장 · 편지 선택 · 최고 점수, 잠긴 의뢰는 봉인 도장. 오른쪽 위에 그림 아이콘을 붙인 설정 · 조작법 · 업데이트 노트(새 소식이 있으면 빨간 점) · 만든 사람들 · 끝내기. 키보드 ↑ ↓ · Enter</span></li>
       <li><strong>의뢰서</strong><span>종이 서류 모양으로 고인 정보와 의뢰 내용을 보여 주고, 현장으로 가기 · 돌아가기</span></li>
       <li><strong>현장</strong><span>1인칭 화면. 아래에 도구 칸, 위에 오염 제거와 유품 분류 진행 상황, 들고 있는 물건의 카드</span></li>
       <li><strong>작업실</strong><span>책상 위 유품, 단서 수첩, UV · 단서 위치 · 정면 보기 버튼</span></li>
@@ -386,10 +386,10 @@
       <table>
         <thead><tr><th scope="col">기기</th><th scope="col">받는 것</th><th scope="col">단계</th></tr></thead>
         <tbody>
-          <tr><td class="nowrap"><strong>Windows</strong></td><td>설치 파일 (약 54MB)</td><td class="nowrap">정식 1.3.5</td></tr>
-          <tr><td class="nowrap"><strong>Android</strong></td><td>APK (Android 7.0 이상, 약 52MB)</td><td class="nowrap">베타 1.3.5</td></tr>
-          <tr><td class="nowrap"><strong>Mac</strong></td><td>앱 압축 파일 (Apple 칩 · Intel, 약 84MB)</td><td class="nowrap">베타 1.3.5</td></tr>
-          <tr><td class="nowrap"><strong>iPhone · iPad · 브라우저</strong></td><td>설치 없이 웹에서 실행, 홈 화면에 추가 가능 (처음 약 68MB)</td><td class="nowrap">베타 1.3.5</td></tr>
+          <tr><td class="nowrap"><strong>Windows</strong></td><td>설치 파일 (약 54MB)</td><td class="nowrap">정식 1.3.6</td></tr>
+          <tr><td class="nowrap"><strong>Android</strong></td><td>APK (Android 7.0 이상, 약 52MB)</td><td class="nowrap">베타 1.3.6</td></tr>
+          <tr><td class="nowrap"><strong>Mac</strong></td><td>앱 압축 파일 (Apple 칩 · Intel, 약 84MB)</td><td class="nowrap">베타 1.3.6</td></tr>
+          <tr><td class="nowrap"><strong>iPhone · iPad · 브라우저</strong></td><td>설치 없이 웹에서 실행, 홈 화면에 추가 가능 (처음 약 68MB)</td><td class="nowrap">베타 1.3.6</td></tr>
         </tbody>
       </table>
     </div>
@@ -413,6 +413,7 @@
       <table>
         <thead><tr><th scope="col">버전</th><th scope="col">날짜</th><th scope="col">내용</th></tr></thead>
         <tbody>
+          <tr><td class="nowrap">v1.3.6</td><td class="nowrap">2026. 11. 5.</td><td>처음 화면 의뢰 목록을 한 장짜리 작업 일지로 새로 꾸밈(고른 의뢰에 빨간 동그라미와 형광펜, 줄마다 등급 도장 · 새 의뢰 · 봉인 표시, 끝낸 의뢰 수)</td></tr>
           <tr><td class="nowrap">v1.3.5</td><td class="nowrap">2026. 11. 4.</td><td>처음 화면 메뉴를 오른쪽 위 아이콘 메뉴로 옮김, 기록 지우기를 설정 → 기록으로 옮김, 3장 창문(창틀 · 대리석 창대 · 겹커튼) · 링 라이트 · 침대(누빈 머리판 · 쿠션 · 담요) · 옷 행거와 1장 벽 옷걸이 새 모델</td></tr>
           <tr><td class="nowrap">v1.3.4</td><td class="nowrap">2026. 11. 4.</td><td>처음 화면을 의뢰 서류철로 새로 꾸밈(의뢰 고르기 · 펼친 의뢰서 · 등급 도장 · 키보드 선택)</td></tr>
           <tr><td class="nowrap">v1.3.3</td><td class="nowrap">2026. 11. 4.</td><td>2장 자개함을 집을 수 없던 문제 수정, 유품 분류는 찾은 물건만 세고 열어 보지 않은 곳의 유품은 나가면서 챙김</td></tr>
