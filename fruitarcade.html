@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="상큼 과일 아케이드 존 v3.37.4 — 과일 미니게임 9종과 레벨·미션·업적·랭킹·친구 대결을 담은 웹 아케이드의 개발 명세서">
+<meta name="description" content="상큼 과일 아케이드 존 v3.38.0 — 과일 미니게임 9종과 레벨·미션·업적·랭킹·친구 대결을 담은 웹 아케이드의 개발 명세서">
 <meta name="theme-color" content="#f6f7f9" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#121417" media="(prefers-color-scheme: dark)">
 <title>과일 아케이드 개발 명세서</title>
@@ -49,7 +49,7 @@
 <!-- ═══════ LANDING ═══════ -->
 <section class="landing" id="top" aria-labelledby="pageTitle">
  <div class="landing-inner">
-  <p class="eyebrow">개발 명세서 · v3.37.4</p>
+  <p class="eyebrow">개발 명세서 · v3.38.0</p>
   <h1 class="landing-title" id="pageTitle">상큼 과일 아케이드 존</h1>
   <p class="landing-sub">과일 미니게임 9종에 레벨, 오늘의 미션, 업적, 랭킹, 친구 대결을 더한 웹 아케이드. 휴대폰 홈 화면에 설치해 오프라인에서도 플레이합니다.</p>
   <div class="stat-row">
@@ -68,7 +68,7 @@
     <a class="ext-link" href="https://eunyool10.github.io/FruitArcade/" target="_blank" rel="noopener">웹사이트 바로가기
       <svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
   </div>
-  <p class="doc-meta">기준: v3.37.4 (2026-10-27) · 작성 2026-10-27 · 갱신 2026-11-03</p>
+  <p class="doc-meta">기준: v3.38.0 (2026-11-09) · 작성 2026-10-27 · 갱신 2026-11-09</p>
   <p class="landing-hint"><kbd>/</kbd> 키를 눌러 목차와 내용을 바로 검색할 수 있습니다.</p>
  </div>
 </section>
@@ -89,9 +89,9 @@
     <h3>1. 프로젝트 개요</h3>
     <p>브라우저에서 바로 하는 과일 테마 미니게임 모음입니다. 로비 하나에서 9개 게임을 고르고, 모든 판의 결과가 <strong>레벨·미션·업적·코인·랭킹</strong>으로 이어집니다. 로그인 없이도 전부 플레이할 수 있고, Google 로그인하면 기록이 기기 사이에 동기화되고 랭킹·친구 기능이 열립니다.</p>
     <div class="grid-auto">
-      <div class="mini-card"><h4>로비</h4><p>게임 타일(최고 기록 · 플레이 수), 종류 필터 칩, 내 레벨, 연속 출석, 오늘의 미션, 최근 플레이</p></div>
+      <div class="mini-card"><h4>로비</h4><p>가게 앞모습(줄무늬 차양 · 간판 · 과일 상자), 게임 진열대(과일 상자 라벨 타일: 최고 기록 · 플레이 수), 종류 필터, 내 레벨, 연속 출석, 오늘의 미션, 최근 플레이</p></div>
       <div class="mini-card"><h4>설치형 앱</h4><p>홈 화면에 설치, 한 번 열어 두면 인터넷 없이 게임 가능(로그인·랭킹 제외)</p></div>
-      <div class="mini-card"><h4>테마 · 접근성</h4><p>라이트 · 다크 · 시스템 테마, “동작 줄이기” 존중, 키보드만으로 모든 메뉴 사용</p></div>
+      <div class="mini-card"><h4>디자인 · 테마 · 접근성</h4><p>“동네 과일가게” 디자인(종이 질감 · 차양 · 가격표 · 나무 상자 · 간판 글씨), 라이트 · 다크(밤 장터) · 시스템 테마, “동작 줄이기” 존중, 키보드만으로 모든 메뉴 사용</p></div>
       <div class="mini-card"><h4>같은 그림</h4><p>과일·게임 이모지를 앱에 내장한 그림으로 그려 휴대폰에서도 PC와 똑같이 보임</p></div>
     </div>
   </div>
@@ -123,6 +123,8 @@
       <li><strong>물리 직접 구현</strong>, 120Hz 고정 틱이라 어느 기기에서나 똑같이 움직임. 병 크기 528×720(논리 단위)</li>
       <li>체리에서 시작해 같은 과일이 닿으면 한 단계 큰 과일. 수박끼리는 합쳐지지 않고 결과 카드에서 개수를 셈</li>
       <li><strong>망치</strong>(고른 과일 부수기) · <strong>흔들기</strong>(병 섞기): 한 판에 2개씩, 합체 10번마다 하나 더, 종류마다 5개까지</li>
+      <li>흔든 뒤에는 과일이 다 멈출 때까지(최대 8초) 넘침을 세지 않고, 넘침 시간이 5초부터 다시 시작. 선 위에서 아래로 내려가는 과일은 넘침으로 세지 않음</li>
+      <li>계산대 위 유리병 모양의 판. 과일이 합쳐지면 둥근 물결이 퍼짐</li>
       <li>30초마다 점수 배율 +0.1(5분이면 2배), 시간이 갈수록 큰 과일이 자주 나옴</li>
       <li>넘침 선 위에 5초 넘게 머물면 끝. 게임 오버 뒤에도 4초 동안 물리가 마저 가라앉음</li>
       <li>떨어지는 과일 순서는 시드로 정해져 친구 대결에서 같은 판을 재현</li>
@@ -164,7 +166,7 @@
           <li><strong>시작 카드</strong><span>방법 안내, 난이도 · 모드 선택, 최고 기록</span></li>
           <li><strong>판 진행</strong><span>공용 게임 틀과 HUD. 판이 시작되면 <code>onRoundChange(true)</code></span></li>
           <li><strong>판 종료</strong><span><code>onGameComplete({ game, score, seconds })</code>를 <strong>한 번만</strong> 호출 → 앱이 경험치 · 코인 · 미션 · 업적 · 순위를 계산해 돌려줌</span></li>
-          <li><strong>결과 카드</strong><span>신기록, 얻은 경험치, 완료한 미션, 순위(“오늘 3위 · 전체 23위”), 결과 이미지 저장 · 공유</span></li>
+          <li><strong>결과 카드</strong><span>가게 계산서 모양(점선 항목 · 차르르 올라가는 합계 · 신기록 도장), 얻은 경험치, 완료한 미션, 순위(“오늘 3위 · 전체 23위”), 결과 이미지 저장 · 공유</span></li>
         </ol>
       </div>
       <div>
@@ -544,7 +546,7 @@ Lv.10 → 4,500 XP   ·   Lv.100 → 495,000 XP</pre>
       <li><strong>설정</strong>: 라이트 · 다크 · 시스템 테마, 볼륨, 연출, 휴대폰 진동, 고대비 카드, 카드 크기, 앱 설치, 데이터 초기화</li>
       <li><strong>접근성</strong>: 운영체제 “동작 줄이기” 존중, 키보드만으로 모든 메뉴</li>
       <li><strong>크레딧</strong>: 스크립트로 움직이는 엔딩 크레딧(탭 일시정지 · 길게 눌러 빨리 감기), 업데이트 발자취</li>
-      <li><strong>은율이의 다른 앱</strong>: 로비 맨 아래에서 계란이의 모험 · 논리 미궁 · SchoolFix · AI Hub를 새 탭으로 엶</li>
+      <li><strong>은율이의 다른 앱</strong>: 로비 맨 아래에서 계란이의 모험 · 논리 미궁 · 마지막 방 · SchoolFix · AI Hub를 새 탭으로 엶</li>
       <li><strong>약관</strong>: 로비 아래와 설정에서 이용약관 · 개인정보 처리방침. 데이터 처리가 바뀌면 약관과 패치노트를 함께 고침</li>
     </ul>
   </div>
@@ -593,6 +595,8 @@ Lv.10 → 4,500 XP   ·   Lv.100 → 495,000 XP</pre>
           <tr><td class="nowrap">v3.36</td><td class="nowrap">2026. 10. 27.</td><td>주스 가게 새 단장 · 그리기 점수판</td></tr>
           <tr><td class="nowrap">v3.37</td><td class="nowrap">2026. 10. 27.</td><td>RGB 러너 · 운영진 아이템 18종 추가</td></tr>
           <tr><td class="nowrap">v3.37.4</td><td class="nowrap">2026. 10. 27.</td><td>운영진 레벨 앞에 🛡️ 방패 표시, 다른 앱에 AI Hub</td></tr>
+          <tr><td class="nowrap">v3.37.6</td><td class="nowrap">2026. 11. 8.</td><td>수박 게임 흔들기 뒤 갑자기 끝나던 문제 수정</td></tr>
+          <tr><td class="nowrap">v3.38</td><td class="nowrap">2026. 11. 9.</td><td>“동네 과일가게”로 새 단장 · 다른 앱에 마지막 방</td></tr>
         </tbody>
       </table>
     </div>
