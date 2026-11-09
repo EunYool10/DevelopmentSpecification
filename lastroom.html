@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="마지막 방 — 특수청소부의 기록 v1.3.6 — 고인이 남긴 방을 치우고, 남겨진 물건으로 마지막 이야기를 듣는 1인칭 추리 게임의 개발 명세서">
+<meta name="description" content="마지막 방 — 특수청소부의 기록 v1.4.3 — 고인이 남긴 방을 치우고, 남겨진 물건으로 마지막 이야기를 듣는 1인칭 추리 게임의 개발 명세서">
 <meta name="theme-color" content="#f6f7f9" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#121417" media="(prefers-color-scheme: dark)">
 <title>마지막 방 개발 명세서</title>
@@ -49,7 +49,7 @@
 <!-- ═══════ PAGE HEADER ═══════ -->
 <section class="landing" id="top" aria-labelledby="pageTitle">
  <div class="landing-inner">
-  <p class="eyebrow">개발 명세서 · v1.3.6</p>
+  <p class="eyebrow">개발 명세서 · v1.4.3</p>
   <h1 class="landing-title" id="pageTitle">마지막 방 — 특수청소부의 기록</h1>
   <p class="landing-sub">고인이 남긴 방을 치우고, 남겨진 물건으로 마지막 이야기를 듣는 <strong>1인칭 추리 게임</strong>. 방 한 칸이 이야기 하나인 옴니버스 구성이고, 장마다 현장 정리 → 유품 조사 → 사건 재구성 순서로 진행합니다.</p>
   <div class="stat-row">
@@ -68,7 +68,7 @@
     <a class="ext-link" href="https://eunyool10.github.io/LastRoom/" target="_blank" rel="noopener">웹사이트 바로가기
       <svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
   </div>
-  <p class="doc-meta">기준: v1.3.6 (2026-11-05) · 작성 2026-11-02</p>
+  <p class="doc-meta">기준: v1.4.3 (2026-11-10) · 작성 2026-11-02</p>
   <p class="landing-hint"><kbd>/</kbd> 키를 눌러 목차와 내용을 바로 검색할 수 있습니다.</p>
  </div>
 </section>
@@ -195,10 +195,10 @@
       <li><strong>단서 위치</strong>(<code>H</code>): 막혔을 때 아직 못 찾은 단서가 있는 곳을 잠깐 알려 줍니다.</li>
       <li>물건의 특정 면을 클릭하면 단서가 수첩에 적힙니다. 물건 뒤편이나 바닥처럼 돌려 봐야 보이는 곳이 많습니다.</li>
     </ul>
+    <p class="note">다이어리 · 편지 · 쪽지처럼 글이 있는 물건은 이름 아래 <strong>펼쳐 읽기</strong> 버튼으로도 바로 엽니다. 휴대폰 · 노트북은 <strong>화면 켜기</strong>.</p>
   </div>
 
   <div class="card" id="lr-locks">
-    <p class="note">다이어리 · 편지 · 쪽지처럼 글이 있는 물건은 이름 아래 <strong>펼쳐 읽기</strong> 버튼으로도 바로 엽니다. 휴대폰 · 노트북은 <strong>화면 켜기</strong>.</p>
     <h3>8. 잠긴 물건</h3>
     <div class="table-wrap">
       <table>
@@ -329,13 +329,13 @@
     <h3>14. 화면 흐름</h3>
     <ol class="steps">
       <li><strong>시작 화면</strong><span>YOOL 제작 → 문틈으로 불빛이 새는 문 표지와 마지막 방 제목 · 한 줄 글 → 타이틀. 누르거나 키를 치면 바로 넘어갑니다</span></li>
-      <li><strong>타이틀 · 의뢰 서류철</strong><span>뒤편에 작업할 방이 천천히 보이고, 왼쪽 작업 일지(한 장에 의뢰가 한 줄씩, 맨 위에 끝낸 의뢰 수, 줄마다 등급 도장 · 새 의뢰 · 봉인 표시)에서 의뢰(장)를 고르면 번호에 빨간 동그라미와 형광펜이 그어지고, 오른쪽에 의뢰서(날짜 · 장소 · 손글씨 한 줄 · 고인 · 의뢰인)가 펼쳐진다. 끝낸 의뢰는 등급 도장 · 편지 선택 · 최고 점수, 잠긴 의뢰는 봉인 도장. 오른쪽 위에 그림 아이콘을 붙인 설정 · 조작법 · 업데이트 노트(새 소식이 있으면 빨간 점) · 만든 사람들 · 끝내기. 키보드 ↑ ↓ · Enter</span></li>
+      <li><strong>타이틀 · 의뢰 서류철</strong><span>뒤편 배경이 왼쪽에서 오른쪽으로 천천히 돌면서 다섯 방을 차례로 보여 주고, 왼쪽 작업 일지(한 장에 의뢰가 한 줄씩, 맨 위에 끝낸 의뢰 수, 줄마다 등급 도장 · 새 의뢰 · 봉인 표시)에서 의뢰(장)를 고르면 번호에 빨간 동그라미와 형광펜이 그어지고, 오른쪽에 의뢰서(날짜 · 장소 · 손글씨 한 줄 · 고인 · 의뢰인)가 펼쳐진다. 끝낸 의뢰는 등급 도장 · 편지 선택 · 최고 점수, 잠긴 의뢰는 봉인 도장. 오른쪽 위에 그림 아이콘을 붙인 설정 · 조작법 · 업데이트 노트(새 소식이 있으면 빨간 점) · 만든 사람들 · 끝내기. 키보드 ↑ ↓ · Enter</span></li>
       <li><strong>의뢰서</strong><span>종이 서류 모양으로 고인 정보와 의뢰 내용을 보여 주고, 현장으로 가기 · 돌아가기</span></li>
       <li><strong>현장</strong><span>1인칭 화면. 아래에 도구 칸, 위에 오염 제거와 유품 분류 진행 상황, 들고 있는 물건의 카드</span></li>
       <li><strong>작업실</strong><span>책상 위 유품, 단서 수첩, UV · 단서 위치 · 정면 보기 버튼</span></li>
       <li><strong>단서 보드 → 퇴근 기록</strong><span>질문과 단서 카드, 고인의 이야기, 편지 선택, 점수와 등급 도장</span></li>
     </ol>
-    <p class="note">작업 중 <code>Esc</code>를 누르면 화면이 흐려지며 멈춤 메뉴가 열립니다: 지금 장과 단계, 계속하기 · 보관함 · 설정 · 장 선택으로, 그리고 이 단계의 조작키 안내.</p>
+    <p class="note">작업 중 <code>Esc</code>를 누르면 화면이 흐려지며 클립보드에 끼운 작업 일지가 열립니다. 지금 장과 현장, 오염 제거 · 유품 분류 · 찾은 단서 진행 상황, 계속하기 · 보관함 · 설정 · 장 선택으로 메뉴, 조작 안내를 한 장에 적었습니다. 메뉴는 줄 어디를 눌러도 되고 누르는 순간 바로 반응합니다.</p>
   </div>
 
   <div class="card" id="lr-controls">
@@ -357,7 +357,7 @@
         <p class="sub-title">설정</p>
         <ul>
           <li>클립보드에 끼운 <strong>현장 장비 점검표</strong>: 위쪽 색인으로 쪽을 넘기고(키보드 <code>1</code> ~ <code>5</code>), 항목마다 번호를 매긴 표에 고른 보기는 빨간 펜 동그라미, 조절 값은 눈금자와 손글씨로 적습니다. 아래 비고 칸에 쪽마다 손글씨 한마디가 붙습니다.</li>
-          <li><strong>화면</strong>: 전체 화면, 밝기(60 ~ 160%), 시야(60 ~ 90°), 화질(낮음 · 보통 · 높음), 걷기 흔들림, 깜빡임 줄이기</li>
+          <li><strong>화면</strong>: 전체 화면, 밝기(60 ~ 160%), 시야(50 ~ 90°, 기본 62°), 화질(낮음 · 보통 · 높음), 걷기 흔들림, 깜빡임 줄이기</li>
           <li><strong>소리</strong>: 전체 · 효과음 · 주변 소리 크기, 숨소리, 다른 창을 볼 때 소리 끄기</li>
           <li><strong>조작</strong>: 감도(0.3 ~ 2.5배), 상하 반전, 숙이기 방식(누르고 있기 · 한 번씩), 터치 버튼 크기(휴대폰), 조작법 보기</li>
           <li><strong>기록</strong>: 끝낸 장 수, 백업 코드 만들기 · 되살리기, 저장 폴더 열기(PC)</li>
@@ -373,6 +373,11 @@
     <h3>16. 그림 · 소리</h3>
     <ul>
       <li>방, 가구, 소품을 모두 직접 만든 3D 모델로 짓고, 벽지 · 장판 · 라벨 같은 질감도 직접 그려 넣었습니다.</li>
+      <li><strong>실제 같은 모델</strong>: 가구와 유품에 나뭇결 · 천의 결을 입히고 모서리를 실제 물건처럼 둥글렸습니다. 리모컨 · 키보드 · 도어락 · 보일러 조절기 · 폴더폰은 버튼 하나하나까지 만들었습니다.</li>
+      <li><strong>손과 도구</strong>: 손과 소독 분무기, 손잡이 달린 솔 모양의 스크러버를 따로 만들었고, 분무기를 뿌리면 방아쇠가 당겨집니다.</li>
+      <li><strong>1인칭 시야</strong>: 사람 눈에 가까운 시야(기본 62°)로 방이 휘어 보이지 않고, 걸음에 맞춰 화면이 자연스럽게 움직입니다.</li>
+      <li><strong>창문 · 창밖</strong>: 창문을 벽 안에 넣고 창밖 풍경을 방마다 따로 그렸습니다. 2장 창밖으로는 이따금 사람들이 지나가고, 4장 창에는 뽁뽁이, 5장 창에는 은박지가 붙어 있습니다.</li>
+      <li><strong>문 · 방 설비</strong>: 문은 방마다 모양이 다르고, 스위치 · 콘센트 · 화재 감지기 같은 설비도 방마다 달려 있습니다.</li>
       <li>방마다 다른 벽지, 바닥, 조명 색, 안개 농도로 분위기를 나눕니다.</li>
       <li>글꼴은 명조 · 고딕 · 손글씨 세 가지를 써서 서류, 화면 글자, 고인의 손글씨를 구분합니다.</li>
       <li>효과음(분무, 문지르기, 종이, 잠금 해제, 소각 등)은 직접 합성해 만들었습니다.</li>
@@ -386,19 +391,20 @@
       <table>
         <thead><tr><th scope="col">기기</th><th scope="col">받는 것</th><th scope="col">단계</th></tr></thead>
         <tbody>
-          <tr><td class="nowrap"><strong>Windows</strong></td><td>설치 파일 (약 54MB)</td><td class="nowrap">정식 1.3.6</td></tr>
-          <tr><td class="nowrap"><strong>Android</strong></td><td>APK (Android 7.0 이상, 약 52MB)</td><td class="nowrap">베타 1.3.6</td></tr>
-          <tr><td class="nowrap"><strong>Mac</strong></td><td>앱 압축 파일 (Apple 칩 · Intel, 약 84MB)</td><td class="nowrap">베타 1.3.6</td></tr>
-          <tr><td class="nowrap"><strong>iPhone · iPad · 브라우저</strong></td><td>설치 없이 웹에서 실행, 홈 화면에 추가 가능 (처음 약 68MB)</td><td class="nowrap">베타 1.3.6</td></tr>
+          <tr><td class="nowrap"><strong>Windows</strong></td><td>설치 파일 (약 58MB)</td><td class="nowrap">정식 1.4.3</td></tr>
+          <tr><td class="nowrap"><strong>Android</strong></td><td>APK (Android 7.0 이상, 약 58MB)</td><td class="nowrap">베타 1.4.3</td></tr>
+          <tr><td class="nowrap"><strong>Mac</strong></td><td>앱 압축 파일 (Apple 칩 · Intel, 약 90MB)</td><td class="nowrap">베타 1.4.3</td></tr>
+          <tr><td class="nowrap"><strong>iPhone · iPad · 브라우저</strong></td><td>설치 없이 웹에서 실행, 홈 화면에 추가 가능 (처음 약 71MB)</td><td class="nowrap">베타 1.4.3</td></tr>
         </tbody>
       </table>
     </div>
     <div class="grid-auto">
-      <div class="mini-card"><h4>Windows 설치 파일</h4><p>이용 안내에 동의하고 설치 위치를 고르면 바탕 화면과 시작 메뉴에 바로 가기가 생깁니다.</p></div>
+      <div class="mini-card"><h4>Windows 설치 파일</h4><p>게임 그림과 로고가 있는 설치 화면입니다. 이용 안내에 동의하고 설치할 폴더를 확인하면 바탕 화면과 시작 메뉴에 바로 가기가 생깁니다.</p></div>
       <div class="mini-card"><h4>관리자 권한 없이</h4><p>사용자 폴더에 설치해 관리자 권한을 묻지 않습니다. Windows 설정의 앱 목록이나 시작 메뉴의 제거 바로 가기로 지웁니다.</p></div>
       <div class="mini-card"><h4>‘PC 보호’ 창</h4><p>개인 제작 프로그램이라 처음 실행할 때 확인 창이 뜰 수 있습니다. 추가 정보 → 실행을 누르면 됩니다.</p></div>
     </div>
     <ul style="margin-top:14px;">
+      <li><strong>설치 경로 표시</strong>: 설치 프로그램을 열면 설치할 폴더의 전체 경로가 바로 보이고, 설치하는 동안에는 파일마다 전체 경로가 목록에 적힙니다. 끝나면 마침 화면에서 설치된 폴더를 다시 보여 줍니다.</li>
       <li><strong>이용 안내 및 약관</strong>: 저작권 소유(은율), 배우면서 만든 개인 작품이라 서비스가 언제든 바뀌거나 끝날 수 있음, 기록은 기기에만 남아 지워지면 되살리기 어려움(Windows 백업 위치 안내), 시험판, 있는 그대로 제공, 새 버전 확인 때의 접속, 저작권과 라이선스, 문의처(이메일)를 적습니다.</li>
       <li>같은 글을 설치 화면, 게임 안(설정 → 이용 안내), 내려받기 페이지에서 보여 줍니다. 설치 프로그램이 없는 Android · Mac · 웹은 처음 켤 때(약관이 바뀌면 다시) 동의를 받습니다.</li>
       <li><strong>자동 업데이트</strong>: 게임을 켤 때 새 버전 정보를 확인합니다. Windows는 게임 안에서 새 설치 파일을 받아 덮어 설치한 뒤 다시 켜고, Android는 새 APK를 받아 기존 앱 위에 설치합니다. 웹은 저장해 둔 옛 파일을 비우고 새 버전으로 다시 불러옵니다. 저장 기록은 그대로 남습니다.</li>
@@ -413,6 +419,10 @@
       <table>
         <thead><tr><th scope="col">버전</th><th scope="col">날짜</th><th scope="col">내용</th></tr></thead>
         <tbody>
+          <tr><td class="nowrap">v1.4.3</td><td class="nowrap">2026. 11. 10.</td><td>멈춤 화면을 클립보드에 끼운 작업 일지로 새로 꾸밈(진행 상황 · 메뉴 · 조작 안내를 한 장에), 멈춤 메뉴는 줄 어디를 눌러도 누르는 순간 반응, 처음 화면에서 뒤 배경을 준비하느라 의뢰 선택 반응이 늦어지던 문제 수정</td></tr>
+          <tr><td class="nowrap">v1.4.2</td><td class="nowrap">2026. 11. 9.</td><td>처음 화면 뒤 배경이 천천히 돌면서 다섯 방을 차례로 보여 줌, 창문을 벽 안에 넣고 창밖 풍경을 방마다 새로 그림(2장 창밖으로 지나가는 사람들, 4장 뽁뽁이, 5장 은박지), 문을 방마다 다르게 제작, 가구끼리 겹쳐 보이던 곳 수정, 가까운 곳을 너무 하얗게 비추던 손전등 완화, 설치 프로그램에 게임 그림 · 로고와 설치 폴더 전체 경로 표시</td></tr>
+          <tr><td class="nowrap">v1.4.1</td><td class="nowrap">2026. 11. 9.</td><td>처음 화면에서 제목과 부제 글자가 겹치던 문제 수정</td></tr>
+          <tr><td class="nowrap">v1.4.0</td><td class="nowrap">2026. 11. 9.</td><td>가구 · 유품을 전부 새로 만듦(나뭇결 · 천의 결, 둥근 모서리, 버튼 하나하나), 손 · 소독 분무기 · 손잡이 달린 솔 모양 스크러버 새 모델, 시야를 사람 눈에 가깝게 수정, 문 손잡이 · 스위치 · 콘센트 · 화재 감지기 같은 방 설비 추가</td></tr>
           <tr><td class="nowrap">v1.3.6</td><td class="nowrap">2026. 11. 5.</td><td>처음 화면 의뢰 목록을 한 장짜리 작업 일지로 새로 꾸밈(고른 의뢰에 빨간 동그라미와 형광펜, 줄마다 등급 도장 · 새 의뢰 · 봉인 표시, 끝낸 의뢰 수)</td></tr>
           <tr><td class="nowrap">v1.3.5</td><td class="nowrap">2026. 11. 4.</td><td>처음 화면 메뉴를 오른쪽 위 아이콘 메뉴로 옮김, 기록 지우기를 설정 → 기록으로 옮김, 3장 창문(창틀 · 대리석 창대 · 겹커튼) · 링 라이트 · 침대(누빈 머리판 · 쿠션 · 담요) · 옷 행거와 1장 벽 옷걸이 새 모델</td></tr>
           <tr><td class="nowrap">v1.3.4</td><td class="nowrap">2026. 11. 4.</td><td>처음 화면을 의뢰 서류철로 새로 꾸밈(의뢰 고르기 · 펼친 의뢰서 · 등급 도장 · 키보드 선택)</td></tr>
