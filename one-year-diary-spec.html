@@ -60,7 +60,7 @@
 <article class="card"><h3>데이터 구조</h3>
 <p>Firestore 기록 경로는 <code>users/{uid}/days/{YYYY-MM-DD}</code>이며, 날짜 메타데이터와 잠긴 본문을 분리해 저장합니다. 본문은 해당 기록의 <code>sealed/letter</code> 문서에 보관합니다.</p>
 <ul><li>로그인한 사용자는 자신의 UID 경로에만 기록할 수 있습니다.</li><li>보안 규칙은 기록 소유자와 작성 시점의 잠금 상태를 확인해야 합니다.</li><li>본문 읽기는 서버에 저장된 공개 시각 이후에 허용되어야 합니다.</li><li>클라이언트 화면의 흐림 처리만으로는 보안을 보장하지 않으며, Firestore 규칙이 본문 접근을 제한합니다.</li></ul>
-<p class="note">공개 시각은 기록 데이터의 unlockAt을 기준으로 계산합니다. 정확히 1년이 되는 날짜에 열리도록 하며, 날짜 계산과 Firestore 보안 규칙의 기준이 일치해야 합니다.</p></article>
+<p class="note">앱은 작성 시각에서 달력상 1년을 계산하고, Firestore 서버 규칙의 최소 365일 잠금 검증을 통과하도록 공개 시각에 5분의 여유를 더합니다. 따라서 실제 공개는 작성일로부터 1년 후 최대 약 5분 늦을 수 있습니다.</p></article>
 <article class="card"><h3>현재 앱 안내</h3>
 <p>일기 앱은 Firebase 웹 설정을 불러와 Google 로그인과 Firestore 저장을 사용합니다. Firebase Console에서 Google 인증 제공자, 승인된 도메인, Firestore 데이터베이스 및 보안 규칙을 설정해야 동기화와 잠금 해제가 동작합니다.</p>
 <div class="ext-links"><a class="ext-link ext-link-sub" href="one-year-diary/index.html">한 해 뒤의 나에게 앱으로 이동 <span aria-hidden="true">↗</span></a></div>
