@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="icon" type="image/svg+xml" href="./favicon.svg"><meta name="theme-color" content="#f5f2ea"><title>한 해 뒤의 나에게</title><style>
+:root{color-scheme:light;--ink:#2f3a35;--muted:#78817a;--paper:#fbfaf6;--green:#718879;--line:#e7e4da}*{box-sizing:border-box}body{margin:0;background:#f3f0e8;color:var(--ink);font-family:ui-serif,"Noto Serif KR",serif;min-height:100vh}.shell{max-width:1040px;margin:auto;padding:38px 28px 60px}.top{display:flex;align-items:center;justify-content:space-between}.brand{font-size:14px;letter-spacing:.12em;color:#64776a}.brand b{font-weight:600}.year{font:12px system-ui;color:var(--muted)}header{margin:72px auto 44px;max-width:650px;text-align:center}header .eyebrow{font:11px system-ui;letter-spacing:.2em;color:#879389}h1{font-size:clamp(34px,6vw,54px);font-weight:500;letter-spacing:-.06em;line-height:1.26;margin:18px 0 14px}header p{color:var(--muted);font-size:15px;line-height:1.9;margin:0}.layout{display:grid;grid-template-columns:1.08fr .92fr;gap:20px}.card{background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:27px;box-shadow:0 8px 30px #484a3710}.card h2{font-size:19px;font-weight:500;margin:0 0 6px}.sub{font:12px system-ui;color:var(--muted);margin:0 0 23px}.date{font:13px system-ui;color:#728177;margin:0 0 12px}.prompt{font-size:17px;line-height:1.65;margin:0 0 14px}.field{width:100%;min-height:132px;resize:vertical;background:#fffefa;border:1px solid var(--line);border-radius:12px;padding:15px;font:16px/1.8 ui-serif,"Noto Serif KR",serif;color:var(--ink);outline:none}.field:focus{border-color:#9aac9d;box-shadow:0 0 0 3px #7188791c}.row{display:flex;align-items:center;justify-content:space-between;margin-top:12px;font:11px system-ui;color:var(--muted)}button{border:0;border-radius:9px;background:#718879;color:#fff;padding:11px 17px;font:13px system-ui;cursor:pointer}button:hover{background:#5c7062}button:disabled{opacity:.42;cursor:not-allowed}.note{font:11px/1.6 system-ui;color:#93988e;margin:15px 0 0}.list-head{display:flex;align-items:center;justify-content:space-between}.count{font:11px system-ui;color:var(--muted)}.entries{display:grid;gap:10px;margin-top:19px}.entry{border:1px solid var(--line);background:#fffefa;border-radius:12px;padding:15px}.entrytop{display:flex;justify-content:space-between;align-items:center;font:11px system-ui;color:var(--muted);margin-bottom:10px}.lock{color:#8b907c}.entrytext{font-size:14px;line-height:1.75;white-space:pre-wrap}.entry.locked .entrytext{color:#9c9e95;filter:blur(4px);user-select:none}.empty{text-align:center;padding:40px 10px;color:#9a9e95;font-size:13px;line-height:1.8}.empty span{display:block;font-size:25px;margin-bottom:12px}.foot{text-align:center;font:11px system-ui;color:#a0a398;margin:28px 0 0}@media(max-width:720px){.shell{padding:25px 17px 44px}header{margin:58px auto 35px}.layout{grid-template-columns:1fr}.card{padding:22px}}
+
+.auth-card{display:flex;align-items:center;justify-content:space-between;gap:16px;margin:0 0 20px;padding:18px 22px}.auth-title{font-size:14px;margin:0 0 5px}.auth-status{font:12px/1.6 system-ui;color:var(--muted);margin:0}.auth-actions{display:flex;gap:9px;flex-shrink:0}.secondary{background:#e9ece7;color:#4f6154}.secondary:hover{background:#dde3dc}.config-note{color:#9a7355}
+@media(max-width:720px){.auth-card{align-items:flex-start;flex-direction:column}.auth-actions{width:100%}.auth-actions button{flex:1}}
+</style></head><body><main class="shell"><div class="top"><div class="brand">✳ <b>한 해 뒤의 나에게</b></div><div class="year" id="today"></div></div><header><div class="eyebrow">A LETTER TO YOUR FUTURE SELF</div><h1>오늘을 한 문장으로<br>남겨보세요.</h1><p>지금의 마음을 적어두면, 꼭 일 년이 지난 뒤에 다시 만날 수 있어요.<br>미래의 내가 오늘의 나에게서 받는 작은 편지처럼.</p></header><section class="card auth-card" aria-label="계정 로그인"><div><h2 class="auth-title">내 기록을 안전하게 보관하기</h2><p id="authStatus" class="auth-status">Firebase 설정을 완료하면 Google 로그인과 기기 간 동기화를 사용할 수 있어요.</p></div><div class="auth-actions"><button id="loginButton" disabled>Google로 로그인</button><button id="logoutButton" class="secondary" hidden>로그아웃</button></div></section><section class="layout"><article class="card"><h2>오늘의 한 문장</h2><p class="sub">하루에 한 번, 지금 떠오르는 문장을 남겨요.</p><div class="date" id="entryDate"></div><p class="prompt">오늘 당신의 마음에 남은 것은 무엇인가요?</p><textarea id="sentence" class="field" maxlength="180" placeholder="오늘을 기억하게 해줄 한 문장…"></textarea><div class="row"><span id="chars">0 / 180</span><button id="save">오늘의 문장 저장하기</button></div><p class="note">저장한 문장은 이 기기와 브라우저에 보관되며, 작성일로부터 1년이 지나야 내용을 볼 수 있어요.</p></article><article class="card"><div class="list-head"><div><h2>시간이 건네준 문장</h2><p class="sub" style="margin:6px 0 0">일 년이 지난 오늘, 다시 읽을 수 있어요.</p></div><div class="count" id="count"></div></div><div class="entries" id="entries"></div></article></section><p class="foot">오늘의 마음을 미래의 나에게 맡겨두세요 · 이 기록은 이 브라우저에만 저장됩니다</p></main><script type="module">
+import { firebaseConfig } from './firebase-config.js';
+import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js';
+import { getAuth, GoogleAuthProvider, onAuthStateChanged, signInWithPopup, signOut } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js';
+import { getFirestore, collection, doc, getDoc, getDocs, orderBy, query, serverTimestamp, setDoc, Timestamp, writeBatch } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js';
+
+const $=id=>document.getElementById(id);
+const todayISO=()=>{const d=new Date();return [d.getFullYear(),String(d.getMonth()+1).padStart(2,'0'),String(d.getDate()).padStart(2,'0')].join('-')};
+const fmt=s=>new Intl.DateTimeFormat('ko-KR',{dateStyle:'long'}).format(new Date(s+'T12:00:00'));
+let day=todayISO(), entries=[], currentUser=null, db=null, auth=null;
+const ready=Boolean(firebaseConfig.apiKey && firebaseConfig.projectId && firebaseConfig.appId && !firebaseConfig.apiKey.startsWith('YOUR_'));
+$('today').textContent=new Intl.DateTimeFormat('ko-KR',{year:'numeric',month:'long'}).format(new Date());
+$('entryDate').textContent=fmt(day);
+$('chars').textContent='0 / 180';
+$('sentence').addEventListener('input',()=>$('chars').textContent=`${$('sentence').value.length} / 180`);
+$('loginButton').disabled=!ready;
+if(!ready){$('authStatus').textContent='firebase-config.js에 Firebase 웹 앱 설정을 입력하면 Google 로그인을 켤 수 있어요.';$('authStatus').classList.add('config-note')}
+$('loginButton').addEventListener('click',async()=>{if(!auth)return;try{await signInWithPopup(auth,new GoogleAuthProvider())}catch(e){$('authStatus').textContent='로그인에 실패했어요. Firebase 인증 도메인과 Google 로그인 설정을 확인해주세요.';console.error(e)}});
+$('logoutButton').addEventListener('click',async()=>{if(auth)await signOut(auth)});
+$('save').disabled=true;
+$('save').addEventListener('click',async()=>{
+ const text=$('sentence').value.trim();
+ if(!currentUser){$('authStatus').textContent='먼저 Google 계정으로 로그인해주세요.';return}
+ if(!text){$('sentence').focus();return}
+ const dayRef=doc(db,'users',currentUser.uid,'days',day);
+ const sealedRef=doc(db,'users',currentUser.uid,'days',day,'sealed','letter');
+ const unlockDate=new Date();unlockDate.setFullYear(unlockDate.getFullYear()+1);unlockDate.setMinutes(unlockDate.getMinutes()+5);
+ try{
+  const batch=writeBatch(db);
+  batch.set(dayRef,{date:day,unlockAt:Timestamp.fromDate(unlockDate)});
+  batch.set(sealedRef,{text,createdAt:serverTimestamp(),unlockAt:Timestamp.fromDate(unlockDate)});
+  await batch.commit();
+  $('sentence').value='';$('sentence').disabled=true;$('save').textContent='오늘의 문장을 남겼어요';$('save').disabled=true;
+  await loadEntries();
+ }catch(e){$('authStatus').textContent='저장하지 못했어요. Firestore 데이터베이스와 보안 규칙 설정을 확인해주세요.';console.error(e)}
+});
+function render(){
+ $('count').textContent=`${entries.length}개의 기록`;$('entries').innerHTML='';
+ if(!entries.length){$('entries').innerHTML='<div class="empty"><span>☼</span>아직 남겨진 문장이 없어요.<br>오늘의 마음부터 기록해보세요.</div>';return}
+ for(const item of entries){
+  const open=typeof item.text==='string';
+  const box=document.createElement('div');box.className='entry';
+  const top=document.createElement('div');top.className='entrytop';
+  const date=document.createElement('span');date.textContent=fmt(item.date);
+  const status=document.createElement('span');status.className=open?'':'lock';
+  status.textContent=open?'다시 만난 오늘':`🔒 ${new Intl.DateTimeFormat('ko-KR',{dateStyle:'long'}).format(item.unlockAt)}에 열려요`;
+  const body=document.createElement('div');body.className='entrytext';body.textContent=open?item.text:'일 년 뒤에 열리는 문장';
+  top.append(date,status);box.append(top,body);$('entries').append(box);
+ }
+}
+async function loadEntries(){
+ if(!currentUser){entries=[];render();return}
+ const col=collection(db,'users',currentUser.uid,'days');
+ const snapshot=await getDocs(query(col,orderBy('date','desc')));
+ const now=Date.now(), result=[];
+ for(const meta of snapshot.docs){
+  const data=meta.data(), unlockAt=data.unlockAt.toDate();
+  let text=null;
+  if(now>=unlockAt.getTime()){
+   try{const sealed=await getDoc(doc(db,'users',currentUser.uid,'days',meta.id,'sealed','letter'));if(sealed.exists())text=sealed.data().text}catch(e){console.warn('Locked entry was withheld by Firestore rules',e)}
+  }
+  result.push({date:data.date,unlockAt,text});
+ }
+ entries=result;render();
+ const today=entries.find(x=>x.date===day);
+ if(today){$('sentence').value=typeof today.text==='string'?today.text:'';$('sentence').disabled=true;$('save').textContent='오늘의 문장을 남겼어요';$('save').disabled=true}
+ else{$('sentence').disabled=false;$('sentence').value='';$('save').textContent='오늘의 문장 저장하기';$('save').disabled=false}
+ $('chars').textContent=`${$('sentence').value.length} / 180`;
+}
+render();
+if(ready){
+ const app=initializeApp(firebaseConfig);auth=getAuth(app);db=getFirestore(app);
+ onAuthStateChanged(auth,async user=>{
+  currentUser=user;
+  $('loginButton').hidden=Boolean(user);$('logoutButton').hidden=!user;
+  $('loginButton').disabled=!user&&!ready;$('save').disabled=!user;
+  if(user){$('authStatus').textContent=`${user.displayName||'로그인됨'} 계정으로 동기화 중`;try{await loadEntries()}catch(e){$('authStatus').textContent='기록을 불러오지 못했어요. Firestore 보안 규칙을 확인해주세요.';console.error(e)}}
+  else{$('authStatus').textContent='로그인하면 기록이 이 계정에 저장되어 여러 기기에서 볼 수 있어요.';entries=[];render();$('sentence').value='';$('sentence').disabled=false;$('save').textContent='오늘의 문장 저장하기'}
+ });
+}
+</script></body></html>
+
