@@ -73,6 +73,17 @@ async function loadEntries(){
  else{$('sentence').disabled=false;$('sentence').value='';$('save').textContent='오늘의 문장 저장하기';$('save').disabled=false}
  $('chars').textContent=`${$('sentence').value.length} / 180`;
 }
+setInterval(async()=>{
+ const newDay=todayISO();
+ if(newDay===day)return;
+ day=newDay;
+ $('entryDate').textContent=fmt(day);
+ if(currentUser){
+  try{await loadEntries()}catch(e){$('authStatus').textContent='기록을 불러오지 못했어요. Firestore 보안 규칙을 확인해주세요.';console.error(e)}
+ }else{
+  $('sentence').value='';$('sentence').disabled=false;$('save').textContent='오늘의 문장을 저장하기';$('save').disabled=true;$('chars').textContent='0 / 180';
+ }
+},30000);
 render();
 if(ready){
  const app=initializeApp(firebaseConfig);auth=getAuth(app);db=getFirestore(app);
