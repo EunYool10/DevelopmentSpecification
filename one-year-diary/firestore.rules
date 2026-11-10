@@ -1,0 +1,36 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function isOwner(uid) {
+      return request.auth != null && request.auth.uid == uid;
+    }
+
+    match /users/{uid}/days/{day} {
+      // 날짜와 공개 예정일만 보여주고, 문장 본문은 별도 잠금 문서에 보관합니다.
+      allow read: if isOwner(uid);
+      allow create: if isOwner(uid)
+        && request.resource.data.keys().hasOnly(['date', 'unlockAt'])
+        && request.resource.data.date == day
+        && request.resource.data.unlockAt is timestamp;
+      allow update, delete: if false;
+
+      match /sealed/{entryId} {
+        allow create: if isOwner(uid)
+          && entryId == 'letter'
+          && request.resource.data.keys().hasOnly(['text', 'createdAt', 'unlockAt'])
+          && request.resource.data.text is string
+          && request.resource.data.text.size() > 0
+          && request.resource.data.text.size() <= 180
+          && request.resource.data.createdAt == request.time
+          && request.resource.data.unlockAt is timestamp
+          && request.resource.data.unlockAt > request.time + duration.value(365, 'd')
+          && request.resource.data.unlockAt <= request.time + duration.value(367, 'd');
+        allow get: if isOwner(uid) && resource.data.unlockAt <= request.time;
+        allow list, update, delete: if false;
+      }
+    }
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
