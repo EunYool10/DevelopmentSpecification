@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="마지막 방 — 특수청소부의 기록 v1.4.3 — 고인이 남긴 방을 치우고, 남겨진 물건으로 마지막 이야기를 듣는 1인칭 추리 게임의 개발 명세서">
+<meta name="description" content="마지막 방 — 특수청소부의 기록 v1.4.4 — 고인이 남긴 방을 치우고, 남겨진 물건으로 마지막 이야기를 듣는 1인칭 추리 게임의 개발 명세서">
 <meta name="theme-color" content="#f6f7f9" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#121417" media="(prefers-color-scheme: dark)">
 <title>마지막 방 개발 명세서</title>
@@ -49,7 +49,7 @@
 <!-- ═══════ PAGE HEADER ═══════ -->
 <section class="landing" id="top" aria-labelledby="pageTitle">
  <div class="landing-inner">
-  <p class="eyebrow">개발 명세서 · v1.4.3</p>
+  <p class="eyebrow">개발 명세서 · v1.4.4</p>
   <h1 class="landing-title" id="pageTitle">마지막 방 — 특수청소부의 기록</h1>
   <p class="landing-sub">고인이 남긴 방을 치우고, 남겨진 물건으로 마지막 이야기를 듣는 <strong>1인칭 추리 게임</strong>. 방 한 칸이 이야기 하나인 옴니버스 구성이고, 장마다 현장 정리 → 유품 조사 → 사건 재구성 순서로 진행합니다.</p>
   <div class="stat-row">
@@ -68,7 +68,7 @@
     <a class="ext-link" href="https://eunyool10.github.io/LastRoom/" target="_blank" rel="noopener">웹사이트 바로가기
       <svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
   </div>
-  <p class="doc-meta">기준: v1.4.3 (2026-11-10) · 작성 2026-11-02</p>
+  <p class="doc-meta">기준: v1.4.4 (2026-11-10) · 작성 2026-11-02</p>
   <p class="landing-hint"><kbd>/</kbd> 키를 눌러 목차와 내용을 바로 검색할 수 있습니다.</p>
  </div>
 </section>
@@ -335,7 +335,7 @@
       <li><strong>작업실</strong><span>책상 위 유품, 단서 수첩, UV · 단서 위치 · 정면 보기 버튼</span></li>
       <li><strong>단서 보드 → 퇴근 기록</strong><span>질문과 단서 카드, 고인의 이야기, 편지 선택, 점수와 등급 도장</span></li>
     </ol>
-    <p class="note">작업 중 <code>Esc</code>를 누르면 화면이 흐려지며 클립보드에 끼운 작업 일지가 열립니다. 지금 장과 현장, 오염 제거 · 유품 분류 · 찾은 단서 진행 상황, 계속하기 · 보관함 · 설정 · 장 선택으로 메뉴, 조작 안내를 한 장에 적었습니다. 메뉴는 줄 어디를 눌러도 되고 누르는 순간 바로 반응합니다.</p>
+    <p class="note">작업 중 <code>Esc</code>를 누르면 화면이 흐려지며 클립보드에 끼운 작업 일지가 열립니다. 지금 장과 현장, 오염 제거 · 유품 분류 · 찾은 단서 진행 상황, 계속하기 · 보관함 · 설정 · 의뢰 목록으로 나가기 메뉴, 조작 안내를 한 장에 적었습니다. 메뉴는 줄 어디를 눌러도 되고 누르는 순간 바로 반응합니다. 나가기나 기록 지우기처럼 되돌릴 수 없는 일은 확인 창에서 남는 쪽과 하는 쪽을 한 줄씩 나눠 고르면 어떻게 되는지 적고, 하는 쪽은 빨간 글씨로 보여 줍니다. 확인 창에서 <code>Esc</code>를 누르면 언제나 남는 쪽입니다.</p>
   </div>
 
   <div class="card" id="lr-controls">
@@ -391,10 +391,10 @@
       <table>
         <thead><tr><th scope="col">기기</th><th scope="col">받는 것</th><th scope="col">단계</th></tr></thead>
         <tbody>
-          <tr><td class="nowrap"><strong>Windows</strong></td><td>설치 파일 (약 58MB)</td><td class="nowrap">정식 1.4.3</td></tr>
-          <tr><td class="nowrap"><strong>Android</strong></td><td>APK (Android 7.0 이상, 약 58MB)</td><td class="nowrap">베타 1.4.3</td></tr>
-          <tr><td class="nowrap"><strong>Mac</strong></td><td>앱 압축 파일 (Apple 칩 · Intel, 약 90MB)</td><td class="nowrap">베타 1.4.3</td></tr>
-          <tr><td class="nowrap"><strong>iPhone · iPad · 브라우저</strong></td><td>설치 없이 웹에서 실행, 홈 화면에 추가 가능 (처음 약 71MB)</td><td class="nowrap">베타 1.4.3</td></tr>
+          <tr><td class="nowrap"><strong>Windows</strong></td><td>설치 파일 (약 58MB)</td><td class="nowrap">정식 1.4.4</td></tr>
+          <tr><td class="nowrap"><strong>Android</strong></td><td>APK (Android 7.0 이상, 약 58MB)</td><td class="nowrap">베타 1.4.4</td></tr>
+          <tr><td class="nowrap"><strong>Mac</strong></td><td>앱 압축 파일 (Apple 칩 · Intel, 약 90MB)</td><td class="nowrap">베타 1.4.4</td></tr>
+          <tr><td class="nowrap"><strong>iPhone · iPad · 브라우저</strong></td><td>설치 없이 웹에서 실행, 홈 화면에 추가 가능 (처음 약 71MB)</td><td class="nowrap">베타 1.4.4</td></tr>
         </tbody>
       </table>
     </div>
@@ -419,6 +419,7 @@
       <table>
         <thead><tr><th scope="col">버전</th><th scope="col">날짜</th><th scope="col">내용</th></tr></thead>
         <tbody>
+          <tr><td class="nowrap">v1.4.4</td><td class="nowrap">2026. 11. 10.</td><td>확인 창을 남는 쪽(예: 현장에 남는다)과 하는 쪽(예: 의뢰 목록으로 나간다) 두 줄로 나누고 줄마다 결과 설명을 붙임, 되돌릴 수 없는 쪽은 빨간 글씨, 멈춤 메뉴 '장 선택으로'를 '의뢰 목록으로 나가기'로 이름 변경, 확인 창 글이 낱말 가운데에서 줄 바뀌던 것 수정</td></tr>
           <tr><td class="nowrap">v1.4.3</td><td class="nowrap">2026. 11. 10.</td><td>멈춤 화면을 클립보드에 끼운 작업 일지로 새로 꾸밈(진행 상황 · 메뉴 · 조작 안내를 한 장에), 멈춤 메뉴는 줄 어디를 눌러도 누르는 순간 반응, 처음 화면에서 뒤 배경을 준비하느라 의뢰 선택 반응이 늦어지던 문제 수정</td></tr>
           <tr><td class="nowrap">v1.4.2</td><td class="nowrap">2026. 11. 9.</td><td>처음 화면 뒤 배경이 천천히 돌면서 다섯 방을 차례로 보여 줌, 창문을 벽 안에 넣고 창밖 풍경을 방마다 새로 그림(2장 창밖으로 지나가는 사람들, 4장 뽁뽁이, 5장 은박지), 문을 방마다 다르게 제작, 가구끼리 겹쳐 보이던 곳 수정, 가까운 곳을 너무 하얗게 비추던 손전등 완화, 설치 프로그램에 게임 그림 · 로고와 설치 폴더 전체 경로 표시</td></tr>
           <tr><td class="nowrap">v1.4.1</td><td class="nowrap">2026. 11. 9.</td><td>처음 화면에서 제목과 부제 글자가 겹치던 문제 수정</td></tr>
