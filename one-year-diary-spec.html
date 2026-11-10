@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="한 해 뒤의 나에게 — 하루 한 문장을 기록하고 작성일로부터 1년 뒤에 다시 읽는 일기 서비스 개발 명세서">
+<meta name="theme-color" content="#f6f7f9" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#121417" media="(prefers-color-scheme: dark)">
+<title>한 해 뒤의 나에게 개발 명세서</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✉️</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&family=Space+Mono:wght@400;700&display=swap">
+<link rel="stylesheet" href="assets/spec.css?v=20261110">
+</head>
+<body class="page-schoolfix">
+<a class="skip-link" href="#overview">본문으로 건너뛰기</a>
+<header class="topbar"><div class="topbar-inner">
+<a class="topbar-brand" href="index.html"><span aria-hidden="true">‹</span><span class="brand-label">명세서 선택</span></a>
+<nav class="topbar-tabs" aria-label="명세서 섹션 바로가기">
+<a class="tab tone-green" href="#overview">개요</a><a class="tab tone-blue" href="#features">기능</a><a class="tab tone-violet" href="#privacy">저장 · 공개</a>
+</nav></div></header>
+<main id="main">
+<section class="landing" id="top"><div class="landing-inner">
+<p class="eyebrow">개발 명세서 · 하루 한 문장 일기</p>
+<h1 class="landing-title">한 해 뒤의 나에게</h1>
+<p class="landing-sub">오늘의 마음을 한 문장으로 기록하고, <strong>작성일로부터 1년이 지난 뒤</strong> 다시 읽는 개인 일기 서비스입니다. Google 계정으로 로그인해 기록을 계정에 저장합니다.</p>
+<div class="stat-row">
+<div class="stat"><span class="stat-num">1일 1회</span><span class="stat-label">하루 한 문장</span></div>
+<div class="stat"><span class="stat-num">180자</span><span class="stat-label">문장 길이 제한</span></div>
+<div class="stat"><span class="stat-num">1년</span><span class="stat-label">다시 읽기까지</span></div>
+<div class="stat"><span class="stat-num">Google</span><span class="stat-label">계정 로그인</span></div>
+</div>
+<div class="ext-links"><a class="ext-link" href="one-year-diary/index.html">일기 앱 열기 <span aria-hidden="true">↗</span></a></div>
+<p class="doc-meta">서비스: One Year Diary · 웹 앱 · Firebase Authentication 및 Cloud Firestore</p>
+</div></section>
+
+<section class="spec-section tone-green" id="overview" aria-labelledby="overviewTitle">
+<div class="spec-header"><div class="spec-header-text"><h2 id="overviewTitle">프로젝트 개요</h2><p>지금의 나와 일 년 뒤의 나를 잇는 짧은 일기</p></div></div>
+<article class="card"><h3>기록의 방식</h3>
+<p>사용자는 Google 계정으로 로그인한 뒤 오늘 하루를 기억할 문장 하나를 남깁니다. 날짜별로 하루 한 건만 작성하며, 문장은 최대 180자입니다. 기록 목록에는 작성일과 공개 예정일이 표시됩니다.</p>
+<p>아직 공개되지 않은 문장의 본문은 화면에서 가려지고, 공개일이 지나면 목록에서 다시 읽을 수 있습니다. 오늘 이미 기록을 남겼다면 해당 날짜의 입력과 저장은 비활성화됩니다.</p></article>
+</section>
+
+<section class="spec-section tone-blue" id="features" aria-labelledby="featuresTitle">
+<div class="spec-header"><div class="spec-header-text"><h2 id="featuresTitle">주요 기능</h2><p>로그인, 날짜별 기록, 1년 잠금 해제</p></div></div>
+<article class="card"><h3>사용 흐름</h3>
+<ol class="steps">
+<li><strong>Google 로그인</strong><span>Firebase Authentication을 통해 사용자를 확인합니다.</span></li>
+<li><strong>오늘의 문장 작성</strong><span>최대 180자의 문장을 입력하고 하루 한 번 저장합니다.</span></li>
+<li><strong>계정에 동기화</strong><span>기록은 사용자 계정에 연결되어 다른 기기에서도 불러올 수 있습니다.</span></li>
+<li><strong>일 년 뒤 다시 읽기</strong><span>공개 예정일이 되면 잠겨 있던 문장의 본문을 읽을 수 있습니다.</span></li>
+</ol></article>
+<article class="card"><h3>화면 구성</h3>
+<ul><li><strong>오늘의 한 문장:</strong> 오늘 날짜, 입력란, 글자 수, 저장 버튼</li><li><strong>기록 목록:</strong> 작성일, 공개 예정일, 잠금 또는 공개 상태</li><li><strong>계정 영역:</strong> 로그인 상태, Google 로그인 및 로그아웃</li><li><strong>반응형 화면:</strong> 휴대폰과 데스크톱에서 사용할 수 있는 웹 화면</li></ul></article>
+</section>
+
+<section class="spec-section tone-violet" id="privacy" aria-labelledby="privacyTitle">
+<div class="spec-header"><div class="spec-header-text"><h2 id="privacyTitle">저장과 공개 기준</h2><p>사용자별 Firestore 경로와 서버 보안 규칙</p></div></div>
+<article class="card"><h3>데이터 구조</h3>
+<p>Firestore 기록 경로는 <code>users/{uid}/days/{YYYY-MM-DD}</code>이며, 날짜 메타데이터와 잠긴 본문을 분리해 저장합니다. 본문은 해당 기록의 <code>sealed/letter</code> 문서에 보관합니다.</p>
+<ul><li>로그인한 사용자는 자신의 UID 경로에만 기록할 수 있습니다.</li><li>보안 규칙은 기록 소유자와 작성 시점의 잠금 상태를 확인해야 합니다.</li><li>본문 읽기는 서버에 저장된 공개 시각 이후에 허용되어야 합니다.</li><li>클라이언트 화면의 흐림 처리만으로는 보안을 보장하지 않으며, Firestore 규칙이 본문 접근을 제한합니다.</li></ul>
+<p class="note">공개 시각은 기록 데이터의 unlockAt을 기준으로 계산합니다. 정확히 1년이 되는 날짜에 열리도록 하며, 날짜 계산과 Firestore 보안 규칙의 기준이 일치해야 합니다.</p></article>
+<article class="card"><h3>현재 앱 안내</h3>
+<p>일기 앱은 Firebase 웹 설정을 불러와 Google 로그인과 Firestore 저장을 사용합니다. Firebase Console에서 Google 인증 제공자, 승인된 도메인, Firestore 데이터베이스 및 보안 규칙을 설정해야 동기화와 잠금 해제가 동작합니다.</p>
+<div class="ext-links"><a class="ext-link ext-link-sub" href="one-year-diary/index.html">한 해 뒤의 나에게 앱으로 이동 <span aria-hidden="true">↗</span></a></div>
+</article>
+</section>
+</main>
+<footer><p class="footer-meta">© 2026 · Development Specification</p></footer>
+</body></html>
